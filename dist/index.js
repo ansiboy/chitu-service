@@ -1,11 +1,21 @@
 /*!
- * CHITU SERVICE v1.0.0
+ * CHITU SERVICE v1.0.8
  * https://github.com/ansiboy/chitu-service
  * 
  * Copyright (c) 2016-2018, shu mai <ansiboy@163.com>
  * Licensed under the MIT License.
  */
-/******/ (function(modules) { // webpackBootstrap
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory();
+	else if(typeof define === 'function' && define.amd)
+		define([], factory);
+	else {
+		var a = factory();
+		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
+	}
+})(window, function() {
+return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
@@ -125,7 +135,7 @@ eval("\r\nObject.defineProperty(exports, \"__esModule\", { value: true });\r\nex
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\r\nObject.defineProperty(exports, \"__esModule\", { value: true });\r\nvar service_1 = __webpack_require__(/*! ./service */ \"./out/service.js\");\r\nexports.Service = service_1.Service;\r\nvar callback_1 = __webpack_require__(/*! ./callback */ \"./out/callback.js\");\r\nexports.Callback = callback_1.Callback;\r\nvar value_store_1 = __webpack_require__(/*! ./value-store */ \"./out/value-store.js\");\r\nexports.ValueStore = value_store_1.ValueStore;\r\n\n\n//# sourceURL=webpack:///./out/index.js?");
+eval("\r\nObject.defineProperty(exports, \"__esModule\", { value: true });\r\nvar service_1 = __webpack_require__(/*! ./service */ \"./out/service.js\");\r\nexports.Service = service_1.Service;\r\nvar callback_1 = __webpack_require__(/*! ./callback */ \"./out/callback.js\");\r\nexports.Callback = callback_1.Callback;\r\nexports.Callbacks = callback_1.Callbacks;\r\nvar value_store_1 = __webpack_require__(/*! ./value-store */ \"./out/value-store.js\");\r\nexports.ValueStore = value_store_1.ValueStore;\r\n\n\n//# sourceURL=webpack:///./out/index.js?");
 
 /***/ }),
 
@@ -154,3 +164,4 @@ eval("\r\nObject.defineProperty(exports, \"__esModule\", { value: true });\r\n/*
 /***/ })
 
 /******/ });
+});

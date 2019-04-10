@@ -1,4 +1,4 @@
-import { Callbacks } from "./callback";
+import { Callbacks, Callback1 } from "./callback";
 import { errors } from "./errors";
 
 export interface ServiceConstructor<T> {
@@ -7,7 +7,11 @@ export interface ServiceConstructor<T> {
 
 export type AjaxOptions = { data?: any, headers?: { [key: string]: string }, method?: string };
 
-export class Service {
+export interface IService {
+    error: Callback1<Service, Error>
+}
+
+export class Service implements IService {
 
     error = Callbacks<Service, Error>();
 
