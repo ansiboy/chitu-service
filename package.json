@@ -1,0 +1,14 @@
+{
+    "author": {
+        "name": "mai.shu",
+        "email": "ansiboy@163.com",
+        "url": "http://github.com/ansiboy"
+    },
+    "version": "1.0.0",
+    "dependencies": {
+        "webpack": "^4.29.6"
+    },
+    "devDependencies": {
+        "grunt": "^1.0.4"
+    }
+}
