@@ -1,5 +1,5 @@
 /*!
- * CHITU SERVICE v1.0.8
+ * maishu-chitu-service v1.0.9
  * https://github.com/ansiboy/chitu-service
  * 
  * Copyright (c) 2016-2018, shu mai <ansiboy@163.com>

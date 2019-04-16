@@ -4,7 +4,7 @@
         "email": "ansiboy@163.com",
         "url": "http://github.com/ansiboy"
     },
-    "version": "1.0.8",
+    "version": "1.0.9",
     "name": "maishu-chitu-service",
     "main": "./dist/index.js",
     "types": "./out/index.d.ts",

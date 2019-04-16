@@ -3,7 +3,7 @@ const webpack = require('webpack');
 const grunt = require('grunt')
 let pkg = grunt.file.readJSON('package.json');
 
-let license = `CHITU SERVICE v${pkg.version}
+let license = `${pkg.name} v${pkg.version}
 https://github.com/ansiboy/chitu-service
 
 Copyright (c) 2016-2018, shu mai <ansiboy@163.com>
