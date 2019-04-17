@@ -1,13 +1,23 @@
 /*!
  * 
- *  maishu-chitu-service v1.1.2
+ *  maishu-chitu-service v1.1.4
  *  https://github.com/ansiboy/services-sdk
  *  
  *  Copyright (c) 2016-2018, shu mai <ansiboy@163.com>
  *  Licensed under the MIT License.
  * 
  */
-/******/ (function(modules) { // webpackBootstrap
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory();
+	else if(typeof define === 'function' && define.amd)
+		define([], factory);
+	else {
+		var a = factory();
+		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
+	}
+})(window, function() {
+return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
@@ -156,3 +166,4 @@ eval("\r\nObject.defineProperty(exports, \"__esModule\", { value: true });\r\n/*
 /***/ })
 
 /******/ });
+});
