@@ -4,14 +4,20 @@
         "email": "ansiboy@163.com",
         "url": "http://github.com/ansiboy"
     },
-    "version": "1.0.9",
+    "scripts": {
+        "build": "grunt"
+    },
+    "version": "1.1.2",
     "name": "maishu-chitu-service",
     "main": "./dist/index.js",
     "types": "./out/index.d.ts",
-    "dependencies": {
-    },
+    "dependencies": {},
     "devDependencies": {
         "grunt": "^1.0.4",
-        "webpack": "^4.29.6"
+        "grunt-browserify": "^5.3.0",
+        "grunt-shell": "^3.0.1",
+        "load-grunt-tasks": "^4.0.0",
+        "webpack": "^4.30.0",
+        "webpack-cli": "^3.3.0"
     }
 }
