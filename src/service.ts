@@ -82,12 +82,29 @@ export class Service implements IService {
      */
     createService<T extends Service>(type?: ServiceConstructor<T>): T {
         type = type || Service as any as ServiceConstructor<T>
-        let service = new type();
+        let service = Service.isClass(type) ? new type() : (type as Function)();
         service.error.add((sender, error) => {
             this.error.fire(service, error)
         })
         return service;
     }
+
+    private static isClass = (function () {
+        var toString = Function.prototype.toString;
+
+        function fnBody(fn: Function) {
+            return toString.call(fn).replace(/^[^{]*{\s*/, '').replace(/\s*}[^}]*$/, '');
+        }
+
+        function isClass(fn: Function) {
+            return (typeof fn === 'function' &&
+                (/^class(\s|\{\}$)/.test(toString.call(fn)) ||
+                    (/^.*classCallCheck\(/.test(fnBody(fn)))) // babel.js
+            );
+        }
+
+        return isClass
+    })()
 
 }
 

@@ -23,4 +23,5 @@ export declare class Service implements IService {
      * @param type 服务类型
      */
     createService<T extends Service>(type?: ServiceConstructor<T>): T;
+    private static isClass;
 }
