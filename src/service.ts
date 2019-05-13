@@ -82,7 +82,7 @@ export class Service implements IService {
      */
     createService<T extends Service>(type?: ServiceConstructor<T>): T {
         type = type || Service as any as ServiceConstructor<T>
-        let service = Service.isClass(type) ? new type() : (type as Function)();
+        let service = new type();
         service.error.add((sender, error) => {
             this.error.fire(service, error)
         })

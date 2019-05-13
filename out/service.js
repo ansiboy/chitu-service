@@ -69,7 +69,7 @@ define(["require", "exports", "./callback", "./errors"], function (require, expo
          */
         createService(type) {
             type = type || Service;
-            let service = Service.isClass(type) ? new type() : type();
+            let service = new type();
             service.error.add((sender, error) => {
                 this.error.fire(service, error);
             });

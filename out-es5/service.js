@@ -123,7 +123,7 @@ define(["require", "exports", "./callback", "./errors"], function (require, expo
         var _this2 = this;
 
         type = type || Service;
-        var service = Service.isClass(type) ? new type() : type();
+        var service = new type();
         service.error.add(function (sender, error) {
           _this2.error.fire(service, error);
         });

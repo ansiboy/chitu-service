@@ -1,6 +1,6 @@
 /*!
  * 
- *  maishu-chitu-service v1.1.18
+ *  maishu-chitu-service v1.1.20
  *  https://github.com/ansiboy/services-sdk
  *  
  *  Copyright (c) 2016-2018, shu mai <ansiboy@163.com>
@@ -388,7 +388,7 @@ var __awaiter = void 0 && (void 0).__awaiter || function (thisArg, _arguments, P
         var _this2 = this;
 
         type = type || Service;
-        var service = Service.isClass(type) ? new type() : type();
+        var service = new type();
         service.error.add(function (sender, error) {
           _this2.error.fire(service, error);
         });

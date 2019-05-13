@@ -1,6 +1,6 @@
 /*!
  * 
- *  maishu-chitu-service v1.1.18
+ *  maishu-chitu-service v1.1.20
  *  https://github.com/ansiboy/services-sdk
  *  
  *  Copyright (c) 2016-2018, shu mai <ansiboy@163.com>
@@ -280,7 +280,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __awaiter = 
          */
         createService(type) {
             type = type || Service;
-            let service = Service.isClass(type) ? new type() : type();
+            let service = new type();
             service.error.add((sender, error) => {
                 this.error.fire(service, error);
             });
