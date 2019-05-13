@@ -1,6 +1,6 @@
 /*!
  * 
- *  maishu-chitu-service v1.1.16
+ *  maishu-chitu-service v1.1.18
  *  https://github.com/ansiboy/services-sdk
  *  
  *  Copyright (c) 2016-2018, shu mai <ansiboy@163.com>
@@ -113,7 +113,69 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;\n\nfunction _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\"Cannot call a class as a function\"); } }\n\nfunction _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if (\"value\" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }\n\nfunction _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }\n\n!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports], __WEBPACK_AMD_DEFINE_RESULT__ = (function (require, exports) {\n  \"use strict\";\n\n  Object.defineProperty(exports, \"__esModule\", {\n    value: true\n  });\n\n  var Callback =\n  /*#__PURE__*/\n  function () {\n    function Callback() {\n      _classCallCheck(this, Callback);\n\n      this.funcs = new Array();\n    }\n\n    _createClass(Callback, [{\n      key: \"add\",\n      value: function add(func) {\n        this.funcs.push(func);\n      }\n    }, {\n      key: \"remove\",\n      value: function remove(func) {\n        this.funcs = this.funcs.filter(function (o) {\n          return o != func;\n        });\n      }\n    }, {\n      key: \"fire\",\n      value: function fire() {\n        for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {\n          args[_key] = arguments[_key];\n        }\n\n        this.funcs.forEach(function (o) {\n          return o.apply(void 0, args);\n        });\n      }\n    }]);\n\n    return Callback;\n  }();\n\n  exports.Callback = Callback;\n\n  function Callbacks() {\n    return new Callback();\n  }\n\n  exports.Callbacks = Callbacks;\n}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),\n\t\t\t\t__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));\n//# sourceMappingURL=callback.js.map\n\n\n//# sourceURL=webpack:///./out-es5/callback.js?");
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports], __WEBPACK_AMD_DEFINE_RESULT__ = (function (require, exports) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  var Callback =
+  /*#__PURE__*/
+  function () {
+    function Callback() {
+      _classCallCheck(this, Callback);
+
+      this.funcs = new Array();
+    }
+
+    _createClass(Callback, [{
+      key: "add",
+      value: function add(func) {
+        this.funcs.push(func);
+      }
+    }, {
+      key: "remove",
+      value: function remove(func) {
+        this.funcs = this.funcs.filter(function (o) {
+          return o != func;
+        });
+      }
+    }, {
+      key: "fire",
+      value: function fire() {
+        for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+          args[_key] = arguments[_key];
+        }
+
+        this.funcs.forEach(function (o) {
+          return o.apply(void 0, args);
+        });
+      }
+    }]);
+
+    return Callback;
+  }();
+
+  exports.Callback = Callback;
+
+  function Callbacks() {
+    return new Callback();
+  }
+
+  exports.Callbacks = Callbacks;
+}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+//# sourceMappingURL=callback.js.map
+
 
 /***/ }),
 
@@ -125,7 +187,44 @@ eval("var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;\n\nfuncti
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;\n\n!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports], __WEBPACK_AMD_DEFINE_RESULT__ = (function (require, exports) {\n  \"use strict\";\n\n  Object.defineProperty(exports, \"__esModule\", {\n    value: true\n  });\n  exports.errors = {\n    serviceUrlCanntNull: function serviceUrlCanntNull(serviceName) {\n      var msg = \"Service '\".concat(serviceName, \"' base url can not null.\");\n      return new Error(msg);\n    },\n    unexpectedNullResult: function unexpectedNullResult() {\n      var msg = \"Null result is unexpected.\";\n      return new Error(msg);\n    },\n    unexpectedNullValue: function unexpectedNullValue(name) {\n      var msg = \"variable \".concat(name, \" is unexpected null value.\");\n      return new Error(msg);\n    },\n    argumentNull: function argumentNull(name) {\n      var msg = \"Arugment \".concat(name, \" cannt null or empty.\");\n      return new Error(msg);\n    },\n    fieldNull: function fieldNull(field, itemName) {\n      var msg = \"\".concat(itemName, \" \").concat(field, \" cannt be null or empty\");\n      return new Error(msg);\n    },\n    instanceMessangerStart: function instanceMessangerStart() {\n      var msg = \"Instance messanger is start.\";\n      return new Error(msg);\n    }\n  };\n}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),\n\t\t\t\t__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));\n//# sourceMappingURL=errors.js.map\n\n\n//# sourceURL=webpack:///./out-es5/errors.js?");
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;
+
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports], __WEBPACK_AMD_DEFINE_RESULT__ = (function (require, exports) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.errors = {
+    serviceUrlCanntNull: function serviceUrlCanntNull(serviceName) {
+      var msg = "Service '".concat(serviceName, "' base url can not null.");
+      return new Error(msg);
+    },
+    unexpectedNullResult: function unexpectedNullResult() {
+      var msg = "Null result is unexpected.";
+      return new Error(msg);
+    },
+    unexpectedNullValue: function unexpectedNullValue(name) {
+      var msg = "variable ".concat(name, " is unexpected null value.");
+      return new Error(msg);
+    },
+    argumentNull: function argumentNull(name) {
+      var msg = "Arugment ".concat(name, " cannt null or empty.");
+      return new Error(msg);
+    },
+    fieldNull: function fieldNull(field, itemName) {
+      var msg = "".concat(itemName, " ").concat(field, " cannt be null or empty");
+      return new Error(msg);
+    },
+    instanceMessangerStart: function instanceMessangerStart() {
+      var msg = "Instance messanger is start.";
+      return new Error(msg);
+    }
+  };
+}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+//# sourceMappingURL=errors.js.map
+
 
 /***/ }),
 
@@ -137,7 +236,22 @@ eval("var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;\n\n!(__WE
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;\n\n!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(/*! ./service */ \"./out-es5/service.js\"), __webpack_require__(/*! ./callback */ \"./out-es5/callback.js\"), __webpack_require__(/*! ./value-store */ \"./out-es5/value-store.js\")], __WEBPACK_AMD_DEFINE_RESULT__ = (function (require, exports, service_1, callback_1, value_store_1) {\n  \"use strict\";\n\n  Object.defineProperty(exports, \"__esModule\", {\n    value: true\n  });\n  exports.Service = service_1.Service;\n  exports.Callback = callback_1.Callback;\n  exports.Callbacks = callback_1.Callbacks;\n  exports.ValueStore = value_store_1.ValueStore;\n}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),\n\t\t\t\t__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));\n//# sourceMappingURL=index.js.map\n\n\n//# sourceURL=webpack:///./out-es5/index.js?");
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;
+
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(/*! ./service */ "./out-es5/service.js"), __webpack_require__(/*! ./callback */ "./out-es5/callback.js"), __webpack_require__(/*! ./value-store */ "./out-es5/value-store.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function (require, exports, service_1, callback_1, value_store_1) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.Service = service_1.Service;
+  exports.Callback = callback_1.Callback;
+  exports.Callbacks = callback_1.Callbacks;
+  exports.ValueStore = value_store_1.ValueStore;
+}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+//# sourceMappingURL=index.js.map
+
 
 /***/ }),
 
@@ -149,7 +263,227 @@ eval("var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;\n\n!(__WE
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;\n\nfunction _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\"Cannot call a class as a function\"); } }\n\nfunction _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if (\"value\" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }\n\nfunction _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }\n\nvar __awaiter = void 0 && (void 0).__awaiter || function (thisArg, _arguments, P, generator) {\n  return new (P || (P = Promise))(function (resolve, reject) {\n    function fulfilled(value) {\n      try {\n        step(generator.next(value));\n      } catch (e) {\n        reject(e);\n      }\n    }\n\n    function rejected(value) {\n      try {\n        step(generator[\"throw\"](value));\n      } catch (e) {\n        reject(e);\n      }\n    }\n\n    function step(result) {\n      result.done ? resolve(result.value) : new P(function (resolve) {\n        resolve(result.value);\n      }).then(fulfilled, rejected);\n    }\n\n    step((generator = generator.apply(thisArg, _arguments || [])).next());\n  });\n};\n\n!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(/*! ./callback */ \"./out-es5/callback.js\"), __webpack_require__(/*! ./errors */ \"./out-es5/errors.js\")], __WEBPACK_AMD_DEFINE_RESULT__ = (function (require, exports, callback_1, errors_1) {\n  \"use strict\";\n\n  Object.defineProperty(exports, \"__esModule\", {\n    value: true\n  });\n\n  var Service =\n  /*#__PURE__*/\n  function () {\n    function Service() {\n      _classCallCheck(this, Service);\n\n      this.error = callback_1.Callbacks();\n    }\n\n    _createClass(Service, [{\n      key: \"ajax\",\n      value: function ajax(url, options) {\n        var _this = this;\n\n        // options = options || {} as any\n        if (options === undefined) options = {};\n        var data = options.data;\n        var method = options.method;\n        var headers = options.headers || {};\n        var body;\n\n        if (data != null) {\n          var is_json = (headers['content-type'] || '').indexOf('json') >= 0;\n\n          if (is_json) {\n            body = JSON.stringify(data);\n          } else {\n            body = new URLSearchParams();\n\n            for (var key in data) {\n              body.append(key, data[key]);\n            }\n          }\n        } // return callAjax<T>(url, { headers: headers as any, body, method }, this, this.error);\n\n\n        return new Promise(function (reslove, reject) {\n          var options = {\n            headers: headers,\n            body: body,\n            method: method\n          };\n          var timeId;\n          if (options == null) throw errors_1.errors.unexpectedNullValue('options');\n\n          if (method == 'get') {\n            timeId = setTimeout(function () {\n              var err = new Error(); //new AjaxError(options.method);\n\n              err.name = 'timeout';\n              err.message = '网络连接超时';\n              reject(err);\n\n              _this.error.fire(_this, err);\n\n              clearTimeout(timeId);\n            }, Service.settings.ajaxTimeout * 1000);\n          }\n\n          _ajax(url, options).then(function (data) {\n            reslove(data);\n            if (timeId) clearTimeout(timeId);\n          }).catch(function (err) {\n            reject(err);\n\n            _this.error.fire(_this, err);\n\n            if (timeId) clearTimeout(timeId);\n          });\n        });\n      }\n      /**\r\n       * 创建服务\r\n       * @param type 服务类型\r\n       */\n\n    }, {\n      key: \"createService\",\n      value: function createService(type) {\n        var _this2 = this;\n\n        type = type || Service;\n        var service = Service.isClass(type) ? new type() : type();\n        service.error.add(function (sender, error) {\n          _this2.error.fire(service, error);\n        });\n        return service;\n      }\n    }]);\n\n    return Service;\n  }();\n\n  Service.settings = {\n    ajaxTimeout: 30\n  };\n\n  Service.isClass = function () {\n    var toString = Function.prototype.toString;\n\n    function fnBody(fn) {\n      return toString.call(fn).replace(/^[^{]*{\\s*/, '').replace(/\\s*}[^}]*$/, '');\n    }\n\n    function isClass(fn) {\n      return typeof fn === 'function' && (/^class(\\s|\\{\\}$)/.test(toString.call(fn)) || /^.*classCallCheck\\(/.test(fnBody(fn))) // babel.js\n      ;\n    }\n\n    return isClass;\n  }();\n\n  exports.Service = Service;\n\n  function _ajax(url, options) {\n    return __awaiter(this, void 0, void 0,\n    /*#__PURE__*/\n    regeneratorRuntime.mark(function _callee() {\n      var response, responseText, p, text, textObject, isJSONContextType, err;\n      return regeneratorRuntime.wrap(function _callee$(_context) {\n        while (1) {\n          switch (_context.prev = _context.next) {\n            case 0:\n              _context.next = 2;\n              return fetch(url, options);\n\n            case 2:\n              response = _context.sent;\n              responseText = response.text();\n\n              if (typeof responseText == 'string') {\n                p = new Promise(function (reslove, reject) {\n                  reslove(responseText);\n                });\n              } else {\n                p = responseText;\n              }\n\n              _context.next = 7;\n              return responseText;\n\n            case 7:\n              text = _context.sent;\n              isJSONContextType = (response.headers.get('content-type') || '').indexOf('json') >= 0;\n\n              if (isJSONContextType) {\n                textObject = text ? JSON.parse(text) : null;\n              } else {\n                textObject = text;\n              }\n\n              if (!(response.status >= 300)) {\n                _context.next = 17;\n                break;\n              }\n\n              err = new Error();\n              err.method = options.method;\n              err.name = \"\".concat(response.status);\n              err.message = isJSONContextType ? textObject.Message || textObject.message : textObject;\n              err.message = err.message || response.statusText;\n              throw err;\n\n            case 17:\n              return _context.abrupt(\"return\", textObject);\n\n            case 18:\n            case \"end\":\n              return _context.stop();\n          }\n        }\n      }, _callee);\n    }));\n  }\n}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),\n\t\t\t\t__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));\n//# sourceMappingURL=service.js.map\n\n\n//# sourceURL=webpack:///./out-es5/service.js?");
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var __awaiter = void 0 && (void 0).__awaiter || function (thisArg, _arguments, P, generator) {
+  return new (P || (P = Promise))(function (resolve, reject) {
+    function fulfilled(value) {
+      try {
+        step(generator.next(value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+
+    function rejected(value) {
+      try {
+        step(generator["throw"](value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+
+    function step(result) {
+      result.done ? resolve(result.value) : new P(function (resolve) {
+        resolve(result.value);
+      }).then(fulfilled, rejected);
+    }
+
+    step((generator = generator.apply(thisArg, _arguments || [])).next());
+  });
+};
+
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(/*! ./callback */ "./out-es5/callback.js"), __webpack_require__(/*! ./errors */ "./out-es5/errors.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function (require, exports, callback_1, errors_1) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  var Service =
+  /*#__PURE__*/
+  function () {
+    function Service() {
+      _classCallCheck(this, Service);
+
+      this.error = callback_1.Callbacks();
+    }
+
+    _createClass(Service, [{
+      key: "ajax",
+      value: function ajax(url, options) {
+        var _this = this;
+
+        // options = options || {} as any
+        if (options === undefined) options = {};
+        var data = options.data;
+        var method = options.method;
+        var headers = options.headers || {};
+        var body;
+
+        if (data != null) {
+          var is_json = (headers['content-type'] || '').indexOf('json') >= 0;
+
+          if (is_json) {
+            body = JSON.stringify(data);
+          } else {
+            body = new URLSearchParams();
+
+            for (var key in data) {
+              body.append(key, data[key]);
+            }
+          }
+        } // return callAjax<T>(url, { headers: headers as any, body, method }, this, this.error);
+
+
+        return new Promise(function (reslove, reject) {
+          var options = {
+            headers: headers,
+            body: body,
+            method: method
+          };
+          var timeId;
+          if (options == null) throw errors_1.errors.unexpectedNullValue('options');
+
+          if (method == 'get') {
+            timeId = setTimeout(function () {
+              var err = new Error(); //new AjaxError(options.method);
+
+              err.name = 'timeout';
+              err.message = '网络连接超时';
+              reject(err);
+
+              _this.error.fire(_this, err);
+
+              clearTimeout(timeId);
+            }, Service.settings.ajaxTimeout * 1000);
+          }
+
+          _ajax(url, options).then(function (data) {
+            reslove(data);
+            if (timeId) clearTimeout(timeId);
+          }).catch(function (err) {
+            reject(err);
+
+            _this.error.fire(_this, err);
+
+            if (timeId) clearTimeout(timeId);
+          });
+        });
+      }
+      /**
+       * 创建服务
+       * @param type 服务类型
+       */
+
+    }, {
+      key: "createService",
+      value: function createService(type) {
+        var _this2 = this;
+
+        type = type || Service;
+        var service = Service.isClass(type) ? new type() : type();
+        service.error.add(function (sender, error) {
+          _this2.error.fire(service, error);
+        });
+        return service;
+      }
+    }]);
+
+    return Service;
+  }();
+
+  Service.settings = {
+    ajaxTimeout: 30
+  };
+
+  Service.isClass = function () {
+    var toString = Function.prototype.toString;
+
+    function fnBody(fn) {
+      return toString.call(fn).replace(/^[^{]*{\s*/, '').replace(/\s*}[^}]*$/, '');
+    }
+
+    function isClass(fn) {
+      return typeof fn === 'function' && (/^class(\s|\{\}$)/.test(toString.call(fn)) || /^.*classCallCheck\(/.test(fnBody(fn))) // babel.js
+      ;
+    }
+
+    return isClass;
+  }();
+
+  exports.Service = Service;
+
+  function _ajax(url, options) {
+    return __awaiter(this, void 0, void 0,
+    /*#__PURE__*/
+    regeneratorRuntime.mark(function _callee() {
+      var response, responseText, p, text, textObject, isJSONContextType, err;
+      return regeneratorRuntime.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return fetch(url, options);
+
+            case 2:
+              response = _context.sent;
+              responseText = response.text();
+
+              if (typeof responseText == 'string') {
+                p = new Promise(function (reslove, reject) {
+                  reslove(responseText);
+                });
+              } else {
+                p = responseText;
+              }
+
+              _context.next = 7;
+              return responseText;
+
+            case 7:
+              text = _context.sent;
+              isJSONContextType = (response.headers.get('content-type') || '').indexOf('json') >= 0;
+
+              if (isJSONContextType) {
+                textObject = text ? JSON.parse(text) : null;
+              } else {
+                textObject = text;
+              }
+
+              if (!(response.status >= 300)) {
+                _context.next = 17;
+                break;
+              }
+
+              err = new Error();
+              err.method = options.method;
+              err.name = "".concat(response.status);
+              err.message = isJSONContextType ? textObject.Message || textObject.message : textObject;
+              err.message = err.message || response.statusText;
+              throw err;
+
+            case 17:
+              return _context.abrupt("return", textObject);
+
+            case 18:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+  }
+}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+//# sourceMappingURL=service.js.map
+
 
 /***/ }),
 
@@ -161,9 +495,80 @@ eval("var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;\n\nfuncti
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;\n\nfunction _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\"Cannot call a class as a function\"); } }\n\nfunction _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if (\"value\" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }\n\nfunction _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }\n\n!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports], __WEBPACK_AMD_DEFINE_RESULT__ = (function (require, exports) {\n  \"use strict\";\n\n  Object.defineProperty(exports, \"__esModule\", {\n    value: true\n  });\n  /**\r\n   * 实现数据的存储，以及数据修改的通知\r\n   */\n\n  var ValueStore =\n  /*#__PURE__*/\n  function () {\n    function ValueStore(value) {\n      _classCallCheck(this, ValueStore);\n\n      this.items = new Array();\n      this._value = value === undefined ? null : value;\n    }\n\n    _createClass(ValueStore, [{\n      key: \"add\",\n      value: function add(func, sender) {\n        this.items.push({\n          func: func,\n          sender: sender\n        });\n        return func;\n      }\n    }, {\n      key: \"remove\",\n      value: function remove(func) {\n        this.items = this.items.filter(function (o) {\n          return o.func != func;\n        });\n      }\n    }, {\n      key: \"fire\",\n      value: function fire(value) {\n        this.items.forEach(function (o) {\n          return o.func(value, o.sender);\n        });\n      }\n    }, {\n      key: \"value\",\n      get: function get() {\n        if (this._value === undefined) return null;\n        return this._value;\n      },\n      set: function set(value) {\n        this._value = value;\n        this.fire(value);\n      }\n    }]);\n\n    return ValueStore;\n  }();\n\n  exports.ValueStore = ValueStore;\n}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),\n\t\t\t\t__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));\n//# sourceMappingURL=value-store.js.map\n\n\n//# sourceURL=webpack:///./out-es5/value-store.js?");
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports], __WEBPACK_AMD_DEFINE_RESULT__ = (function (require, exports) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  /**
+   * 实现数据的存储，以及数据修改的通知
+   */
+
+  var ValueStore =
+  /*#__PURE__*/
+  function () {
+    function ValueStore(value) {
+      _classCallCheck(this, ValueStore);
+
+      this.items = new Array();
+      this._value = value === undefined ? null : value;
+    }
+
+    _createClass(ValueStore, [{
+      key: "add",
+      value: function add(func, sender) {
+        this.items.push({
+          func: func,
+          sender: sender
+        });
+        return func;
+      }
+    }, {
+      key: "remove",
+      value: function remove(func) {
+        this.items = this.items.filter(function (o) {
+          return o.func != func;
+        });
+      }
+    }, {
+      key: "fire",
+      value: function fire(value) {
+        this.items.forEach(function (o) {
+          return o.func(value, o.sender);
+        });
+      }
+    }, {
+      key: "value",
+      get: function get() {
+        if (this._value === undefined) return null;
+        return this._value;
+      },
+      set: function set(value) {
+        this._value = value;
+        this.fire(value);
+      }
+    }]);
+
+    return ValueStore;
+  }();
+
+  exports.ValueStore = ValueStore;
+}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+//# sourceMappingURL=value-store.js.map
+
 
 /***/ })
 
 /******/ });
 });
+//# sourceMappingURL=index.es5.js.map
