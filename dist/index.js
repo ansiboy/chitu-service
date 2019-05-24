@@ -1,23 +1,13 @@
 /*!
  * 
- *  maishu-chitu-service v1.1.18
+ *  maishu-chitu-service v1.2.0
  *  https://github.com/ansiboy/services-sdk
  *  
  *  Copyright (c) 2016-2018, shu mai <ansiboy@163.com>
  *  Licensed under the MIT License.
  * 
  */
-(function webpackUniversalModuleDefinition(root, factory) {
-	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory();
-	else if(typeof define === 'function' && define.amd)
-		define([], factory);
-	else {
-		var a = factory();
-		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
-	}
-})(window, function() {
-return /******/ (function(modules) { // webpackBootstrap
+(function(e, a) { for(var i in a) e[i] = a[i]; }(exports, /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
@@ -105,6 +95,40 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ({
 
+/***/ "./node_modules/node-fetch/browser.js":
+/*!********************************************!*\
+  !*** ./node_modules/node-fetch/browser.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+// ref: https://github.com/tc39/proposal-global
+var getGlobal = function () {
+	// the only reliable means to get the global object is
+	// `Function('return this')()`
+	// However, this causes CSP violations in Chrome apps.
+	if (typeof self !== 'undefined') { return self; }
+	if (typeof window !== 'undefined') { return window; }
+	if (typeof global !== 'undefined') { return global; }
+	throw new Error('unable to locate global object');
+}
+
+var global = getGlobal();
+
+module.exports = exports = global.fetch;
+
+// Needed for TypeScript and Webpack.
+exports.default = global.fetch.bind(global);
+
+exports.Headers = global.Headers;
+exports.Request = global.Request;
+exports.Response = global.Response;
+
+/***/ }),
+
 /***/ "./out/callback.js":
 /*!*************************!*\
   !*** ./out/callback.js ***!
@@ -112,31 +136,29 @@ return /******/ (function(modules) { // webpackBootstrap
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports], __WEBPACK_AMD_DEFINE_RESULT__ = (function (require, exports) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    class Callback {
-        constructor() {
-            this.funcs = new Array();
-        }
-        add(func) {
-            this.funcs.push(func);
-        }
-        remove(func) {
-            this.funcs = this.funcs.filter(o => o != func);
-        }
-        fire(...args) {
-            this.funcs.forEach(o => o(...args));
-        }
-    }
-    exports.Callback = Callback;
-    function Callbacks() {
-        return new Callback();
-    }
-    exports.Callbacks = Callbacks;
-}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+"use strict";
 
+Object.defineProperty(exports, "__esModule", { value: true });
+class Callback {
+    constructor() {
+        this.funcs = new Array();
+    }
+    add(func) {
+        this.funcs.push(func);
+    }
+    remove(func) {
+        this.funcs = this.funcs.filter(o => o != func);
+    }
+    fire(...args) {
+        this.funcs.forEach(o => o(...args));
+    }
+}
+exports.Callback = Callback;
+function Callbacks() {
+    return new Callback();
+}
+exports.Callbacks = Callbacks;
+//# sourceMappingURL=callback.js.map
 
 /***/ }),
 
@@ -147,38 +169,36 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports], __WEBPACK_AMD_DEFINE_RESULT__ = (function (require, exports) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.errors = {
-        serviceUrlCanntNull(serviceName) {
-            let msg = `Service '${serviceName}' base url can not null.`;
-            return new Error(msg);
-        },
-        unexpectedNullResult() {
-            let msg = `Null result is unexpected.`;
-            return new Error(msg);
-        },
-        unexpectedNullValue(name) {
-            let msg = `variable ${name} is unexpected null value.`;
-            return new Error(msg);
-        },
-        argumentNull(name) {
-            let msg = `Arugment ${name} cannt null or empty.`;
-            return new Error(msg);
-        },
-        fieldNull(field, itemName) {
-            let msg = `${itemName} ${field} cannt be null or empty`;
-            return new Error(msg);
-        },
-        instanceMessangerStart() {
-            let msg = `Instance messanger is start.`;
-            return new Error(msg);
-        }
-    };
-}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+"use strict";
 
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.errors = {
+    serviceUrlCanntNull(serviceName) {
+        let msg = `Service '${serviceName}' base url can not null.`;
+        return new Error(msg);
+    },
+    unexpectedNullResult() {
+        let msg = `Null result is unexpected.`;
+        return new Error(msg);
+    },
+    unexpectedNullValue(name) {
+        let msg = `variable ${name} is unexpected null value.`;
+        return new Error(msg);
+    },
+    argumentNull(name) {
+        let msg = `Arugment ${name} cannt null or empty.`;
+        return new Error(msg);
+    },
+    fieldNull(field, itemName) {
+        let msg = `${itemName} ${field} cannt be null or empty`;
+        return new Error(msg);
+    },
+    instanceMessangerStart() {
+        let msg = `Instance messanger is start.`;
+        return new Error(msg);
+    }
+};
+//# sourceMappingURL=errors.js.map
 
 /***/ }),
 
@@ -189,16 +209,17 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(/*! ./service */ "./out/service.js"), __webpack_require__(/*! ./callback */ "./out/callback.js"), __webpack_require__(/*! ./value-store */ "./out/value-store.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function (require, exports, service_1, callback_1, value_store_1) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.Service = service_1.Service;
-    exports.Callback = callback_1.Callback;
-    exports.Callbacks = callback_1.Callbacks;
-    exports.ValueStore = value_store_1.ValueStore;
-}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+"use strict";
 
+Object.defineProperty(exports, "__esModule", { value: true });
+var service_1 = __webpack_require__(/*! ./service */ "./out/service.js");
+exports.Service = service_1.Service;
+var callback_1 = __webpack_require__(/*! ./callback */ "./out/callback.js");
+exports.Callback = callback_1.Callback;
+exports.Callbacks = callback_1.Callbacks;
+var value_store_1 = __webpack_require__(/*! ./value-store */ "./out/value-store.js");
+exports.ValueStore = value_store_1.ValueStore;
+//# sourceMappingURL=index.js.map
 
 /***/ }),
 
@@ -209,7 +230,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+"use strict";
+
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
@@ -217,129 +240,133 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __awaiter = 
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(/*! ./callback */ "./out/callback.js"), __webpack_require__(/*! ./errors */ "./out/errors.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function (require, exports, callback_1, errors_1) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    class Service {
-        constructor() {
-            this.error = callback_1.Callbacks();
-        }
-        ajax(url, options) {
-            // options = options || {} as any
-            if (options === undefined)
-                options = {};
-            let data = options.data;
-            let method = options.method;
-            let headers = options.headers || {};
-            let body;
-            if (data != null) {
-                let is_json = (headers['content-type'] || '').indexOf('json') >= 0;
-                if (is_json) {
-                    body = JSON.stringify(data);
-                }
-                else {
-                    body = new URLSearchParams();
-                    for (let key in data) {
-                        body.append(key, data[key]);
-                    }
+Object.defineProperty(exports, "__esModule", { value: true });
+const callback_1 = __webpack_require__(/*! ./callback */ "./out/callback.js");
+const errors_1 = __webpack_require__(/*! ./errors */ "./out/errors.js");
+class Service {
+    constructor() {
+        this.error = callback_1.Callbacks();
+    }
+    ajax(url, options) {
+        // options = options || {} as any
+        if (options === undefined)
+            options = {};
+        let data = options.data;
+        let method = options.method;
+        let headers = options.headers || {};
+        let body;
+        if (data != null) {
+            let is_json = (headers['content-type'] || '').indexOf('json') >= 0;
+            if (is_json) {
+                body = JSON.stringify(data);
+            }
+            else {
+                body = new URLSearchParams();
+                for (let key in data) {
+                    body.append(key, data[key]);
                 }
             }
-            // return callAjax<T>(url, { headers: headers as any, body, method }, this, this.error);
-            return new Promise((reslove, reject) => {
-                let options = { headers: headers, body, method };
-                let timeId;
-                if (options == null)
-                    throw errors_1.errors.unexpectedNullValue('options');
-                if (method == 'get') {
-                    timeId = setTimeout(() => {
-                        let err = new Error(); //new AjaxError(options.method);
-                        err.name = 'timeout';
-                        err.message = '网络连接超时';
-                        reject(err);
-                        this.error.fire(this, err);
-                        clearTimeout(timeId);
-                    }, Service.settings.ajaxTimeout * 1000);
-                }
-                ajax(url, options)
-                    .then(data => {
-                    reslove(data);
-                    if (timeId)
-                        clearTimeout(timeId);
-                })
-                    .catch(err => {
+        }
+        // return callAjax<T>(url, { headers: headers as any, body, method }, this, this.error);
+        return new Promise((reslove, reject) => {
+            let options = { headers: headers, body, method };
+            let timeId;
+            if (options == null)
+                throw errors_1.errors.unexpectedNullValue('options');
+            if (method == 'get') {
+                timeId = setTimeout(() => {
+                    let err = new Error(); //new AjaxError(options.method);
+                    err.name = 'timeout';
+                    err.message = '网络连接超时';
                     reject(err);
                     this.error.fire(this, err);
-                    if (timeId)
-                        clearTimeout(timeId);
-                });
+                    clearTimeout(timeId);
+                }, Service.settings.ajaxTimeout * 1000);
+            }
+            ajax(url, options)
+                .then(data => {
+                reslove(data);
+                if (timeId)
+                    clearTimeout(timeId);
+            })
+                .catch(err => {
+                reject(err);
+                this.error.fire(this, err);
+                if (timeId)
+                    clearTimeout(timeId);
             });
-        }
-        /**
-         * 创建服务
-         * @param type 服务类型
-         */
-        createService(type) {
-            type = type || Service;
-            let service = Service.isClass(type) ? new type() : type();
-            service.error.add((sender, error) => {
-                this.error.fire(service, error);
-            });
-            return service;
-        }
-    }
-    Service.settings = {
-        ajaxTimeout: 30,
-    };
-    Service.isClass = (function () {
-        var toString = Function.prototype.toString;
-        function fnBody(fn) {
-            return toString.call(fn).replace(/^[^{]*{\s*/, '').replace(/\s*}[^}]*$/, '');
-        }
-        function isClass(fn) {
-            return (typeof fn === 'function' &&
-                (/^class(\s|\{\}$)/.test(toString.call(fn)) ||
-                    (/^.*classCallCheck\(/.test(fnBody(fn)))) // babel.js
-            );
-        }
-        return isClass;
-    })();
-    exports.Service = Service;
-    function ajax(url, options) {
-        return __awaiter(this, void 0, void 0, function* () {
-            let response = yield fetch(url, options);
-            let responseText = response.text();
-            let p;
-            if (typeof responseText == 'string') {
-                p = new Promise((reslove, reject) => {
-                    reslove(responseText);
-                });
-            }
-            else {
-                p = responseText;
-            }
-            let text = yield responseText;
-            let textObject;
-            let isJSONContextType = (response.headers.get('content-type') || '').indexOf('json') >= 0;
-            if (isJSONContextType) {
-                textObject = text ? JSON.parse(text) : null;
-            }
-            else {
-                textObject = text;
-            }
-            if (response.status >= 300) {
-                let err = new Error();
-                err.method = options.method;
-                err.name = `${response.status}`;
-                err.message = isJSONContextType ? (textObject.Message || textObject.message) : textObject;
-                err.message = err.message || response.statusText;
-                throw err;
-            }
-            return textObject;
         });
     }
-}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-
+    /**
+     * 创建服务
+     * @param type 服务类型
+     */
+    createService(type) {
+        type = type || Service;
+        let service = Service.isClass(type) ? new type() : type();
+        service.error.add((sender, error) => {
+            this.error.fire(service, error);
+        });
+        return service;
+    }
+}
+Service.settings = {
+    ajaxTimeout: 30,
+};
+Service.isClass = (function () {
+    var toString = Function.prototype.toString;
+    function fnBody(fn) {
+        return toString.call(fn).replace(/^[^{]*{\s*/, '').replace(/\s*}[^}]*$/, '');
+    }
+    function isClass(fn) {
+        return (typeof fn === 'function' &&
+            (/^class(\s|\{\}$)/.test(toString.call(fn)) ||
+                (/^.*classCallCheck\(/.test(fnBody(fn)))) // babel.js
+        );
+    }
+    return isClass;
+})();
+exports.Service = Service;
+function ajax(url, options) {
+    return __awaiter(this, void 0, void 0, function* () {
+        let response;
+        if (typeof window === 'undefined') {
+            response = yield __webpack_require__(/*! node-fetch */ "./node_modules/node-fetch/browser.js")(url, options);
+        }
+        else {
+            response = yield fetch(url, options);
+        }
+        let responseText = response.text();
+        let p;
+        if (typeof responseText == 'string') {
+            p = new Promise((reslove, reject) => {
+                reslove(responseText);
+            });
+        }
+        else {
+            p = responseText;
+        }
+        let text = yield responseText;
+        let textObject;
+        let isJSONContextType = (response.headers.get('content-type') || '').indexOf('json') >= 0;
+        if (isJSONContextType) {
+            textObject = text ? JSON.parse(text) : null;
+        }
+        else {
+            textObject = text;
+        }
+        if (response.status >= 300) {
+            let err = new Error();
+            err.method = options.method;
+            err.name = `${response.status}`;
+            err.message = isJSONContextType ? (textObject.Message || textObject.message) : textObject;
+            err.message = err.message || response.statusText;
+            throw err;
+        }
+        return textObject;
+    });
+}
+//# sourceMappingURL=service.js.map
 
 /***/ }),
 
@@ -350,44 +377,41 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __awaiter = 
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports], __WEBPACK_AMD_DEFINE_RESULT__ = (function (require, exports) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    /**
-     * 实现数据的存储，以及数据修改的通知
-     */
-    class ValueStore {
-        constructor(value) {
-            this.items = new Array();
-            this._value = value === undefined ? null : value;
-        }
-        add(func, sender) {
-            this.items.push({ func, sender });
-            return func;
-        }
-        remove(func) {
-            this.items = this.items.filter(o => o.func != func);
-        }
-        fire(value) {
-            this.items.forEach(o => o.func(value, o.sender));
-        }
-        get value() {
-            if (this._value === undefined)
-                return null;
-            return this._value;
-        }
-        set value(value) {
-            this._value = value;
-            this.fire(value);
-        }
-    }
-    exports.ValueStore = ValueStore;
-}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+"use strict";
 
+Object.defineProperty(exports, "__esModule", { value: true });
+/**
+ * 实现数据的存储，以及数据修改的通知
+ */
+class ValueStore {
+    constructor(value) {
+        this.items = new Array();
+        this._value = value === undefined ? null : value;
+    }
+    add(func, sender) {
+        this.items.push({ func, sender });
+        return func;
+    }
+    remove(func) {
+        this.items = this.items.filter(o => o.func != func);
+    }
+    fire(value) {
+        this.items.forEach(o => o.func(value, o.sender));
+    }
+    get value() {
+        if (this._value === undefined)
+            return null;
+        return this._value;
+    }
+    set value(value) {
+        this._value = value;
+        this.fire(value);
+    }
+}
+exports.ValueStore = ValueStore;
+//# sourceMappingURL=value-store.js.map
 
 /***/ })
 
-/******/ });
-});
+/******/ })));
 //# sourceMappingURL=index.js.map
