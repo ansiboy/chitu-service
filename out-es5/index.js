@@ -1,14 +1,19 @@
 "use strict";
 
-define(["require", "exports", "./service", "./callback", "./value-store"], function (require, exports, service_1, callback_1, value_store_1) {
-  "use strict";
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  exports.Service = service_1.Service;
-  exports.Callback = callback_1.Callback;
-  exports.Callbacks = callback_1.Callbacks;
-  exports.ValueStore = value_store_1.ValueStore;
+Object.defineProperty(exports, "__esModule", {
+  value: true
 });
+
+var service_1 = require("./service");
+
+exports.Service = service_1.Service;
+
+var callback_1 = require("./callback");
+
+exports.Callback = callback_1.Callback;
+exports.Callbacks = callback_1.Callbacks;
+
+var value_store_1 = require("./value-store");
+
+exports.ValueStore = value_store_1.ValueStore;
 //# sourceMappingURL=index.js.map

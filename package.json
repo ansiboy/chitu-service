@@ -7,11 +7,17 @@
     "scripts": {
         "build": "grunt"
     },
+<<<<<<< HEAD
     "version": "1.1.20",
+=======
+    "version": "1.2.0",
+>>>>>>> 2ca23806f90eae0eeb476f0abde184dde89d7108
     "name": "maishu-chitu-service",
     "main": "./dist/index.js",
     "types": "./out/index.d.ts",
-    "dependencies": {},
+    "dependencies": {
+        "node-fetch": "^2.6.0"
+    },
     "devDependencies": {
         "@babel/core": "^7.4.4",
         "@babel/preset-env": "^7.4.4",

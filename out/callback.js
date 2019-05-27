@@ -1,23 +1,22 @@
-define(["require", "exports"], function (require, exports) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    class Callback {
-        constructor() {
-            this.funcs = new Array();
-        }
-        add(func) {
-            this.funcs.push(func);
-        }
-        remove(func) {
-            this.funcs = this.funcs.filter(o => o != func);
-        }
-        fire(...args) {
-            this.funcs.forEach(o => o(...args));
-        }
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+class Callback {
+    constructor() {
+        this.funcs = new Array();
     }
-    exports.Callback = Callback;
-    function Callbacks() {
-        return new Callback();
+    add(func) {
+        this.funcs.push(func);
     }
-    exports.Callbacks = Callbacks;
-});
+    remove(func) {
+        this.funcs = this.funcs.filter(o => o != func);
+    }
+    fire(...args) {
+        this.funcs.forEach(o => o(...args));
+    }
+}
+exports.Callback = Callback;
+function Callbacks() {
+    return new Callback();
+}
+exports.Callbacks = Callbacks;
+//# sourceMappingURL=callback.js.map

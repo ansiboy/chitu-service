@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -6,63 +7,100 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-define(["require", "exports", "./callback", "./errors"], function (require, exports, callback_1, errors_1) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    class Service {
-        constructor() {
-            this.error = callback_1.Callbacks();
-        }
-        ajax(url, options) {
-            // options = options || {} as any
-            if (options === undefined)
-                options = {};
-            let data = options.data;
-            let method = options.method;
-            let headers = options.headers || {};
-            let body;
-            if (data != null) {
-                let is_json = (headers['content-type'] || '').indexOf('json') >= 0;
-                if (is_json) {
-                    body = JSON.stringify(data);
-                }
-                else {
-                    body = new URLSearchParams();
-                    for (let key in data) {
-                        body.append(key, data[key]);
-                    }
+Object.defineProperty(exports, "__esModule", { value: true });
+const callback_1 = require("./callback");
+const errors_1 = require("./errors");
+class Service {
+    constructor() {
+        this.error = callback_1.Callbacks();
+    }
+    ajax(url, options) {
+        // options = options || {} as any
+        if (options === undefined)
+            options = {};
+        let data = options.data;
+        let method = options.method;
+        let headers = options.headers || {};
+        let body;
+        if (data != null) {
+            let is_json = (headers['content-type'] || '').indexOf('json') >= 0;
+            if (is_json) {
+                body = JSON.stringify(data);
+            }
+            else {
+                body = new URLSearchParams();
+                for (let key in data) {
+                    body.append(key, data[key]);
                 }
             }
-            // return callAjax<T>(url, { headers: headers as any, body, method }, this, this.error);
-            return new Promise((reslove, reject) => {
-                let options = { headers: headers, body, method };
-                let timeId;
-                if (options == null)
-                    throw errors_1.errors.unexpectedNullValue('options');
-                if (method == 'get') {
-                    timeId = setTimeout(() => {
-                        let err = new Error(); //new AjaxError(options.method);
-                        err.name = 'timeout';
-                        err.message = '网络连接超时';
-                        reject(err);
-                        this.error.fire(this, err);
-                        clearTimeout(timeId);
-                    }, Service.settings.ajaxTimeout * 1000);
-                }
-                ajax(url, options)
-                    .then(data => {
-                    reslove(data);
-                    if (timeId)
-                        clearTimeout(timeId);
-                })
-                    .catch(err => {
+        }
+        // return callAjax<T>(url, { headers: headers as any, body, method }, this, this.error);
+        return new Promise((reslove, reject) => {
+            let options = { headers: headers, body, method };
+            let timeId;
+            if (options == null)
+                throw errors_1.errors.unexpectedNullValue('options');
+            if (method == 'get') {
+                timeId = setTimeout(() => {
+                    let err = new Error(); //new AjaxError(options.method);
+                    err.name = 'timeout';
+                    err.message = '网络连接超时';
                     reject(err);
                     this.error.fire(this, err);
-                    if (timeId)
-                        clearTimeout(timeId);
-                });
+                    clearTimeout(timeId);
+                }, Service.settings.ajaxTimeout * 1000);
+            }
+            ajax(url, options)
+                .then(data => {
+                reslove(data);
+                if (timeId)
+                    clearTimeout(timeId);
+            })
+                .catch(err => {
+                reject(err);
+                this.error.fire(this, err);
+                if (timeId)
+                    clearTimeout(timeId);
             });
+        });
+    }
+    /**
+     * 创建服务
+     * @param type 服务类型
+     */
+    createService(type) {
+        type = type || Service;
+        let service = Service.isClass(type) ? new type() : type();
+        service.error.add((sender, error) => {
+            this.error.fire(service, error);
+        });
+        return service;
+    }
+}
+Service.settings = {
+    ajaxTimeout: 30,
+};
+Service.isClass = (function () {
+    var toString = Function.prototype.toString;
+    function fnBody(fn) {
+        return toString.call(fn).replace(/^[^{]*{\s*/, '').replace(/\s*}[^}]*$/, '');
+    }
+    function isClass(fn) {
+        return (typeof fn === 'function' &&
+            (/^class(\s|\{\}$)/.test(toString.call(fn)) ||
+                (/^.*classCallCheck\(/.test(fnBody(fn)))) // babel.js
+        );
+    }
+    return isClass;
+})();
+exports.Service = Service;
+function ajax(url, options) {
+    return __awaiter(this, void 0, void 0, function* () {
+        let response;
+        if (typeof window === 'undefined') {
+            response = yield require('node-fetch')(url, options);
         }
+<<<<<<< HEAD
         /**
          * 创建服务
          * @param type 服务类型
@@ -72,58 +110,39 @@ define(["require", "exports", "./callback", "./errors"], function (require, expo
             let service = new type();
             service.error.add((sender, error) => {
                 this.error.fire(service, error);
+=======
+        else {
+            response = yield fetch(url, options);
+        }
+        let responseText = response.text();
+        let p;
+        if (typeof responseText == 'string') {
+            p = new Promise((reslove, reject) => {
+                reslove(responseText);
+>>>>>>> 2ca23806f90eae0eeb476f0abde184dde89d7108
             });
-            return service;
         }
-    }
-    Service.settings = {
-        ajaxTimeout: 30,
-    };
-    Service.isClass = (function () {
-        var toString = Function.prototype.toString;
-        function fnBody(fn) {
-            return toString.call(fn).replace(/^[^{]*{\s*/, '').replace(/\s*}[^}]*$/, '');
+        else {
+            p = responseText;
         }
-        function isClass(fn) {
-            return (typeof fn === 'function' &&
-                (/^class(\s|\{\}$)/.test(toString.call(fn)) ||
-                    (/^.*classCallCheck\(/.test(fnBody(fn)))) // babel.js
-            );
+        let text = yield responseText;
+        let textObject;
+        let isJSONContextType = (response.headers.get('content-type') || '').indexOf('json') >= 0;
+        if (isJSONContextType) {
+            textObject = text ? JSON.parse(text) : null;
         }
-        return isClass;
-    })();
-    exports.Service = Service;
-    function ajax(url, options) {
-        return __awaiter(this, void 0, void 0, function* () {
-            let response = yield fetch(url, options);
-            let responseText = response.text();
-            let p;
-            if (typeof responseText == 'string') {
-                p = new Promise((reslove, reject) => {
-                    reslove(responseText);
-                });
-            }
-            else {
-                p = responseText;
-            }
-            let text = yield responseText;
-            let textObject;
-            let isJSONContextType = (response.headers.get('content-type') || '').indexOf('json') >= 0;
-            if (isJSONContextType) {
-                textObject = text ? JSON.parse(text) : null;
-            }
-            else {
-                textObject = text;
-            }
-            if (response.status >= 300) {
-                let err = new Error();
-                err.method = options.method;
-                err.name = `${response.status}`;
-                err.message = isJSONContextType ? (textObject.Message || textObject.message) : textObject;
-                err.message = err.message || response.statusText;
-                throw err;
-            }
-            return textObject;
-        });
-    }
-});
+        else {
+            textObject = text;
+        }
+        if (response.status >= 300) {
+            let err = new Error();
+            err.method = options.method;
+            err.name = `${response.status}`;
+            err.message = isJSONContextType ? (textObject.Message || textObject.message) : textObject;
+            err.message = err.message || response.statusText;
+            throw err;
+        }
+        return textObject;
+    });
+}
+//# sourceMappingURL=service.js.map

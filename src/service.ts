@@ -109,7 +109,13 @@ export class Service implements IService {
 }
 
 async function ajax<T>(url: string, options: RequestInit): Promise<T> {
-    let response = await fetch(url, options);
+    let response: any
+    if (typeof window === 'undefined') {
+        response = await require('node-fetch')(url, options);
+    }
+    else {
+        response = await fetch(url, options)
+    }
 
     let responseText = response.text();
     let p: Promise<string>;
