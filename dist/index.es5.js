@@ -1,17 +1,23 @@
 /*!
  * 
-<<<<<<< HEAD
- *  maishu-chitu-service v1.1.20
-=======
- *  maishu-chitu-service v1.2.0
->>>>>>> 2ca23806f90eae0eeb476f0abde184dde89d7108
+ *  maishu-chitu-service v1.3.0
  *  https://github.com/ansiboy/services-sdk
  *  
  *  Copyright (c) 2016-2018, shu mai <ansiboy@163.com>
  *  Licensed under the MIT License.
  * 
  */
-(function(e, a) { for(var i in a) e[i] = a[i]; }(exports, /******/ (function(modules) { // webpackBootstrap
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory();
+	else if(typeof define === 'function' && define.amd)
+		define([], factory);
+	else {
+		var a = factory();
+		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
+	}
+})(window, function() {
+return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
@@ -398,27 +404,6 @@ function () {
 
           if (timeId) clearTimeout(timeId);
         });
-<<<<<<< HEAD
-      }
-      /**
-       * 创建服务
-       * @param type 服务类型
-       */
-
-    }, {
-      key: "createService",
-      value: function createService(type) {
-        var _this2 = this;
-
-        type = type || Service;
-        var service = new type();
-        service.error.add(function (sender, error) {
-          _this2.error.fire(service, error);
-        });
-        return service;
-      }
-    }]);
-=======
       });
     }
     /**
@@ -432,14 +417,13 @@ function () {
       var _this2 = this;
 
       type = type || Service;
-      var service = Service.isClass(type) ? new type() : type();
+      var service = new type();
       service.error.add(function (sender, error) {
         _this2.error.fire(service, error);
       });
       return service;
     }
   }]);
->>>>>>> 2ca23806f90eae0eeb476f0abde184dde89d7108
 
   return Service;
 }();
@@ -623,5 +607,6 @@ exports.ValueStore = ValueStore;
 
 /***/ })
 
-/******/ })));
+/******/ });
+});
 //# sourceMappingURL=index.es5.js.map

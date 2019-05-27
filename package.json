@@ -7,11 +7,7 @@
     "scripts": {
         "build": "grunt"
     },
-<<<<<<< HEAD
-    "version": "1.1.20",
-=======
-    "version": "1.2.0",
->>>>>>> 2ca23806f90eae0eeb476f0abde184dde89d7108
+    "version": "1.3.0",
     "name": "maishu-chitu-service",
     "main": "./dist/index.js",
     "types": "./out/index.d.ts",

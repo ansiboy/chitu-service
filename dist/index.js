@@ -1,17 +1,23 @@
 /*!
  * 
-<<<<<<< HEAD
- *  maishu-chitu-service v1.1.20
-=======
- *  maishu-chitu-service v1.2.0
->>>>>>> 2ca23806f90eae0eeb476f0abde184dde89d7108
+ *  maishu-chitu-service v1.3.0
  *  https://github.com/ansiboy/services-sdk
  *  
  *  Copyright (c) 2016-2018, shu mai <ansiboy@163.com>
  *  Licensed under the MIT License.
  * 
  */
-(function(e, a) { for(var i in a) e[i] = a[i]; }(exports, /******/ (function(modules) { // webpackBootstrap
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory();
+	else if(typeof define === 'function' && define.amd)
+		define([], factory);
+	else {
+		var a = factory();
+		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
+	}
+})(window, function() {
+return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
@@ -307,7 +313,7 @@ class Service {
      */
     createService(type) {
         type = type || Service;
-        let service = Service.isClass(type) ? new type() : type();
+        let service = new type();
         service.error.add((sender, error) => {
             this.error.fire(service, error);
         });
@@ -337,17 +343,6 @@ function ajax(url, options) {
         if (typeof window === 'undefined') {
             response = yield __webpack_require__(/*! node-fetch */ "./node_modules/node-fetch/browser.js")(url, options);
         }
-<<<<<<< HEAD
-        /**
-         * 创建服务
-         * @param type 服务类型
-         */
-        createService(type) {
-            type = type || Service;
-            let service = new type();
-            service.error.add((sender, error) => {
-                this.error.fire(service, error);
-=======
         else {
             response = yield fetch(url, options);
         }
@@ -356,7 +351,6 @@ function ajax(url, options) {
         if (typeof responseText == 'string') {
             p = new Promise((reslove, reject) => {
                 reslove(responseText);
->>>>>>> 2ca23806f90eae0eeb476f0abde184dde89d7108
             });
         }
         else {
@@ -429,5 +423,6 @@ exports.ValueStore = ValueStore;
 
 /***/ })
 
-/******/ })));
+/******/ });
+});
 //# sourceMappingURL=index.js.map

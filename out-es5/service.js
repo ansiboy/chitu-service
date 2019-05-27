@@ -109,28 +109,7 @@ function () {
 
           _this.error.fire(_this, err);
 
-<<<<<<< HEAD
-            if (timeId) clearTimeout(timeId);
-          });
-        });
-      }
-      /**
-       * 创建服务
-       * @param type 服务类型
-       */
-
-    }, {
-      key: "createService",
-      value: function createService(type) {
-        var _this2 = this;
-
-        type = type || Service;
-        var service = new type();
-        service.error.add(function (sender, error) {
-          _this2.error.fire(service, error);
-=======
           if (timeId) clearTimeout(timeId);
->>>>>>> 2ca23806f90eae0eeb476f0abde184dde89d7108
         });
       });
     }
@@ -145,7 +124,7 @@ function () {
       var _this2 = this;
 
       type = type || Service;
-      var service = Service.isClass(type) ? new type() : type();
+      var service = new type();
       service.error.add(function (sender, error) {
         _this2.error.fire(service, error);
       });

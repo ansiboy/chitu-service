@@ -70,7 +70,7 @@ class Service {
      */
     createService(type) {
         type = type || Service;
-        let service = Service.isClass(type) ? new type() : type();
+        let service = new type();
         service.error.add((sender, error) => {
             this.error.fire(service, error);
         });
@@ -100,17 +100,6 @@ function ajax(url, options) {
         if (typeof window === 'undefined') {
             response = yield require('node-fetch')(url, options);
         }
-<<<<<<< HEAD
-        /**
-         * 创建服务
-         * @param type 服务类型
-         */
-        createService(type) {
-            type = type || Service;
-            let service = new type();
-            service.error.add((sender, error) => {
-                this.error.fire(service, error);
-=======
         else {
             response = yield fetch(url, options);
         }
@@ -119,7 +108,6 @@ function ajax(url, options) {
         if (typeof responseText == 'string') {
             p = new Promise((reslove, reject) => {
                 reslove(responseText);
->>>>>>> 2ca23806f90eae0eeb476f0abde184dde89d7108
             });
         }
         else {
