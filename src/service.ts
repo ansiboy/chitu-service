@@ -89,6 +89,76 @@ export class Service implements IService {
         return service;
     }
 
+    getByJson<T>(url: string, data?: any) {
+        if (data && Object.getOwnPropertyNames(data).length > 0) {
+            url = `${url}?${encodeURIComponent(JSON.stringify(data))}`;
+        }
+
+        let headers = { "content-type": 'application/json' };
+        return this.ajax<T>(url, { headers, method: 'get' })
+    }
+
+    putByJson<T>(url: string, data?: any) {
+        let headers = { "content-type": 'application/json' };
+        return this.ajax<T>(url, { headers, data, method: 'put' });
+    }
+
+    postByJson<T>(url: string, data?: any) {
+        let headers = { "content-type": 'application/json' };
+        return this.ajax<T>(url, { headers, data, method: 'post' });
+    }
+
+    deleteByJson<T>(url: string, data: any) {
+        let headers = { "content-type": 'application/json' };
+        return this.ajax<T>(url, { headers, data, method: 'delete' });
+    }
+
+    private isEncoded(uri: string) {
+        try {
+            uri = uri || '';
+            return uri !== decodeURIComponent(uri);
+        }
+        catch (e) {
+            return false
+        }
+    }
+
+    get<T>(url: string, data?: any) {
+        data = data || {};
+        let params = "";
+        for (let key in data) {
+            if (data[key] == null)
+                continue
+
+            let value = `${data[key]}`
+            if (!this.isEncoded(value)) {
+                value = encodeURIComponent(value)
+            }
+            params = params ? `${params}&${key}=${value}` : `${key}=${value}`;
+        }
+
+        if (params) {
+            url = `${url}?${params}`;
+        }
+
+        return this.ajax<T>(url, { method: 'get' })
+    }
+
+    put<T>(url: string, data?: any) {
+        let headers = { "content-type": 'application/x-www-form-urlencoded' };
+        return this.ajax<T>(url, { headers, data, method: 'put' });
+    }
+
+    post<T>(url: string, data?: any) {
+        let headers = { "content-type": 'application/x-www-form-urlencoded' };
+        return this.ajax<T>(url, { headers, data, method: 'post', });
+    }
+
+    delete<T>(url: string, data: any) {
+        let headers = { "content-type": 'application/x-www-form-urlencoded' };
+        return this.ajax<T>(url, { headers, data, method: 'delete' });
+    }
+
     private static isClass = (function () {
         var toString = Function.prototype.toString;
 
