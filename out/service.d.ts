@@ -23,5 +23,14 @@ export declare class Service implements IService {
      * @param type 服务类型
      */
     createService<T extends Service>(type?: ServiceConstructor<T>): T;
+    getByJson<T>(url: string, data?: any): Promise<T>;
+    putByJson<T>(url: string, data?: any): Promise<T>;
+    postByJson<T>(url: string, data?: any): Promise<T>;
+    deleteByJson<T>(url: string, data: any): Promise<T>;
+    private isEncoded;
+    get<T>(url: string, data?: any): Promise<T>;
+    put<T>(url: string, data?: any): Promise<T>;
+    post<T>(url: string, data?: any): Promise<T>;
+    delete<T>(url: string, data: any): Promise<T>;
     private static isClass;
 }

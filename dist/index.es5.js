@@ -1,6 +1,6 @@
 /*!
  * 
- *  maishu-chitu-service v1.3.0
+ *  maishu-chitu-service v1.4.0
  *  https://github.com/ansiboy/services-sdk
  *  
  *  Copyright (c) 2016-2018, shu mai <ansiboy@163.com>
@@ -16,7 +16,7 @@
 		var a = factory();
 		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
 	}
-})(window, function() {
+})(typeof window === 'undefined' ? global : window, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -422,6 +422,128 @@ function () {
         _this2.error.fire(service, error);
       });
       return service;
+    }
+  }, {
+    key: "getByJson",
+    value: function getByJson(url, data) {
+      if (data && Object.getOwnPropertyNames(data).length > 0) {
+        url = "".concat(url, "?").concat(encodeURIComponent(JSON.stringify(data)));
+      }
+
+      var headers = {
+        "content-type": 'application/json'
+      };
+      return this.ajax(url, {
+        headers: headers,
+        method: 'get'
+      });
+    }
+  }, {
+    key: "putByJson",
+    value: function putByJson(url, data) {
+      var headers = {
+        "content-type": 'application/json'
+      };
+      return this.ajax(url, {
+        headers: headers,
+        data: data,
+        method: 'put'
+      });
+    }
+  }, {
+    key: "postByJson",
+    value: function postByJson(url, data) {
+      var headers = {
+        "content-type": 'application/json'
+      };
+      return this.ajax(url, {
+        headers: headers,
+        data: data,
+        method: 'post'
+      });
+    }
+  }, {
+    key: "deleteByJson",
+    value: function deleteByJson(url, data) {
+      var headers = {
+        "content-type": 'application/json'
+      };
+      return this.ajax(url, {
+        headers: headers,
+        data: data,
+        method: 'delete'
+      });
+    }
+  }, {
+    key: "isEncoded",
+    value: function isEncoded(uri) {
+      try {
+        uri = uri || '';
+        return uri !== decodeURIComponent(uri);
+      } catch (e) {
+        return false;
+      }
+    }
+  }, {
+    key: "get",
+    value: function get(url, data) {
+      data = data || {};
+      var params = "";
+
+      for (var key in data) {
+        if (data[key] == null) continue;
+        var value = "".concat(data[key]);
+
+        if (!this.isEncoded(value)) {
+          value = encodeURIComponent(value);
+        }
+
+        params = params ? "".concat(params, "&").concat(key, "=").concat(value) : "".concat(key, "=").concat(value);
+      }
+
+      if (params) {
+        url = "".concat(url, "?").concat(params);
+      }
+
+      return this.ajax(url, {
+        method: 'get'
+      });
+    }
+  }, {
+    key: "put",
+    value: function put(url, data) {
+      var headers = {
+        "content-type": 'application/x-www-form-urlencoded'
+      };
+      return this.ajax(url, {
+        headers: headers,
+        data: data,
+        method: 'put'
+      });
+    }
+  }, {
+    key: "post",
+    value: function post(url, data) {
+      var headers = {
+        "content-type": 'application/x-www-form-urlencoded'
+      };
+      return this.ajax(url, {
+        headers: headers,
+        data: data,
+        method: 'post'
+      });
+    }
+  }, {
+    key: "delete",
+    value: function _delete(url, data) {
+      var headers = {
+        "content-type": 'application/x-www-form-urlencoded'
+      };
+      return this.ajax(url, {
+        headers: headers,
+        data: data,
+        method: 'delete'
+      });
     }
   }]);
 

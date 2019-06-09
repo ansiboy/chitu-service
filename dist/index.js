@@ -1,6 +1,6 @@
 /*!
  * 
- *  maishu-chitu-service v1.3.0
+ *  maishu-chitu-service v1.4.0
  *  https://github.com/ansiboy/services-sdk
  *  
  *  Copyright (c) 2016-2018, shu mai <ansiboy@163.com>
@@ -16,7 +16,7 @@
 		var a = factory();
 		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
 	}
-})(window, function() {
+})(typeof window === 'undefined' ? global : window, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -318,6 +318,63 @@ class Service {
             this.error.fire(service, error);
         });
         return service;
+    }
+    getByJson(url, data) {
+        if (data && Object.getOwnPropertyNames(data).length > 0) {
+            url = `${url}?${encodeURIComponent(JSON.stringify(data))}`;
+        }
+        let headers = { "content-type": 'application/json' };
+        return this.ajax(url, { headers, method: 'get' });
+    }
+    putByJson(url, data) {
+        let headers = { "content-type": 'application/json' };
+        return this.ajax(url, { headers, data, method: 'put' });
+    }
+    postByJson(url, data) {
+        let headers = { "content-type": 'application/json' };
+        return this.ajax(url, { headers, data, method: 'post' });
+    }
+    deleteByJson(url, data) {
+        let headers = { "content-type": 'application/json' };
+        return this.ajax(url, { headers, data, method: 'delete' });
+    }
+    isEncoded(uri) {
+        try {
+            uri = uri || '';
+            return uri !== decodeURIComponent(uri);
+        }
+        catch (e) {
+            return false;
+        }
+    }
+    get(url, data) {
+        data = data || {};
+        let params = "";
+        for (let key in data) {
+            if (data[key] == null)
+                continue;
+            let value = `${data[key]}`;
+            if (!this.isEncoded(value)) {
+                value = encodeURIComponent(value);
+            }
+            params = params ? `${params}&${key}=${value}` : `${key}=${value}`;
+        }
+        if (params) {
+            url = `${url}?${params}`;
+        }
+        return this.ajax(url, { method: 'get' });
+    }
+    put(url, data) {
+        let headers = { "content-type": 'application/x-www-form-urlencoded' };
+        return this.ajax(url, { headers, data, method: 'put' });
+    }
+    post(url, data) {
+        let headers = { "content-type": 'application/x-www-form-urlencoded' };
+        return this.ajax(url, { headers, data, method: 'post', });
+    }
+    delete(url, data) {
+        let headers = { "content-type": 'application/x-www-form-urlencoded' };
+        return this.ajax(url, { headers, data, method: 'delete' });
     }
 }
 Service.settings = {
