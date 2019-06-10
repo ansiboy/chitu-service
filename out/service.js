@@ -155,7 +155,8 @@ function ajax(url, options) {
     return __awaiter(this, void 0, void 0, function* () {
         let response;
         if (typeof window === 'undefined') {
-            response = yield require('node-fetch')(url, options);
+            // 使用 global['require'] 而不是 require ，避免 webpack 处理 node-fetch
+            response = yield global['require']('node-fetch')(url, options);
         }
         else {
             response = yield fetch(url, options);

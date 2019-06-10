@@ -293,7 +293,7 @@ function _ajax(url, options) {
             }
 
             _context.next = 3;
-            return require('node-fetch')(url, options);
+            return global['require']('node-fetch')(url, options);
 
           case 3:
             response = _context.sent;

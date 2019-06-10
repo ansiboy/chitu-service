@@ -1,6 +1,6 @@
 const webpack = require('webpack');
 const pkg = require("./package.json");
-let license = `
+let license = `~
  ${pkg.name} v${pkg.version}
  https://github.com/ansiboy/services-sdk
  
@@ -17,8 +17,8 @@ module.exports = {
     },
     mode: 'development',
     devtool: 'source-map',
-    // externals: ['maishu-chitu-service'],
+    externals: ['node-fetch'],
     plugins: [
         new webpack.BannerPlugin(license),
-    ],
+    ]
 }

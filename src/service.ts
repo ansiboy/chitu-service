@@ -181,7 +181,8 @@ export class Service implements IService {
 async function ajax<T>(url: string, options: RequestInit): Promise<T> {
     let response: any
     if (typeof window === 'undefined') {
-        response = await require('node-fetch')(url, options);
+        // 使用 global['require'] 而不是 require ，避免 webpack 处理 node-fetch
+        response = await global['require']('node-fetch')(url, options);
     }
     else {
         response = await fetch(url, options)
