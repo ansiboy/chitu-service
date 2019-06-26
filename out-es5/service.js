@@ -293,7 +293,7 @@ function _ajax(url, options) {
             }
 
             _context.next = 3;
-            return global['require']('node-fetch')(url, options);
+            return eval('require')('node-fetch')(url, options);
 
           case 3:
             response = _context.sent;
@@ -326,7 +326,7 @@ function _ajax(url, options) {
             isJSONContextType = (response.headers.get('content-type') || '').indexOf('json') >= 0;
 
             if (isJSONContextType) {
-              textObject = text ? JSON.parse(text) : null;
+              textObject = text ? JSON.parse(text) : {};
             } else {
               textObject = text;
             }
@@ -339,7 +339,7 @@ function _ajax(url, options) {
             err = new Error();
             err.method = options.method;
             err.name = "".concat(response.status);
-            err.message = isJSONContextType ? textObject.Message || textObject.message : textObject;
+            err.message = isJSONContextType ? textObject.Message || textObject.message || '' : textObject;
             err.message = err.message || response.statusText;
             throw err;
 

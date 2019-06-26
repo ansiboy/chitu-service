@@ -156,7 +156,7 @@ function ajax(url, options) {
         let response;
         if (typeof window === 'undefined') {
             // 使用 global['require'] 而不是 require ，避免 webpack 处理 node-fetch
-            response = yield global['require']('node-fetch')(url, options);
+            response = yield eval('require')('node-fetch')(url, options);
         }
         else {
             response = yield fetch(url, options);
@@ -175,7 +175,7 @@ function ajax(url, options) {
         let textObject;
         let isJSONContextType = (response.headers.get('content-type') || '').indexOf('json') >= 0;
         if (isJSONContextType) {
-            textObject = text ? JSON.parse(text) : null;
+            textObject = text ? JSON.parse(text) : {};
         }
         else {
             textObject = text;
@@ -184,7 +184,7 @@ function ajax(url, options) {
             let err = new Error();
             err.method = options.method;
             err.name = `${response.status}`;
-            err.message = isJSONContextType ? (textObject.Message || textObject.message) : textObject;
+            err.message = isJSONContextType ? (textObject.Message || textObject.message || '') : textObject;
             err.message = err.message || response.statusText;
             throw err;
         }

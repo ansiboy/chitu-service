@@ -1,6 +1,6 @@
 /*!
  * ~
- *  maishu-chitu-service v1.5.0
+ *  maishu-chitu-service v1.5.3
  *  https://github.com/ansiboy/services-sdk
  *  
  *  Copyright (c) 2016-2018, shu mai <ansiboy@163.com>
@@ -104,37 +104,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ })
 /************************************************************************/
 /******/ ({
-
-/***/ "./node_modules/webpack/buildin/global.js":
-/*!***********************************!*\
-  !*** (webpack)/buildin/global.js ***!
-  \***********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || new Function("return this")();
-} catch (e) {
-	// This works if the window reference is available
-	if (typeof window === "object") g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
 
 /***/ "./out-es5/callback.js":
 /*!*****************************!*\
@@ -288,7 +257,7 @@ exports.ValueStore = value_store_1.ValueStore;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(global) {
+
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -583,7 +552,7 @@ function _ajax(url, options) {
             }
 
             _context.next = 3;
-            return global['require']('node-fetch')(url, options);
+            return eval('require')('node-fetch')(url, options);
 
           case 3:
             response = _context.sent;
@@ -616,7 +585,7 @@ function _ajax(url, options) {
             isJSONContextType = (response.headers.get('content-type') || '').indexOf('json') >= 0;
 
             if (isJSONContextType) {
-              textObject = text ? JSON.parse(text) : null;
+              textObject = text ? JSON.parse(text) : {};
             } else {
               textObject = text;
             }
@@ -629,7 +598,7 @@ function _ajax(url, options) {
             err = new Error();
             err.method = options.method;
             err.name = "".concat(response.status);
-            err.message = isJSONContextType ? textObject.Message || textObject.message : textObject;
+            err.message = isJSONContextType ? textObject.Message || textObject.message || '' : textObject;
             err.message = err.message || response.statusText;
             throw err;
 
@@ -646,7 +615,6 @@ function _ajax(url, options) {
 }
 //# sourceMappingURL=service.js.map
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../node_modules/webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
 
 /***/ }),
 
