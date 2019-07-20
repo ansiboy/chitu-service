@@ -20,7 +20,12 @@ export class Service implements IService {
     }
 
     ajax<T>(url: string, options?: AjaxOptions): Promise<T | null> {
-        // options = options || {} as any
+        if (!url)
+            throw errors.argumentNull("url");
+
+        if (!url.startsWith("http://") && !url.startsWith("https://"))
+            throw errors.urlPrefixError();
+
         if (options === undefined)
             options = {}
 
