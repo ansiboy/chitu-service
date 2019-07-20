@@ -24,6 +24,10 @@ exports.errors = {
     instanceMessangerStart() {
         let msg = `Instance messanger is start.`;
         return new Error(msg);
+    },
+    urlPrefixError() {
+        let msg = "Url must be prefixe http or https.";
+        return new Error(msg);
     }
 };
 //# sourceMappingURL=errors.js.map

@@ -56,7 +56,8 @@ function () {
     value: function ajax(url, options) {
       var _this = this;
 
-      // options = options || {} as any
+      if (!url) throw errors_1.errors.argumentNull("url");
+      if (!url.startsWith("http://") && !url.startsWith("https://")) throw errors_1.errors.urlPrefixError();
       if (options === undefined) options = {};
       var data = options.data;
       var method = options.method;

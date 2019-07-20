@@ -15,7 +15,10 @@ class Service {
         this.error = callback_1.Callbacks();
     }
     ajax(url, options) {
-        // options = options || {} as any
+        if (!url)
+            throw errors_1.errors.argumentNull("url");
+        if (!url.startsWith("http://") && !url.startsWith("https://"))
+            throw errors_1.errors.urlPrefixError();
         if (options === undefined)
             options = {};
         let data = options.data;

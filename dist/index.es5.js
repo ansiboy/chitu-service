@@ -1,6 +1,6 @@
 /*!
  * ~
- *  maishu-chitu-service v1.5.3
+ *  maishu-chitu-service v1.6.0
  *  https://github.com/ansiboy/services-sdk
  *  
  *  Copyright (c) 2016-2018, shu mai <ansiboy@163.com>
@@ -211,6 +211,10 @@ exports.errors = {
   instanceMessangerStart: function instanceMessangerStart() {
     var msg = "Instance messanger is start.";
     return new Error(msg);
+  },
+  urlPrefixError: function urlPrefixError() {
+    var msg = "Url must be prefixe http or https.";
+    return new Error(msg);
   }
 };
 //# sourceMappingURL=errors.js.map
@@ -315,7 +319,8 @@ function () {
     value: function ajax(url, options) {
       var _this = this;
 
-      // options = options || {} as any
+      if (!url) throw errors_1.errors.argumentNull("url");
+      if (!url.startsWith("http://") && !url.startsWith("https://")) throw errors_1.errors.urlPrefixError();
       if (options === undefined) options = {};
       var data = options.data;
       var method = options.method;
