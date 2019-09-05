@@ -45,19 +45,26 @@ var errors_1 = require("./errors");
 var Service =
 /*#__PURE__*/
 function () {
-  function Service() {
+  function Service(handleError) {
+    var _this = this;
+
     _classCallCheck(this, Service);
 
     this.error = callback_1.Callbacks();
+
+    if (handleError) {
+      this.error.add(function (sender, err) {
+        handleError(err, _this);
+      });
+    }
   }
 
   _createClass(Service, [{
     key: "ajax",
     value: function ajax(url, options) {
-      var _this = this;
+      var _this2 = this;
 
-      if (!url) throw errors_1.errors.argumentNull("url");
-      if (!url.startsWith("http://") && !url.startsWith("https://")) throw errors_1.errors.urlPrefixError();
+      // options = options || {} as any
       if (options === undefined) options = {};
       var data = options.data;
       var method = options.method;
@@ -90,13 +97,14 @@ function () {
 
         if (method == 'get') {
           timeId = setTimeout(function () {
+            console.warn("timeout url: ".concat(url));
             var err = new Error(); //new AjaxError(options.method);
 
             err.name = 'timeout';
             err.message = '网络连接超时';
             reject(err);
 
-            _this.error.fire(_this, err);
+            _this2.error.fire(_this2, err);
 
             clearTimeout(timeId);
           }, Service.settings.ajaxTimeout * 1000);
@@ -108,7 +116,7 @@ function () {
         }).catch(function (err) {
           reject(err);
 
-          _this.error.fire(_this, err);
+          _this2.error.fire(_this2, err);
 
           if (timeId) clearTimeout(timeId);
         });
@@ -122,12 +130,12 @@ function () {
   }, {
     key: "createService",
     value: function createService(type) {
-      var _this2 = this;
+      var _this3 = this;
 
       type = type || Service;
       var service = new type();
       service.error.add(function (sender, error) {
-        _this2.error.fire(service, error);
+        _this3.error.fire(service, error);
       });
       return service;
     }

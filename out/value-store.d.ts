@@ -6,6 +6,7 @@ export declare class ValueStore<T> {
     private items;
     private _value;
     constructor(value?: T);
+    attach(func: ValueChangedCallback<T | null>, sender?: any): ValueChangedCallback<T>;
     add(func: ValueChangedCallback<T | null>, sender?: any): ValueChangedCallback<T>;
     remove(func: ValueChangedCallback<T>): void;
     fire(value: T | null): void;

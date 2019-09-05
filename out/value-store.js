@@ -6,7 +6,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 class ValueStore {
     constructor(value) {
         this.items = new Array();
-        this._value = value === undefined ? null : value;
+        this._value = value;
+    }
+    attach(func, sender) {
+        if (this.value !== undefined) {
+            func(this.value, sender);
+        }
+        return this.add(func, sender);
     }
     add(func, sender) {
         this.items.push({ func, sender });

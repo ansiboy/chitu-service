@@ -5,5 +5,4 @@ export declare let errors: {
     argumentNull(name: string): Error;
     fieldNull<T>(field: keyof T, itemName: string): Error;
     instanceMessangerStart(): Error;
-    urlPrefixError(): Error;
 };

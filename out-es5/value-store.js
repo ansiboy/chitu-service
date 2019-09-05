@@ -20,10 +20,19 @@ function () {
     _classCallCheck(this, ValueStore);
 
     this.items = new Array();
-    this._value = value === undefined ? null : value;
+    this._value = value;
   }
 
   _createClass(ValueStore, [{
+    key: "attach",
+    value: function attach(func, sender) {
+      if (this.value !== undefined) {
+        func(this.value, sender);
+      }
+
+      return this.add(func, sender);
+    }
+  }, {
     key: "add",
     value: function add(func, sender) {
       this.items.push({

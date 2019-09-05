@@ -1,6 +1,6 @@
 /*!
  * ~
- *  maishu-chitu-service v1.6.0
+ *  maishu-chitu-service v1.7.4
  *  https://github.com/ansiboy/services-sdk
  *  
  *  Copyright (c) 2016-2018, shu mai <ansiboy@163.com>
@@ -172,10 +172,6 @@ exports.errors = {
     instanceMessangerStart() {
         let msg = `Instance messanger is start.`;
         return new Error(msg);
-    },
-    urlPrefixError() {
-        let msg = "Url must be prefixe http or https.";
-        return new Error(msg);
     }
 };
 //# sourceMappingURL=errors.js.map
@@ -224,14 +220,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const callback_1 = __webpack_require__(/*! ./callback */ "./out/callback.js");
 const errors_1 = __webpack_require__(/*! ./errors */ "./out/errors.js");
 class Service {
-    constructor() {
+    constructor(handleError) {
         this.error = callback_1.Callbacks();
+        if (handleError) {
+            this.error.add((sender, err) => {
+                handleError(err, this);
+            });
+        }
     }
     ajax(url, options) {
-        if (!url)
-            throw errors_1.errors.argumentNull("url");
-        if (!url.startsWith("http://") && !url.startsWith("https://"))
-            throw errors_1.errors.urlPrefixError();
+        // options = options || {} as any
         if (options === undefined)
             options = {};
         let data = options.data;
@@ -258,6 +256,7 @@ class Service {
                 throw errors_1.errors.unexpectedNullValue('options');
             if (method == 'get') {
                 timeId = setTimeout(() => {
+                    console.warn(`timeout url: ${url}`);
                     let err = new Error(); //new AjaxError(options.method);
                     err.name = 'timeout';
                     err.message = '网络连接超时';
@@ -427,7 +426,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 class ValueStore {
     constructor(value) {
         this.items = new Array();
-        this._value = value === undefined ? null : value;
+        this._value = value;
+    }
+    attach(func, sender) {
+        if (this.value !== undefined) {
+            func(this.value, sender);
+        }
+        return this.add(func, sender);
     }
     add(func, sender) {
         this.items.push({ func, sender });

@@ -11,14 +11,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const callback_1 = require("./callback");
 const errors_1 = require("./errors");
 class Service {
-    constructor() {
+    constructor(handleError) {
         this.error = callback_1.Callbacks();
+        if (handleError) {
+            this.error.add((sender, err) => {
+                handleError(err, this);
+            });
+        }
     }
     ajax(url, options) {
-        if (!url)
-            throw errors_1.errors.argumentNull("url");
-        if (!url.startsWith("http://") && !url.startsWith("https://"))
-            throw errors_1.errors.urlPrefixError();
+        // options = options || {} as any
         if (options === undefined)
             options = {};
         let data = options.data;
@@ -45,6 +47,7 @@ class Service {
                 throw errors_1.errors.unexpectedNullValue('options');
             if (method == 'get') {
                 timeId = setTimeout(() => {
+                    console.warn(`timeout url: ${url}`);
                     let err = new Error(); //new AjaxError(options.method);
                     err.name = 'timeout';
                     err.message = '网络连接超时';

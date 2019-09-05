@@ -57,6 +57,7 @@ export class Service implements IService {
             if (options == null) throw errors.unexpectedNullValue('options')
             if (method == 'get') {
                 timeId = setTimeout(() => {
+                    console.warn(`timeout url: ${url}`);
                     let err = new Error(); //new AjaxError(options.method);
                     err.name = 'timeout';
                     err.message = '网络连接超时';

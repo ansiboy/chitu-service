@@ -1,6 +1,6 @@
 /*!
  * ~
- *  maishu-chitu-service v1.6.0
+ *  maishu-chitu-service v1.7.4
  *  https://github.com/ansiboy/services-sdk
  *  
  *  Copyright (c) 2016-2018, shu mai <ansiboy@163.com>
@@ -211,10 +211,6 @@ exports.errors = {
   instanceMessangerStart: function instanceMessangerStart() {
     var msg = "Instance messanger is start.";
     return new Error(msg);
-  },
-  urlPrefixError: function urlPrefixError() {
-    var msg = "Url must be prefixe http or https.";
-    return new Error(msg);
   }
 };
 //# sourceMappingURL=errors.js.map
@@ -308,19 +304,26 @@ var errors_1 = __webpack_require__(/*! ./errors */ "./out-es5/errors.js");
 var Service =
 /*#__PURE__*/
 function () {
-  function Service() {
+  function Service(handleError) {
+    var _this = this;
+
     _classCallCheck(this, Service);
 
     this.error = callback_1.Callbacks();
+
+    if (handleError) {
+      this.error.add(function (sender, err) {
+        handleError(err, _this);
+      });
+    }
   }
 
   _createClass(Service, [{
     key: "ajax",
     value: function ajax(url, options) {
-      var _this = this;
+      var _this2 = this;
 
-      if (!url) throw errors_1.errors.argumentNull("url");
-      if (!url.startsWith("http://") && !url.startsWith("https://")) throw errors_1.errors.urlPrefixError();
+      // options = options || {} as any
       if (options === undefined) options = {};
       var data = options.data;
       var method = options.method;
@@ -353,13 +356,14 @@ function () {
 
         if (method == 'get') {
           timeId = setTimeout(function () {
+            console.warn("timeout url: ".concat(url));
             var err = new Error(); //new AjaxError(options.method);
 
             err.name = 'timeout';
             err.message = '网络连接超时';
             reject(err);
 
-            _this.error.fire(_this, err);
+            _this2.error.fire(_this2, err);
 
             clearTimeout(timeId);
           }, Service.settings.ajaxTimeout * 1000);
@@ -371,7 +375,7 @@ function () {
         }).catch(function (err) {
           reject(err);
 
-          _this.error.fire(_this, err);
+          _this2.error.fire(_this2, err);
 
           if (timeId) clearTimeout(timeId);
         });
@@ -385,12 +389,12 @@ function () {
   }, {
     key: "createService",
     value: function createService(type) {
-      var _this2 = this;
+      var _this3 = this;
 
       type = type || Service;
       var service = new type();
       service.error.add(function (sender, error) {
-        _this2.error.fire(service, error);
+        _this3.error.fire(service, error);
       });
       return service;
     }
@@ -653,10 +657,19 @@ function () {
     _classCallCheck(this, ValueStore);
 
     this.items = new Array();
-    this._value = value === undefined ? null : value;
+    this._value = value;
   }
 
   _createClass(ValueStore, [{
+    key: "attach",
+    value: function attach(func, sender) {
+      if (this.value !== undefined) {
+        func(this.value, sender);
+      }
+
+      return this.add(func, sender);
+    }
+  }, {
     key: "add",
     value: function add(func, sender) {
       this.items.push({
