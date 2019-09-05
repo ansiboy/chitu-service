@@ -8,7 +8,13 @@ export class ValueStore<T> {
     private _value: T | null;
 
     constructor(value?: T) {
-        this._value = value === undefined ? null : value;
+        this._value = value;
+    }
+    attach(func: ValueChangedCallback<T | null>, sender?: any): ValueChangedCallback<T> {
+        if (this.value !== undefined) {
+            func(this.value, sender);
+        }
+        return this.add(func, sender);
     }
     add(func: ValueChangedCallback<T | null>, sender?: any): ValueChangedCallback<T> {
         this.items.push({ func, sender });

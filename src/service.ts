@@ -19,13 +19,16 @@ export class Service implements IService {
         ajaxTimeout: 30,
     }
 
+    constructor(handleError?: (error: Error, sender: Service) => void) {
+        if (handleError) {
+            this.error.add((sender, err) => {
+                handleError(err, this);
+            })
+        }
+    }
+
     ajax<T>(url: string, options?: AjaxOptions): Promise<T | null> {
-        if (!url)
-            throw errors.argumentNull("url");
-
-        if (!url.startsWith("http://") && !url.startsWith("https://"))
-            throw errors.urlPrefixError();
-
+        // options = options || {} as any
         if (options === undefined)
             options = {}
 
