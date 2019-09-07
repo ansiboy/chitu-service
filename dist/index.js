@@ -1,6 +1,6 @@
 /*!
  * ~
- *  maishu-chitu-service v1.7.4
+ *  maishu-chitu-service v1.8.0
  *  https://github.com/ansiboy/services-sdk
  *  
  *  Copyright (c) 2016-2018, shu mai <ansiboy@163.com>
@@ -195,6 +195,8 @@ exports.Callback = callback_1.Callback;
 exports.Callbacks = callback_1.Callbacks;
 var value_store_1 = __webpack_require__(/*! ./value-store */ "./out/value-store.js");
 exports.ValueStore = value_store_1.ValueStore;
+exports.LocalValueStore = value_store_1.LocalValueStore;
+exports.CookieValueStore = value_store_1.CookieValueStore;
 //# sourceMappingURL=index.js.map
 
 /***/ }),
@@ -455,6 +457,85 @@ class ValueStore {
     }
 }
 exports.ValueStore = ValueStore;
+class LocalValueStore extends ValueStore {
+    constructor(storageName) {
+        super(LocalValueStore.loadValue(storageName));
+        this.storageName = storageName;
+    }
+    set value(value) {
+        super.value = value;
+        LocalValueStore.saveValue(this.storageName, value);
+    }
+    static loadValue(storageName) {
+        let text = localStorage.getItem(storageName);
+        if (text == null)
+            return null;
+        return JSON.parse(text);
+    }
+    static saveValue(storageName, value) {
+        if (value == null) {
+            localStorage.removeItem(storageName);
+            return;
+        }
+        localStorage.setItem(storageName, JSON.stringify(value));
+    }
+}
+exports.LocalValueStore = LocalValueStore;
+class CookieValueStore extends ValueStore {
+    constructor(storageName) {
+        super(CookieValueStore.loadValue(storageName));
+        this.storageName = storageName;
+    }
+    set value(value) {
+        super.value = value;
+        CookieValueStore.saveValue(this.storageName, value);
+    }
+    static loadValue(storageName) {
+        let text = CookieValueStore.getCookie(storageName);
+        if (text == null)
+            return null;
+        return JSON.parse(text);
+    }
+    static saveValue(storageName, value) {
+        if (value == null) {
+            CookieValueStore.removeCookie(storageName);
+            return;
+        }
+        // localStorage.setItem(this.storageName, JSON.stringify(value));
+        CookieValueStore.setCookie(storageName, JSON.stringify(value));
+    }
+    static setCookie(name, value, days) {
+        // nodejs 没有 document
+        if (typeof document == 'undefined')
+            return;
+        var expires = "";
+        if (days) {
+            var date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = "; expires=" + date.toUTCString();
+        }
+        document.cookie = name + "=" + (value || "") + expires + "; path=/";
+    }
+    static getCookie(name) {
+        if (typeof document == 'undefined')
+            return null;
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ')
+                c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) == 0)
+                return c.substring(nameEQ.length, c.length);
+        }
+        return null;
+    }
+    static removeCookie(name) {
+        // document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+        this.setCookie(name, '');
+    }
+}
+exports.CookieValueStore = CookieValueStore;
 //# sourceMappingURL=value-store.js.map
 
 /***/ })

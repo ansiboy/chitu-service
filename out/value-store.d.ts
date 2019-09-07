@@ -12,3 +12,20 @@ export declare class ValueStore<T> {
     fire(value: T | null): void;
     value: T | null;
 }
+export declare class LocalValueStore<T> extends ValueStore<T> {
+    private storageName;
+    constructor(storageName: string);
+    value: T | null;
+    private static loadValue;
+    private static saveValue;
+}
+export declare class CookieValueStore<T> extends ValueStore<T> {
+    private storageName;
+    constructor(storageName: string);
+    value: T | null;
+    private static loadValue;
+    private static saveValue;
+    private static setCookie;
+    private static getCookie;
+    private static removeCookie;
+}

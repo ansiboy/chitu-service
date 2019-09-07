@@ -1,3 +1,3 @@
 export { Service, AjaxOptions, IService, ServiceConstructor } from './service';
 export { Callback, Callback0, Callback1, Callback2, Callbacks } from './callback';
-export { ValueStore } from './value-store';
+export { ValueStore, LocalValueStore, CookieValueStore } from './value-store';

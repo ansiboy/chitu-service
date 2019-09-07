@@ -16,4 +16,6 @@ exports.Callbacks = callback_1.Callbacks;
 var value_store_1 = require("./value-store");
 
 exports.ValueStore = value_store_1.ValueStore;
+exports.LocalValueStore = value_store_1.LocalValueStore;
+exports.CookieValueStore = value_store_1.CookieValueStore;
 //# sourceMappingURL=index.js.map
