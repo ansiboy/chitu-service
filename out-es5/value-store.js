@@ -12,6 +12,8 @@ function _set(target, property, value, receiver, isStrict) { var s = set(target,
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+function _get(target, property, receiver) { if (typeof Reflect !== "undefined" && Reflect.get) { _get = Reflect.get; } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = Object.getOwnPropertyDescriptor(base, property); if (desc.get) { return desc.get.call(receiver); } return desc.value; }; } return _get(target, property, receiver || target); }
+
 function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
@@ -109,6 +111,9 @@ function (_ValueStore) {
 
   _createClass(LocalValueStore, [{
     key: "value",
+    get: function get() {
+      return _get(_getPrototypeOf(LocalValueStore.prototype), "value", this);
+    },
     set: function set(value) {
       _set(_getPrototypeOf(LocalValueStore.prototype), "value", value, this, true);
 
@@ -155,6 +160,9 @@ function (_ValueStore2) {
 
   _createClass(CookieValueStore, [{
     key: "value",
+    get: function get() {
+      return _get(_getPrototypeOf(CookieValueStore.prototype), "value", this);
+    },
     set: function set(value) {
       _set(_getPrototypeOf(CookieValueStore.prototype), "value", value, this, true);
 

@@ -1,6 +1,6 @@
 /*!
  * ~
- *  maishu-chitu-service v1.8.0
+ *  maishu-chitu-service v1.8.6
  *  https://github.com/ansiboy/services-sdk
  *  
  *  Copyright (c) 2016-2018, shu mai <ansiboy@163.com>
@@ -246,6 +246,10 @@ var value_store_1 = __webpack_require__(/*! ./value-store */ "./out-es5/value-st
 exports.ValueStore = value_store_1.ValueStore;
 exports.LocalValueStore = value_store_1.LocalValueStore;
 exports.CookieValueStore = value_store_1.CookieValueStore;
+
+var utility_1 = __webpack_require__(/*! ./utility */ "./out-es5/utility.js");
+
+exports.guid = utility_1.guid;
 //# sourceMappingURL=index.js.map
 
 
@@ -629,6 +633,34 @@ function _ajax(url, options) {
 
 /***/ }),
 
+/***/ "./out-es5/utility.js":
+/*!****************************!*\
+  !*** ./out-es5/utility.js ***!
+  \****************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+function guid() {
+  function s4() {
+    return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+  }
+
+  return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+}
+
+exports.guid = guid;
+//# sourceMappingURL=utility.js.map
+
+
+/***/ }),
+
 /***/ "./out-es5/value-store.js":
 /*!********************************!*\
   !*** ./out-es5/value-store.js ***!
@@ -650,6 +682,8 @@ function set(target, property, value, receiver) { if (typeof Reflect !== "undefi
 function _set(target, property, value, receiver, isStrict) { var s = set(target, property, value, receiver || target); if (!s && isStrict) { throw new Error('failed to set property'); } return value; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _get(target, property, receiver) { if (typeof Reflect !== "undefined" && Reflect.get) { _get = Reflect.get; } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = Object.getOwnPropertyDescriptor(base, property); if (desc.get) { return desc.get.call(receiver); } return desc.value; }; } return _get(target, property, receiver || target); }
 
 function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
 
@@ -748,6 +782,9 @@ function (_ValueStore) {
 
   _createClass(LocalValueStore, [{
     key: "value",
+    get: function get() {
+      return _get(_getPrototypeOf(LocalValueStore.prototype), "value", this);
+    },
     set: function set(value) {
       _set(_getPrototypeOf(LocalValueStore.prototype), "value", value, this, true);
 
@@ -794,6 +831,9 @@ function (_ValueStore2) {
 
   _createClass(CookieValueStore, [{
     key: "value",
+    get: function get() {
+      return _get(_getPrototypeOf(CookieValueStore.prototype), "value", this);
+    },
     set: function set(value) {
       _set(_getPrototypeOf(CookieValueStore.prototype), "value", value, this, true);
 

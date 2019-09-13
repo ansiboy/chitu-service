@@ -1,6 +1,6 @@
 /*!
  * ~
- *  maishu-chitu-service v1.8.0
+ *  maishu-chitu-service v1.8.6
  *  https://github.com/ansiboy/services-sdk
  *  
  *  Copyright (c) 2016-2018, shu mai <ansiboy@163.com>
@@ -197,6 +197,8 @@ var value_store_1 = __webpack_require__(/*! ./value-store */ "./out/value-store.
 exports.ValueStore = value_store_1.ValueStore;
 exports.LocalValueStore = value_store_1.LocalValueStore;
 exports.CookieValueStore = value_store_1.CookieValueStore;
+var utility_1 = __webpack_require__(/*! ./utility */ "./out/utility.js");
+exports.guid = utility_1.guid;
 //# sourceMappingURL=index.js.map
 
 /***/ }),
@@ -412,6 +414,30 @@ function ajax(url, options) {
 
 /***/ }),
 
+/***/ "./out/utility.js":
+/*!************************!*\
+  !*** ./out/utility.js ***!
+  \************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+function guid() {
+    function s4() {
+        return Math.floor((1 + Math.random()) * 0x10000)
+            .toString(16)
+            .substring(1);
+    }
+    return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+        s4() + '-' + s4() + s4() + s4();
+}
+exports.guid = guid;
+//# sourceMappingURL=utility.js.map
+
+/***/ }),
+
 /***/ "./out/value-store.js":
 /*!****************************!*\
   !*** ./out/value-store.js ***!
@@ -462,6 +488,9 @@ class LocalValueStore extends ValueStore {
         super(LocalValueStore.loadValue(storageName));
         this.storageName = storageName;
     }
+    get value() {
+        return super.value;
+    }
     set value(value) {
         super.value = value;
         LocalValueStore.saveValue(this.storageName, value);
@@ -485,6 +514,9 @@ class CookieValueStore extends ValueStore {
     constructor(storageName) {
         super(CookieValueStore.loadValue(storageName));
         this.storageName = storageName;
+    }
+    get value() {
+        return super.value;
     }
     set value(value) {
         super.value = value;

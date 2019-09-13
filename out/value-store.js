@@ -40,6 +40,9 @@ class LocalValueStore extends ValueStore {
         super(LocalValueStore.loadValue(storageName));
         this.storageName = storageName;
     }
+    get value() {
+        return super.value;
+    }
     set value(value) {
         super.value = value;
         LocalValueStore.saveValue(this.storageName, value);
@@ -63,6 +66,9 @@ class CookieValueStore extends ValueStore {
     constructor(storageName) {
         super(CookieValueStore.loadValue(storageName));
         this.storageName = storageName;
+    }
+    get value() {
+        return super.value;
     }
     set value(value) {
         super.value = value;
