@@ -1,6 +1,6 @@
 /*!
  * ~
- *  maishu-chitu-service v1.8.6
+ *  maishu-chitu-service v1.10.0
  *  https://github.com/ansiboy/services-sdk
  *  
  *  Copyright (c) 2016-2018, shu mai <ansiboy@163.com>
@@ -184,9 +184,52 @@ exports.Callbacks = Callbacks;
 "use strict";
 
 
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+var Errors =
+/*#__PURE__*/
+function () {
+  function Errors() {
+    _classCallCheck(this, Errors);
+  }
+
+  _createClass(Errors, [{
+    key: "argumentNull",
+    value: function argumentNull(argumentName) {
+      var error = new Error("Argument ".concat(argumentName, " cannt be null or emtpy."));
+      error.name = Errors.prototype.argumentNull.name;
+      return error;
+    }
+  }, {
+    key: "routeDataFieldNull",
+    value: function routeDataFieldNull(fieldName) {
+      var msg = "The ".concat(fieldName, " field of route data cannt be null.");
+      var error = new Error(msg);
+      error.name = Errors.prototype.routeDataFieldNull.name;
+      return error;
+    }
+  }, {
+    key: "argumentFieldNull",
+    value: function argumentFieldNull(fieldName, argumentName) {
+      var msg = "The ".concat(fieldName, " field of ").concat(argumentName, " cannt be null.");
+      var error = new Error(msg);
+      error.name = Errors.prototype.argumentFieldNull.name;
+      return error;
+    }
+  }]);
+
+  return Errors;
+}();
+
+exports.Errors = Errors;
 exports.errors = {
   serviceUrlCanntNull: function serviceUrlCanntNull(serviceName) {
     var msg = "Service '".concat(serviceName, "' base url can not null.");
@@ -250,6 +293,10 @@ exports.CookieValueStore = value_store_1.CookieValueStore;
 var utility_1 = __webpack_require__(/*! ./utility */ "./out-es5/utility.js");
 
 exports.guid = utility_1.guid;
+
+var errors_1 = __webpack_require__(/*! ./errors */ "./out-es5/errors.js");
+
+exports.Errors = errors_1.Errors;
 //# sourceMappingURL=index.js.map
 
 
@@ -272,6 +319,12 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 var __awaiter = void 0 && (void 0).__awaiter || function (thisArg, _arguments, P, generator) {
+  function adopt(value) {
+    return value instanceof P ? value : new P(function (resolve) {
+      resolve(value);
+    });
+  }
+
   return new (P || (P = Promise))(function (resolve, reject) {
     function fulfilled(value) {
       try {
@@ -290,9 +343,7 @@ var __awaiter = void 0 && (void 0).__awaiter || function (thisArg, _arguments, P
     }
 
     function step(result) {
-      result.done ? resolve(result.value) : new P(function (resolve) {
-        resolve(result.value);
-      }).then(fulfilled, rejected);
+      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
     }
 
     step((generator = generator.apply(thisArg, _arguments || [])).next());
@@ -531,6 +582,7 @@ function () {
   return Service;
 }();
 
+exports.Service = Service;
 Service.settings = {
   ajaxTimeout: 30
 };
@@ -549,8 +601,6 @@ Service.isClass = function () {
 
   return isClass;
 }();
-
-exports.Service = Service;
 
 function _ajax(url, options) {
   return __awaiter(this, void 0, void 0,

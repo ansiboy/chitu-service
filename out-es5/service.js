@@ -7,6 +7,12 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 var __awaiter = void 0 && (void 0).__awaiter || function (thisArg, _arguments, P, generator) {
+  function adopt(value) {
+    return value instanceof P ? value : new P(function (resolve) {
+      resolve(value);
+    });
+  }
+
   return new (P || (P = Promise))(function (resolve, reject) {
     function fulfilled(value) {
       try {
@@ -25,9 +31,7 @@ var __awaiter = void 0 && (void 0).__awaiter || function (thisArg, _arguments, P
     }
 
     function step(result) {
-      result.done ? resolve(result.value) : new P(function (resolve) {
-        resolve(result.value);
-      }).then(fulfilled, rejected);
+      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
     }
 
     step((generator = generator.apply(thisArg, _arguments || [])).next());
@@ -266,6 +270,7 @@ function () {
   return Service;
 }();
 
+exports.Service = Service;
 Service.settings = {
   ajaxTimeout: 30
 };
@@ -284,8 +289,6 @@ Service.isClass = function () {
 
   return isClass;
 }();
-
-exports.Service = Service;
 
 function _ajax(url, options) {
   return __awaiter(this, void 0, void 0,

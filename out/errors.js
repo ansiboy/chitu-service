@@ -1,5 +1,25 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+class Errors {
+    argumentNull(argumentName) {
+        let error = new Error(`Argument ${argumentName} cannt be null or emtpy.`);
+        error.name = Errors.prototype.argumentNull.name;
+        return error;
+    }
+    routeDataFieldNull(fieldName) {
+        let msg = `The ${fieldName} field of route data cannt be null.`;
+        let error = new Error(msg);
+        error.name = Errors.prototype.routeDataFieldNull.name;
+        return error;
+    }
+    argumentFieldNull(fieldName, argumentName) {
+        let msg = `The ${fieldName} field of ${argumentName} cannt be null.`;
+        let error = new Error(msg);
+        error.name = Errors.prototype.argumentFieldNull.name;
+        return error;
+    }
+}
+exports.Errors = Errors;
 exports.errors = {
     serviceUrlCanntNull(serviceName) {
         let msg = `Service '${serviceName}' base url can not null.`;

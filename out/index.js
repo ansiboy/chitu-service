@@ -11,4 +11,6 @@ exports.LocalValueStore = value_store_1.LocalValueStore;
 exports.CookieValueStore = value_store_1.CookieValueStore;
 var utility_1 = require("./utility");
 exports.guid = utility_1.guid;
+var errors_1 = require("./errors");
+exports.Errors = errors_1.Errors;
 //# sourceMappingURL=index.js.map

@@ -1,6 +1,6 @@
 /*!
  * ~
- *  maishu-chitu-service v1.8.6
+ *  maishu-chitu-service v1.10.0
  *  https://github.com/ansiboy/services-sdk
  *  
  *  Copyright (c) 2016-2018, shu mai <ansiboy@163.com>
@@ -148,6 +148,26 @@ exports.Callbacks = Callbacks;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+class Errors {
+    argumentNull(argumentName) {
+        let error = new Error(`Argument ${argumentName} cannt be null or emtpy.`);
+        error.name = Errors.prototype.argumentNull.name;
+        return error;
+    }
+    routeDataFieldNull(fieldName) {
+        let msg = `The ${fieldName} field of route data cannt be null.`;
+        let error = new Error(msg);
+        error.name = Errors.prototype.routeDataFieldNull.name;
+        return error;
+    }
+    argumentFieldNull(fieldName, argumentName) {
+        let msg = `The ${fieldName} field of ${argumentName} cannt be null.`;
+        let error = new Error(msg);
+        error.name = Errors.prototype.argumentFieldNull.name;
+        return error;
+    }
+}
+exports.Errors = Errors;
 exports.errors = {
     serviceUrlCanntNull(serviceName) {
         let msg = `Service '${serviceName}' base url can not null.`;
@@ -199,6 +219,8 @@ exports.LocalValueStore = value_store_1.LocalValueStore;
 exports.CookieValueStore = value_store_1.CookieValueStore;
 var utility_1 = __webpack_require__(/*! ./utility */ "./out/utility.js");
 exports.guid = utility_1.guid;
+var errors_1 = __webpack_require__(/*! ./errors */ "./out/errors.js");
+exports.Errors = errors_1.Errors;
 //# sourceMappingURL=index.js.map
 
 /***/ }),
@@ -213,10 +235,11 @@ exports.guid = utility_1.guid;
 "use strict";
 
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
@@ -353,6 +376,7 @@ class Service {
         return this.ajax(url, { headers, data, method: 'delete' });
     }
 }
+exports.Service = Service;
 Service.settings = {
     ajaxTimeout: 30,
 };
@@ -369,7 +393,6 @@ Service.isClass = (function () {
     }
     return isClass;
 })();
-exports.Service = Service;
 function ajax(url, options) {
     return __awaiter(this, void 0, void 0, function* () {
         let response;

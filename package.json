@@ -1,42 +1,12 @@
 {
-  "_from": "maishu-chitu-service",
-  "_id": "maishu-chitu-service@1.7.0",
-  "_inBundle": false,
-  "_integrity": "sha512-FJ2JvKgWZ9ndxAplCDSW6wVSnD3EVDgdsoBDEYoge+dwGQXKc5C7FaUkhT1JwymyX/OFmOaiwWC7WKn+eEA/lw==",
-  "_location": "/maishu-chitu-service",
-  "_phantomChildren": {},
-  "_requested": {
-    "type": "tag",
-    "registry": true,
-    "raw": "maishu-chitu-service",
-    "name": "maishu-chitu-service",
-    "escapedName": "maishu-chitu-service",
-    "rawSpec": "",
-    "saveSpec": null,
-    "fetchSpec": "latest"
-  },
-  "_requiredBy": [
-    "#USER",
-    "/",
-    "/maishu-chitu",
-    "/maishu-chitu-react",
-    "/maishu-services-sdk"
-  ],
-  "_resolved": "https://registry.npmjs.org/maishu-chitu-service/-/maishu-chitu-service-1.7.0.tgz",
-  "_shasum": "5718adae8c1140bc4ffdbaf5ceb1e60b3711fd30",
-  "_spec": "maishu-chitu-service",
-  "_where": "D:\\projects\\jueying-web",
   "author": {
     "name": "mai.shu",
     "email": "ansiboy@163.com",
     "url": "http://github.com/ansiboy"
   },
-  "bundleDependencies": false,
   "dependencies": {
-    "maishu-services-sdk": "^1.9.5",
     "node-fetch": "^2.6.0"
   },
-  "deprecated": false,
   "devDependencies": {
     "@babel/core": "^7.4.4",
     "@babel/preset-env": "^7.4.4",
@@ -54,5 +24,5 @@
     "build": "grunt"
   },
   "types": "./out/index.d.ts",
-  "version": "1.8.6"
+  "version": "1.10.0"
 }

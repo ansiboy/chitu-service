@@ -1,3 +1,8 @@
+export declare class Errors {
+    argumentNull(argumentName: string): Error;
+    routeDataFieldNull(fieldName: string): Error;
+    argumentFieldNull(fieldName: string, argumentName: string): Error;
+}
 export declare let errors: {
     serviceUrlCanntNull(serviceName: string): Error;
     unexpectedNullResult(): Error;

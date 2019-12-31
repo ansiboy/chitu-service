@@ -10,19 +10,22 @@ export declare class ValueStore<T> {
     add(func: ValueChangedCallback<T | null>, sender?: any): ValueChangedCallback<T>;
     remove(func: ValueChangedCallback<T>): void;
     fire(value: T | null): void;
-    value: T | null;
+    get value(): T | null;
+    set value(value: T | null);
 }
 export declare class LocalValueStore<T> extends ValueStore<T> {
     private storageName;
     constructor(storageName: string);
-    value: T | null;
+    get value(): T | null;
+    set value(value: T | null);
     private static loadValue;
     private static saveValue;
 }
 export declare class CookieValueStore<T> extends ValueStore<T> {
     private storageName;
     constructor(storageName: string);
-    value: T | null;
+    get value(): T | null;
+    set value(value: T | null);
     private static loadValue;
     private static saveValue;
     private static setCookie;
