@@ -1,6 +1,6 @@
 /*!
  * ~
- *  maishu-chitu-service v1.10.0
+ *  maishu-chitu-service v1.11.0
  *  https://github.com/ansiboy/services-sdk
  *  
  *  Copyright (c) 2016-2018, shu mai <ansiboy@163.com>
