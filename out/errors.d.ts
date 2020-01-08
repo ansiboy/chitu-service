@@ -1,13 +1,6 @@
-export declare class Errors {
-    argumentNull(argumentName: string): Error;
-    routeDataFieldNull(fieldName: string): Error;
-    argumentFieldNull(fieldName: string, argumentName: string): Error;
-}
-export declare let errors: {
-    serviceUrlCanntNull(serviceName: string): Error;
-    unexpectedNullResult(): Error;
+import { Errors } from "maishu-toolkit";
+export { Errors } from "maishu-toolkit";
+declare class MyErrors extends Errors {
     unexpectedNullValue(name: string): Error;
-    argumentNull(name: string): Error;
-    fieldNull<T>(field: keyof T, itemName: string): Error;
-    instanceMessangerStart(): Error;
-};
+}
+export declare let errors: MyErrors;

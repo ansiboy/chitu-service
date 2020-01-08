@@ -5,6 +5,7 @@
     "url": "http://github.com/ansiboy"
   },
   "dependencies": {
+    "maishu-toolkit": "file:../toolkit",
     "node-fetch": "^2.6.0"
   },
   "devDependencies": {
