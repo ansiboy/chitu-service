@@ -1,75 +1,54 @@
 "use strict";
 
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var Errors =
+var maishu_toolkit_1 = require("maishu-toolkit");
+
+var maishu_toolkit_2 = require("maishu-toolkit");
+
+exports.Errors = maishu_toolkit_2.Errors;
+
+var MyErrors =
 /*#__PURE__*/
-function () {
-  function Errors() {
-    _classCallCheck(this, Errors);
+function (_maishu_toolkit_1$Err) {
+  _inherits(MyErrors, _maishu_toolkit_1$Err);
+
+  function MyErrors() {
+    _classCallCheck(this, MyErrors);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(MyErrors).apply(this, arguments));
   }
 
-  _createClass(Errors, [{
-    key: "argumentNull",
-    value: function argumentNull(argumentName) {
-      var error = new Error("Argument ".concat(argumentName, " cannt be null or emtpy."));
-      error.name = Errors.prototype.argumentNull.name;
-      return error;
-    }
-  }, {
-    key: "routeDataFieldNull",
-    value: function routeDataFieldNull(fieldName) {
-      var msg = "The ".concat(fieldName, " field of route data cannt be null.");
-      var error = new Error(msg);
-      error.name = Errors.prototype.routeDataFieldNull.name;
-      return error;
-    }
-  }, {
-    key: "argumentFieldNull",
-    value: function argumentFieldNull(fieldName, argumentName) {
-      var msg = "The ".concat(fieldName, " field of ").concat(argumentName, " cannt be null.");
-      var error = new Error(msg);
-      error.name = Errors.prototype.argumentFieldNull.name;
-      return error;
+  _createClass(MyErrors, [{
+    key: "unexpectedNullValue",
+    value: function unexpectedNullValue(name) {
+      var msg = "variable ".concat(name, " is unexpected null value.");
+      return new Error(msg);
     }
   }]);
 
-  return Errors;
-}();
+  return MyErrors;
+}(maishu_toolkit_1.Errors);
 
-exports.Errors = Errors;
-exports.errors = {
-  serviceUrlCanntNull: function serviceUrlCanntNull(serviceName) {
-    var msg = "Service '".concat(serviceName, "' base url can not null.");
-    return new Error(msg);
-  },
-  unexpectedNullResult: function unexpectedNullResult() {
-    var msg = "Null result is unexpected.";
-    return new Error(msg);
-  },
-  unexpectedNullValue: function unexpectedNullValue(name) {
-    var msg = "variable ".concat(name, " is unexpected null value.");
-    return new Error(msg);
-  },
-  argumentNull: function argumentNull(name) {
-    var msg = "Arugment ".concat(name, " cannt null or empty.");
-    return new Error(msg);
-  },
-  fieldNull: function fieldNull(field, itemName) {
-    var msg = "".concat(itemName, " ").concat(field, " cannt be null or empty");
-    return new Error(msg);
-  },
-  instanceMessangerStart: function instanceMessangerStart() {
-    var msg = "Instance messanger is start.";
-    return new Error(msg);
-  }
-};
+exports.errors = new MyErrors();
 //# sourceMappingURL=errors.js.map

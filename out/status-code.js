@@ -1,25 +1,29 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var StatusCodes;
-(function (StatusCodes) {
+var StatusCode;
+(function (StatusCode) {
     //=============================================
     // 成功的状态码，必须大于 200
-    StatusCodes[StatusCodes["login"] = 282] = "login";
-    StatusCodes[StatusCodes["logout"] = 283] = "logout";
+    StatusCode[StatusCode["Login"] = 282] = "Login";
+    StatusCode[StatusCode["Logout"] = 283] = "Logout";
     //=============================================
-    StatusCodes[StatusCodes["forbidden"] = 403] = "forbidden";
+    StatusCode[StatusCode["NotFound"] = 404] = "NotFound";
+    StatusCode[StatusCode["OK"] = 200] = "OK";
+    StatusCode[StatusCode["Redirect"] = 301] = "Redirect";
+    StatusCode[StatusCode["BadRequest"] = 400] = "BadRequest";
+    StatusCode[StatusCode["Forbidden"] = 403] = "Forbidden";
     //=============================================
     // 失败的状态码，必须小于或等于 700
-    StatusCodes[StatusCodes["argumentNull"] = 705] = "argumentNull";
+    StatusCode[StatusCode["ArgumentNull"] = 705] = "ArgumentNull";
     /** 字段为空 */
-    StatusCodes[StatusCodes["fieldNull"] = 709] = "fieldNull";
-    StatusCodes[StatusCodes["argumentTypeIncorrect"] = 710] = "argumentTypeIncorrect";
+    StatusCode[StatusCode["FieldNull"] = 709] = "FieldNull";
+    StatusCode[StatusCode["ArgumentTypeIncorrect"] = 710] = "ArgumentTypeIncorrect";
     /** 用户未登录 */
-    StatusCodes[StatusCodes["userNotLogin"] = 718] = "userNotLogin";
+    StatusCode[StatusCode["UserNotLogin"] = 718] = "UserNotLogin";
     /** 没有权限 */
-    StatusCodes[StatusCodes["noPermission"] = 726] = "noPermission";
-    StatusCodes[StatusCodes["userIdNull"] = 727] = "userIdNull";
+    StatusCode[StatusCode["NoPermission"] = 726] = "NoPermission";
+    StatusCode[StatusCode["UserIdNull"] = 727] = "UserIdNull";
     /** 指定 ID 的对象不存在 */
-    StatusCodes[StatusCodes["objectNotExistWithId"] = 728] = "objectNotExistWithId";
-})(StatusCodes = exports.StatusCodes || (exports.StatusCodes = {}));
+    StatusCode[StatusCode["ObjectNotExistWithId"] = 728] = "ObjectNotExistWithId";
+})(StatusCode = exports.StatusCode || (exports.StatusCode = {}));
 //# sourceMappingURL=status-code.js.map

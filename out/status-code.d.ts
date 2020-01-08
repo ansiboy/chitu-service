@@ -1,16 +1,20 @@
-export declare enum StatusCodes {
-    login = 282,
-    logout = 283,
-    forbidden = 403,
-    argumentNull = 705,
+export declare enum StatusCode {
+    Login = 282,
+    Logout = 283,
+    NotFound = 404,
+    OK = 200,
+    Redirect = 301,
+    BadRequest = 400,
+    Forbidden = 403,
+    ArgumentNull = 705,
     /** 字段为空 */
-    fieldNull = 709,
-    argumentTypeIncorrect = 710,
+    FieldNull = 709,
+    ArgumentTypeIncorrect = 710,
     /** 用户未登录 */
-    userNotLogin = 718,
+    UserNotLogin = 718,
     /** 没有权限 */
-    noPermission = 726,
-    userIdNull = 727,
+    NoPermission = 726,
+    UserIdNull = 727,
     /** 指定 ID 的对象不存在 */
-    objectNotExistWithId = 728
+    ObjectNotExistWithId = 728
 }

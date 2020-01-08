@@ -105,6 +105,270 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ({
 
+/***/ "../toolkit/dist/index.js":
+/*!********************************!*\
+  !*** ../toolkit/dist/index.js ***!
+  \********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global) {/*!
+ * ~
+ *  maishu-toolkit v1.0.0
+ *  https://github.com/ansiboy/toolkit
+ *  
+ *  Copyright (c) 2016-2018, shu mai <ansiboy@163.com>
+ *  Licensed under the MIT License.
+ * 
+ */
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(true)
+		module.exports = factory();
+	else { var i, a; }
+})(typeof window === 'undefined' ? global : window, function() {
+return /******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = "./out/index.js");
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ "./out/errors.js":
+/*!***********************!*\
+  !*** ./out/errors.js ***!
+  \***********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+class Errors {
+    argumentNull(argumentName) {
+        let error = new Error(`Argument ${argumentName} cannt be null or emtpy.`);
+        let name = "argumentNull";
+        error.name = name;
+        return error;
+    }
+    routeDataFieldNull(fieldName) {
+        let msg = `The ${fieldName} field of route data cannt be null.`;
+        let error = new Error(msg);
+        let name = "routeDataFieldNull";
+        error.name = name;
+        return error;
+    }
+    argumentFieldNull(fieldName, argumentName) {
+        let msg = `The ${fieldName} field of ${argumentName} cannt be null.`;
+        let error = new Error(msg);
+        let name = "argumentFieldNull";
+        error.name = name;
+        return error;
+    }
+    argumentTypeIncorrect(argumentName, expectedType) {
+        let msg = `Argument ${argumentName} type error, expected type is ${expectedType}.`;
+        let error = new Error(msg);
+        let name = "argumentTypeIncorrect";
+        error.name = name;
+        return error;
+    }
+}
+exports.Errors = Errors;
+exports.errors = new Errors();
+
+
+/***/ }),
+
+/***/ "./out/guid.js":
+/*!*********************!*\
+  !*** ./out/guid.js ***!
+  \*********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+function guid() {
+    function s4() {
+        return Math.floor((1 + Math.random()) * 0x10000)
+            .toString(16)
+            .substring(1);
+    }
+    return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+        s4() + '-' + s4() + s4() + s4();
+}
+exports.guid = guid;
+
+
+/***/ }),
+
+/***/ "./out/index.js":
+/*!**********************!*\
+  !*** ./out/index.js ***!
+  \**********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var guid_1 = __webpack_require__(/*! ./guid */ "./out/guid.js");
+exports.guid = guid_1.guid;
+var path_1 = __webpack_require__(/*! ./path */ "./out/path.js");
+exports.pathContact = path_1.pathContact;
+var errors_1 = __webpack_require__(/*! ./errors */ "./out/errors.js");
+exports.Errors = errors_1.Errors;
+
+
+/***/ }),
+
+/***/ "./out/path.js":
+/*!*********************!*\
+  !*** ./out/path.js ***!
+  \*********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+/** 连接多个路径 */
+function pathContact(...paths) {
+    paths = paths || [];
+    if (paths.length == 0)
+        return "";
+    if (paths.length == 1) {
+        return paths[0];
+    }
+    let str = paths.join("");
+    // 将一个或多个的 / 变为一个 /，例如：/shop/test// 转换为 /shop/test/
+    str = str.replace(/\/+/g, '/');
+    return str;
+}
+exports.pathContact = pathContact;
+
+
+/***/ })
+
+/******/ });
+});
+//# sourceMappingURL=index.js.map
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../chitu-service/node_modules/webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
+
+/***/ }),
+
+/***/ "./node_modules/webpack/buildin/global.js":
+/*!***********************************!*\
+  !*** (webpack)/buildin/global.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || new Function("return this")();
+} catch (e) {
+	// This works if the window reference is available
+	if (typeof window === "object") g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+
 /***/ "./out-es5/callback.js":
 /*!*****************************!*\
   !*** ./out-es5/callback.js ***!
@@ -184,78 +448,57 @@ exports.Callbacks = Callbacks;
 "use strict";
 
 
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var Errors =
+var maishu_toolkit_1 = __webpack_require__(/*! maishu-toolkit */ "../toolkit/dist/index.js");
+
+var maishu_toolkit_2 = __webpack_require__(/*! maishu-toolkit */ "../toolkit/dist/index.js");
+
+exports.Errors = maishu_toolkit_2.Errors;
+
+var MyErrors =
 /*#__PURE__*/
-function () {
-  function Errors() {
-    _classCallCheck(this, Errors);
+function (_maishu_toolkit_1$Err) {
+  _inherits(MyErrors, _maishu_toolkit_1$Err);
+
+  function MyErrors() {
+    _classCallCheck(this, MyErrors);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(MyErrors).apply(this, arguments));
   }
 
-  _createClass(Errors, [{
-    key: "argumentNull",
-    value: function argumentNull(argumentName) {
-      var error = new Error("Argument ".concat(argumentName, " cannt be null or emtpy."));
-      error.name = Errors.prototype.argumentNull.name;
-      return error;
-    }
-  }, {
-    key: "routeDataFieldNull",
-    value: function routeDataFieldNull(fieldName) {
-      var msg = "The ".concat(fieldName, " field of route data cannt be null.");
-      var error = new Error(msg);
-      error.name = Errors.prototype.routeDataFieldNull.name;
-      return error;
-    }
-  }, {
-    key: "argumentFieldNull",
-    value: function argumentFieldNull(fieldName, argumentName) {
-      var msg = "The ".concat(fieldName, " field of ").concat(argumentName, " cannt be null.");
-      var error = new Error(msg);
-      error.name = Errors.prototype.argumentFieldNull.name;
-      return error;
+  _createClass(MyErrors, [{
+    key: "unexpectedNullValue",
+    value: function unexpectedNullValue(name) {
+      var msg = "variable ".concat(name, " is unexpected null value.");
+      return new Error(msg);
     }
   }]);
 
-  return Errors;
-}();
+  return MyErrors;
+}(maishu_toolkit_1.Errors);
 
-exports.Errors = Errors;
-exports.errors = {
-  serviceUrlCanntNull: function serviceUrlCanntNull(serviceName) {
-    var msg = "Service '".concat(serviceName, "' base url can not null.");
-    return new Error(msg);
-  },
-  unexpectedNullResult: function unexpectedNullResult() {
-    var msg = "Null result is unexpected.";
-    return new Error(msg);
-  },
-  unexpectedNullValue: function unexpectedNullValue(name) {
-    var msg = "variable ".concat(name, " is unexpected null value.");
-    return new Error(msg);
-  },
-  argumentNull: function argumentNull(name) {
-    var msg = "Arugment ".concat(name, " cannt null or empty.");
-    return new Error(msg);
-  },
-  fieldNull: function fieldNull(field, itemName) {
-    var msg = "".concat(itemName, " ").concat(field, " cannt be null or empty");
-    return new Error(msg);
-  },
-  instanceMessangerStart: function instanceMessangerStart() {
-    var msg = "Instance messanger is start.";
-    return new Error(msg);
-  }
-};
+exports.errors = new MyErrors();
 //# sourceMappingURL=errors.js.map
 
 
@@ -297,6 +540,11 @@ exports.guid = utility_1.guid;
 var errors_1 = __webpack_require__(/*! ./errors */ "./out-es5/errors.js");
 
 exports.Errors = errors_1.Errors;
+
+var status_code_1 = __webpack_require__(/*! ./status-code */ "./out-es5/status-code.js");
+
+exports.StatusCodes = status_code_1.StatusCode;
+exports.StatusCode = status_code_1.StatusCode;
 //# sourceMappingURL=index.js.map
 
 
@@ -679,6 +927,55 @@ function _ajax(url, options) {
   }));
 }
 //# sourceMappingURL=service.js.map
+
+
+/***/ }),
+
+/***/ "./out-es5/status-code.js":
+/*!********************************!*\
+  !*** ./out-es5/status-code.js ***!
+  \********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var StatusCode;
+
+(function (StatusCode) {
+  //=============================================
+  // 成功的状态码，必须大于 200
+  StatusCode[StatusCode["Login"] = 282] = "Login";
+  StatusCode[StatusCode["Logout"] = 283] = "Logout"; //=============================================
+
+  StatusCode[StatusCode["NotFound"] = 404] = "NotFound";
+  StatusCode[StatusCode["OK"] = 200] = "OK";
+  StatusCode[StatusCode["Redirect"] = 301] = "Redirect";
+  StatusCode[StatusCode["BadRequest"] = 400] = "BadRequest";
+  StatusCode[StatusCode["Forbidden"] = 403] = "Forbidden"; //=============================================
+  // 失败的状态码，必须小于或等于 700
+
+  StatusCode[StatusCode["ArgumentNull"] = 705] = "ArgumentNull";
+  /** 字段为空 */
+
+  StatusCode[StatusCode["FieldNull"] = 709] = "FieldNull";
+  StatusCode[StatusCode["ArgumentTypeIncorrect"] = 710] = "ArgumentTypeIncorrect";
+  /** 用户未登录 */
+
+  StatusCode[StatusCode["UserNotLogin"] = 718] = "UserNotLogin";
+  /** 没有权限 */
+
+  StatusCode[StatusCode["NoPermission"] = 726] = "NoPermission";
+  StatusCode[StatusCode["UserIdNull"] = 727] = "UserIdNull";
+  /** 指定 ID 的对象不存在 */
+
+  StatusCode[StatusCode["ObjectNotExistWithId"] = 728] = "ObjectNotExistWithId";
+})(StatusCode = exports.StatusCode || (exports.StatusCode = {}));
+//# sourceMappingURL=status-code.js.map
 
 
 /***/ }),
