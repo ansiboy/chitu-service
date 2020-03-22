@@ -6,6 +6,7 @@ export declare enum StatusCode {
     Redirect = 301,
     BadRequest = 400,
     Forbidden = 403,
+    CustomError = 700,
     ArgumentNull = 705,
     /** 字段为空 */
     FieldNull = 709,

@@ -14,6 +14,7 @@ var StatusCode;
     StatusCode[StatusCode["Forbidden"] = 403] = "Forbidden";
     //=============================================
     // 失败的状态码，必须小于或等于 700
+    StatusCode[StatusCode["CustomError"] = 700] = "CustomError";
     StatusCode[StatusCode["ArgumentNull"] = 705] = "ArgumentNull";
     /** 字段为空 */
     StatusCode[StatusCode["FieldNull"] = 709] = "FieldNull";
