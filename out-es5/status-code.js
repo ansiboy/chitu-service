@@ -3,7 +3,9 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.StatusCode = void 0;
 var StatusCode;
+exports.StatusCode = StatusCode;
 
 (function (StatusCode) {
   //=============================================
@@ -18,6 +20,7 @@ var StatusCode;
   StatusCode[StatusCode["Forbidden"] = 403] = "Forbidden"; //=============================================
   // 失败的状态码，必须小于或等于 700
 
+  StatusCode[StatusCode["CustomError"] = 700] = "CustomError";
   StatusCode[StatusCode["ArgumentNull"] = 705] = "ArgumentNull";
   /** 字段为空 */
 
@@ -33,5 +36,5 @@ var StatusCode;
   /** 指定 ID 的对象不存在 */
 
   StatusCode[StatusCode["ObjectNotExistWithId"] = 728] = "ObjectNotExistWithId";
-})(StatusCode = exports.StatusCode || (exports.StatusCode = {}));
+})(StatusCode || (exports.StatusCode = StatusCode = {}));
 //# sourceMappingURL=status-code.js.map

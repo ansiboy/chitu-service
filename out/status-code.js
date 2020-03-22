@@ -1,6 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var StatusCode;
+export var StatusCode;
 (function (StatusCode) {
     //=============================================
     // 成功的状态码，必须大于 200
@@ -26,5 +24,5 @@ var StatusCode;
     StatusCode[StatusCode["UserIdNull"] = 727] = "UserIdNull";
     /** 指定 ID 的对象不存在 */
     StatusCode[StatusCode["ObjectNotExistWithId"] = 728] = "ObjectNotExistWithId";
-})(StatusCode = exports.StatusCode || (exports.StatusCode = {}));
+})(StatusCode || (StatusCode = {}));
 //# sourceMappingURL=status-code.js.map

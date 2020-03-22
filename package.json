@@ -5,7 +5,7 @@
     "url": "http://github.com/ansiboy"
   },
   "dependencies": {
-    "maishu-toolkit": "file:../toolkit",
+    "maishu-toolkit": "^1.1.4",
     "node-fetch": "^2.6.0"
   },
   "devDependencies": {
@@ -25,5 +25,5 @@
     "build": "grunt"
   },
   "types": "./out/index.d.ts",
-  "version": "1.15.0"
+  "version": "1.18.2"
 }

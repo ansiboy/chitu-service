@@ -1,6 +1,4 @@
-import { Errors } from "maishu-toolkit";
-export { Errors } from "maishu-toolkit";
-declare class MyErrors extends Errors {
+export declare class Errors {
     unexpectedNullValue(name: string): Error;
 }
-export declare let errors: MyErrors;
+export declare let errors: Errors;

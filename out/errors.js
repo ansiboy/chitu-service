@@ -1,13 +1,10 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const maishu_toolkit_1 = require("maishu-toolkit");
-var maishu_toolkit_2 = require("maishu-toolkit");
-exports.Errors = maishu_toolkit_2.Errors;
-class MyErrors extends maishu_toolkit_1.Errors {
+// import { Errors } from "maishu-toolkit";
+// export { Errors } from "maishu-toolkit";
+export class Errors {
     unexpectedNullValue(name) {
         let msg = `variable ${name} is unexpected null value.`;
         return new Error(msg);
     }
 }
-exports.errors = new MyErrors();
+export let errors = new Errors();
 //# sourceMappingURL=errors.js.map

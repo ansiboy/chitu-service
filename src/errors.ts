@@ -1,12 +1,12 @@
-import { Errors } from "maishu-toolkit";
-export { Errors } from "maishu-toolkit";
+// import { Errors } from "maishu-toolkit";
+// export { Errors } from "maishu-toolkit";
 
-class MyErrors extends Errors {
+export class Errors {
     unexpectedNullValue(name: string) {
         let msg = `variable ${name} is unexpected null value.`
         return new Error(msg)
     }
 }
 
-export let errors = new MyErrors();
+export let errors = new Errors();
 

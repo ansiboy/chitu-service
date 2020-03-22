@@ -1,9 +1,7 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * 实现数据的存储，以及数据修改的通知
  */
-class ValueStore {
+export class ValueStore {
     constructor(value) {
         this.items = new Array();
         this._value = value;
@@ -34,8 +32,7 @@ class ValueStore {
         this.fire(value);
     }
 }
-exports.ValueStore = ValueStore;
-class LocalValueStore extends ValueStore {
+export class LocalValueStore extends ValueStore {
     constructor(storageName) {
         super(LocalValueStore.loadValue(storageName));
         this.storageName = storageName;
@@ -61,8 +58,7 @@ class LocalValueStore extends ValueStore {
         localStorage.setItem(storageName, JSON.stringify(value));
     }
 }
-exports.LocalValueStore = LocalValueStore;
-class CookieValueStore extends ValueStore {
+export class CookieValueStore extends ValueStore {
     constructor(storageName) {
         super(CookieValueStore.loadValue(storageName));
         this.storageName = storageName;
@@ -119,5 +115,4 @@ class CookieValueStore extends ValueStore {
         this.setCookie(name, '');
     }
 }
-exports.CookieValueStore = CookieValueStore;
 //# sourceMappingURL=value-store.js.map

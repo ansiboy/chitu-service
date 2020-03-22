@@ -1,5 +1,14 @@
 "use strict";
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Service = void 0;
+
+var _callback = require("./callback");
+
+var _errors = require("./errors");
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -38,14 +47,6 @@ var __awaiter = void 0 && (void 0).__awaiter || function (thisArg, _arguments, P
   });
 };
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var callback_1 = require("./callback");
-
-var errors_1 = require("./errors");
-
 var Service =
 /*#__PURE__*/
 function () {
@@ -54,7 +55,7 @@ function () {
 
     _classCallCheck(this, Service);
 
-    this.error = callback_1.Callbacks();
+    this.error = (0, _callback.Callbacks)();
 
     if (handleError) {
       this.error.add(function (sender, err) {
@@ -97,7 +98,7 @@ function () {
           method: method
         };
         var timeId;
-        if (options == null) throw errors_1.errors.unexpectedNullValue('options');
+        if (options == null) throw _errors.errors.unexpectedNullValue('options');
 
         if (method == 'get') {
           timeId = setTimeout(function () {

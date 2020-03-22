@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -8,12 +7,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-const callback_1 = require("./callback");
-const errors_1 = require("./errors");
-class Service {
+import { Callbacks } from "./callback";
+import { errors } from "./errors";
+export class Service {
     constructor(handleError) {
-        this.error = callback_1.Callbacks();
+        this.error = Callbacks();
         if (handleError) {
             this.error.add((sender, err) => {
                 handleError(err, this);
@@ -45,7 +43,7 @@ class Service {
             let options = { headers: headers, body, method };
             let timeId;
             if (options == null)
-                throw errors_1.errors.unexpectedNullValue('options');
+                throw errors.unexpectedNullValue('options');
             if (method == 'get') {
                 timeId = setTimeout(() => {
                     console.warn(`timeout url: ${url}`);
@@ -141,7 +139,6 @@ class Service {
         return this.ajax(url, { headers, data, method: 'delete' });
     }
 }
-exports.Service = Service;
 Service.settings = {
     ajaxTimeout: 30,
 };
