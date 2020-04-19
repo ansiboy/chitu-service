@@ -1,6 +1,6 @@
 /*!
  * ~
- *  maishu-chitu-service v1.18.2
+ *  maishu-chitu-service v1.19.2
  *  https://github.com/ansiboy/services-sdk
  *  
  *  Copyright (c) 2016-2018, shu mai <ansiboy@163.com>
@@ -208,6 +208,12 @@ function () {
     key: "unexpectedNullValue",
     value: function unexpectedNullValue(name) {
       var msg = "variable ".concat(name, " is unexpected null value.");
+      return new Error(msg);
+    }
+  }, {
+    key: "parseJSONFail",
+    value: function parseJSONFail(text) {
+      var msg = "Parse json string fail:\r\n".concat(text);
       return new Error(msg);
     }
   }]);
@@ -602,7 +608,8 @@ function _ajax(url, options) {
   return __awaiter(this, void 0, void 0,
   /*#__PURE__*/
   regeneratorRuntime.mark(function _callee() {
-    var response, responseText, p, text, textObject, isJSONContextType, err;
+    var response, responseText, p, text, textObject, isJSONContextType, err, _err;
+
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
@@ -646,7 +653,13 @@ function _ajax(url, options) {
             isJSONContextType = (response.headers.get('content-type') || '').indexOf('json') >= 0;
 
             if (isJSONContextType) {
-              textObject = text ? JSON.parse(text) : {};
+              try {
+                textObject = text ? JSON.parse(text) : {};
+              } catch (_a) {
+                err = _errors.errors.parseJSONFail(text);
+                console.error(err);
+                textObject = text;
+              }
             } else {
               textObject = text;
             }
@@ -656,12 +669,12 @@ function _ajax(url, options) {
               break;
             }
 
-            err = new Error();
-            err.method = options.method;
-            err.name = "".concat(response.status);
-            err.message = isJSONContextType ? textObject.Message || textObject.message || '' : textObject;
-            err.message = err.message || response.statusText;
-            throw err;
+            _err = new Error();
+            _err.method = options.method;
+            _err.name = "".concat(response.status);
+            _err.message = typeof textObject == "string" ? textObject : textObject.Message || textObject.message || '';
+            _err.message = _err.message || response.statusText;
+            throw _err;
 
           case 23:
             return _context.abrupt("return", textObject);

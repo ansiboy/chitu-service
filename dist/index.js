@@ -1,6 +1,6 @@
 /*!
  * ~
- *  maishu-chitu-service v1.18.2
+ *  maishu-chitu-service v1.19.2
  *  https://github.com/ansiboy/services-sdk
  *  
  *  Copyright (c) 2016-2018, shu mai <ansiboy@163.com>
@@ -153,6 +153,10 @@ __webpack_require__.r(__webpack_exports__);
 class Errors {
     unexpectedNullValue(name) {
         let msg = `variable ${name} is unexpected null value.`;
+        return new Error(msg);
+    }
+    parseJSONFail(text) {
+        let msg = `Parse json string fail:\r\n${text}`;
         return new Error(msg);
     }
 }
@@ -391,7 +395,14 @@ function ajax(url, options) {
         let textObject;
         let isJSONContextType = (response.headers.get('content-type') || '').indexOf('json') >= 0;
         if (isJSONContextType) {
-            textObject = text ? JSON.parse(text) : {};
+            try {
+                textObject = text ? JSON.parse(text) : {};
+            }
+            catch (_a) {
+                let err = _errors__WEBPACK_IMPORTED_MODULE_1__["errors"].parseJSONFail(text);
+                console.error(err);
+                textObject = text;
+            }
         }
         else {
             textObject = text;
@@ -400,7 +411,7 @@ function ajax(url, options) {
             let err = new Error();
             err.method = options.method;
             err.name = `${response.status}`;
-            err.message = isJSONContextType ? (textObject.Message || textObject.message || '') : textObject;
+            err.message = typeof textObject == "string" ? textObject : (textObject.Message || textObject.message || '');
             err.message = err.message || response.statusText;
             throw err;
         }

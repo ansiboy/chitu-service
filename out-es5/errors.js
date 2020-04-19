@@ -26,6 +26,12 @@ function () {
       var msg = "variable ".concat(name, " is unexpected null value.");
       return new Error(msg);
     }
+  }, {
+    key: "parseJSONFail",
+    value: function parseJSONFail(text) {
+      var msg = "Parse json string fail:\r\n".concat(text);
+      return new Error(msg);
+    }
   }]);
 
   return Errors;
