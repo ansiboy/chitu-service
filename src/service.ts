@@ -167,24 +167,24 @@ export class Service implements IService {
         let headers = { "content-type": 'application/x-www-form-urlencoded' };
         return this.ajax<T>(url, { headers, data, method: 'delete' });
     }
+}
 
-    private static isClass = (function () {
-        var toString = Function.prototype.toString;
+function formatData(data: any) {
 
-        function fnBody(fn: Function) {
-            return toString.call(fn).replace(/^[^{]*{\s*/, '').replace(/\s*}[^}]*$/, '');
+    if (typeof data == "object") {
+        for (let key in data) {
+            data[key] = formatData(data[key]);
         }
 
-        function isClass(fn: Function) {
-            return (typeof fn === 'function' &&
-                (/^class(\s|\{\}$)/.test(toString.call(fn)) ||
-                    (/^.*classCallCheck\(/.test(fnBody(fn)))) // babel.js
-            );
-        }
+        return data;
+    }
 
-        return isClass
-    })()
+    let datePattern = /\d{4}-\d{1,2}-\d{1,2}T\d{1,2}:\d{1,2}:\d{1,2}/;
+    if (typeof data == "string" && datePattern.test(data)) {
+        return new Date(data);
+    }
 
+    return data;
 }
 
 async function ajax<T>(url: string, options: RequestInit): Promise<T> {
@@ -235,5 +235,6 @@ async function ajax<T>(url: string, options: RequestInit): Promise<T> {
         throw err
     }
 
+    textObject = formatData(textObject);
     return textObject;
 }
