@@ -6,6 +6,10 @@ export class Errors {
         let msg = `variable ${name} is unexpected null value.`
         return new Error(msg)
     }
+    parseJSONFail(text: string) {
+        let msg = `Parse json string fail:\r\n${text}`;
+        return new Error(msg);
+    }
 }
 
 export let errors = new Errors();

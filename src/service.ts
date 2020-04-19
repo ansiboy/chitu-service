@@ -212,7 +212,14 @@ async function ajax<T>(url: string, options: RequestInit): Promise<T> {
     let textObject;
     let isJSONContextType = (response.headers.get('content-type') || '').indexOf('json') >= 0;
     if (isJSONContextType) {
-        textObject = text ? JSON.parse(text) : {};
+        try {
+            textObject = text ? JSON.parse(text) : {};
+        }
+        catch  {
+            let err = errors.parseJSONFail(text);
+            console.error(err);
+            textObject = text;
+        }
     }
     else {
         textObject = text;
@@ -222,7 +229,7 @@ async function ajax<T>(url: string, options: RequestInit): Promise<T> {
         let err: Error & { method?: string | undefined } = new Error();
         err.method = options.method;
         err.name = `${response.status}`;
-        err.message = isJSONContextType ? (textObject.Message || textObject.message || '') : textObject;
+        err.message = typeof textObject == "string" ? textObject : (textObject.Message || textObject.message || '');
         err.message = err.message || response.statusText;
 
         throw err
