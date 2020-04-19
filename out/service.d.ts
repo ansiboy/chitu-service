@@ -33,5 +33,4 @@ export declare class Service implements IService {
     put<T>(url: string, data?: any): Promise<T>;
     post<T>(url: string, data?: any): Promise<T>;
     delete<T>(url: string, data: any): Promise<T>;
-    private static isClass;
 }

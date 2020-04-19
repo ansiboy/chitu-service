@@ -358,19 +358,19 @@ class Service {
 Service.settings = {
     ajaxTimeout: 30,
 };
-Service.isClass = (function () {
-    var toString = Function.prototype.toString;
-    function fnBody(fn) {
-        return toString.call(fn).replace(/^[^{]*{\s*/, '').replace(/\s*}[^}]*$/, '');
+function formatData(data) {
+    if (typeof data == "object") {
+        for (let key in data) {
+            data[key] = formatData(data[key]);
+        }
+        return data;
     }
-    function isClass(fn) {
-        return (typeof fn === 'function' &&
-            (/^class(\s|\{\}$)/.test(toString.call(fn)) ||
-                (/^.*classCallCheck\(/.test(fnBody(fn)))) // babel.js
-        );
+    let datePattern = /\d{4}-\d{1,2}-\d{1,2}T\d{1,2}:\d{1,2}:\d{1,2}/;
+    if (typeof data == "string" && datePattern.test(data)) {
+        return new Date(data);
     }
-    return isClass;
-})();
+    return data;
+}
 function ajax(url, options) {
     return __awaiter(this, void 0, void 0, function* () {
         let response;
@@ -415,6 +415,7 @@ function ajax(url, options) {
             err.message = err.message || response.statusText;
             throw err;
         }
+        textObject = formatData(textObject);
         return textObject;
     });
 }

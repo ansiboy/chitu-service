@@ -9,6 +9,8 @@ var _callback = require("./callback");
 
 var _errors = require("./errors");
 
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -276,20 +278,23 @@ Service.settings = {
   ajaxTimeout: 30
 };
 
-Service.isClass = function () {
-  var toString = Function.prototype.toString;
+function formatData(data) {
+  if (_typeof(data) == "object") {
+    for (var key in data) {
+      data[key] = formatData(data[key]);
+    }
 
-  function fnBody(fn) {
-    return toString.call(fn).replace(/^[^{]*{\s*/, '').replace(/\s*}[^}]*$/, '');
+    return data;
   }
 
-  function isClass(fn) {
-    return typeof fn === 'function' && (/^class(\s|\{\}$)/.test(toString.call(fn)) || /^.*classCallCheck\(/.test(fnBody(fn))) // babel.js
-    ;
+  var datePattern = /\d{4}-\d{1,2}-\d{1,2}T\d{1,2}:\d{1,2}:\d{1,2}/;
+
+  if (typeof data == "string" && datePattern.test(data)) {
+    return new Date(data);
   }
 
-  return isClass;
-}();
+  return data;
+}
 
 function _ajax(url, options) {
   return __awaiter(this, void 0, void 0,
@@ -364,9 +369,10 @@ function _ajax(url, options) {
             throw _err;
 
           case 23:
+            textObject = formatData(textObject);
             return _context.abrupt("return", textObject);
 
-          case 24:
+          case 25:
           case "end":
             return _context.stop();
         }
