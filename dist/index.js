@@ -1,6 +1,6 @@
 /*!
  * ~
- *  maishu-chitu-service v1.19.2
+ *  maishu-chitu-service v1.19.3
  *  https://github.com/ansiboy/services-sdk
  *  
  *  Copyright (c) 2016-2018, shu mai <ansiboy@163.com>
@@ -13,9 +13,9 @@
 	else if(typeof define === 'function' && define.amd)
 		define([], factory);
 	else if(typeof exports === 'object')
-		exports["chitu_service"] = factory();
+		exports["chitu-service"] = factory();
 	else
-		root["chitu_service"] = factory();
+		root["chitu-service"] = factory();
 })(typeof window === 'undefined' ? global : window, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
