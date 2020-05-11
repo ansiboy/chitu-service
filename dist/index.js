@@ -1,6 +1,6 @@
 /*!
  * ~
- *  maishu-chitu-service v1.19.3
+ *  maishu-chitu-service v1.20.0
  *  https://github.com/ansiboy/services-sdk
  *  
  *  Copyright (c) 2016-2018, shu mai <ansiboy@163.com>
@@ -235,12 +235,11 @@ class Service {
         }
     }
     ajax(url, options) {
-        // options = options || {} as any
         if (options === undefined)
             options = {};
         let data = options.data;
         let method = options.method;
-        let headers = options.headers || {};
+        let headers = Object.assign({}, options.headers || {}, Service.headers);
         let body;
         if (data != null) {
             let is_json = (headers['content-type'] || '').indexOf('json') >= 0;
@@ -254,7 +253,6 @@ class Service {
                 }
             }
         }
-        // return callAjax<T>(url, { headers: headers as any, body, method }, this, this.error);
         return new Promise((reslove, reject) => {
             let options = { headers: headers, body, method };
             let timeId;
@@ -358,6 +356,7 @@ class Service {
 Service.settings = {
     ajaxTimeout: 30,
 };
+Service.headers = {};
 function formatData(data) {
     if (typeof data == "object") {
         for (let key in data) {

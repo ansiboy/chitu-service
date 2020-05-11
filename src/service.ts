@@ -19,6 +19,8 @@ export class Service implements IService {
         ajaxTimeout: 30,
     }
 
+    static headers: AjaxOptions["headers"] = {};
+
     constructor(handleError?: (error: Error, sender: Service) => void) {
         if (handleError) {
             this.error.add((sender, err) => {
@@ -28,13 +30,12 @@ export class Service implements IService {
     }
 
     ajax<T>(url: string, options?: AjaxOptions): Promise<T | null> {
-        // options = options || {} as any
         if (options === undefined)
             options = {}
 
         let data = options.data;
         let method = options.method;
-        let headers = options.headers || {};
+        let headers = Object.assign({}, options.headers || {}, Service.headers);
         let body: string | URLSearchParams
 
         if (data != null) {
@@ -50,7 +51,6 @@ export class Service implements IService {
             }
         }
 
-        // return callAjax<T>(url, { headers: headers as any, body, method }, this, this.error);
         return new Promise<T>((reslove, reject) => {
             let options = { headers: headers, body, method }
             let timeId: number;

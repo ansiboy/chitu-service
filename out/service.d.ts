@@ -17,6 +17,7 @@ export declare class Service implements IService {
     static settings: {
         ajaxTimeout: number;
     };
+    static headers: AjaxOptions["headers"];
     constructor(handleError?: (error: Error, sender: Service) => void);
     ajax<T>(url: string, options?: AjaxOptions): Promise<T | null>;
     /**

@@ -71,11 +71,10 @@ function () {
     value: function ajax(url, options) {
       var _this2 = this;
 
-      // options = options || {} as any
       if (options === undefined) options = {};
       var data = options.data;
       var method = options.method;
-      var headers = options.headers || {};
+      var headers = Object.assign({}, options.headers || {}, Service.headers);
       var body;
 
       if (data != null) {
@@ -90,8 +89,7 @@ function () {
             body.append(key, data[key]);
           }
         }
-      } // return callAjax<T>(url, { headers: headers as any, body, method }, this, this.error);
-
+      }
 
       return new Promise(function (reslove, reject) {
         var options = {
@@ -277,6 +275,7 @@ exports.Service = Service;
 Service.settings = {
   ajaxTimeout: 30
 };
+Service.headers = {};
 
 function formatData(data) {
   if (_typeof(data) == "object") {

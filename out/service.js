@@ -19,12 +19,11 @@ export class Service {
         }
     }
     ajax(url, options) {
-        // options = options || {} as any
         if (options === undefined)
             options = {};
         let data = options.data;
         let method = options.method;
-        let headers = options.headers || {};
+        let headers = Object.assign({}, options.headers || {}, Service.headers);
         let body;
         if (data != null) {
             let is_json = (headers['content-type'] || '').indexOf('json') >= 0;
@@ -38,7 +37,6 @@ export class Service {
                 }
             }
         }
-        // return callAjax<T>(url, { headers: headers as any, body, method }, this, this.error);
         return new Promise((reslove, reject) => {
             let options = { headers: headers, body, method };
             let timeId;
@@ -142,6 +140,7 @@ export class Service {
 Service.settings = {
     ajaxTimeout: 30,
 };
+Service.headers = {};
 function formatData(data) {
     if (typeof data == "object") {
         for (let key in data) {
