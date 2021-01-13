@@ -2,7 +2,6 @@ const webpack = require('webpack');
 const pkg = require("./package.json");
 let license = `~
  ${pkg.name} v${pkg.version}
- https://github.com/ansiboy/services-sdk
  
  Copyright (c) 2016-2018, shu mai <ansiboy@163.com>
  Licensed under the MIT License.

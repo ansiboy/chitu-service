@@ -3,6 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.formatData = formatData;
 exports.Service = void 0;
 
 var _callback = require("./callback");

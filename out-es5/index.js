@@ -9,6 +9,12 @@ Object.defineProperty(exports, "Service", {
     return _service.Service;
   }
 });
+Object.defineProperty(exports, "formatData", {
+  enumerable: true,
+  get: function get() {
+    return _service.formatData;
+  }
+});
 Object.defineProperty(exports, "Callback", {
   enumerable: true,
   get: function get() {

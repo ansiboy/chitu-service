@@ -1,7 +1,6 @@
 /*!
  * ~
- *  maishu-chitu-service v1.20.0
- *  https://github.com/ansiboy/services-sdk
+ *  maishu-chitu-service v1.21.0
  *  
  *  Copyright (c) 2016-2018, shu mai <ansiboy@163.com>
  *  Licensed under the MIT License.
@@ -169,13 +168,15 @@ let errors = new Errors();
 /*!**********************!*\
   !*** ./out/index.js ***!
   \**********************/
-/*! exports provided: Service, Callback, Callbacks, ValueStore, LocalValueStore, CookieValueStore, StatusCodes, StatusCode */
+/*! exports provided: Service, formatData, Callback, Callbacks, ValueStore, LocalValueStore, CookieValueStore, StatusCodes, StatusCode */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./service */ "./out/service.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Service", function() { return _service__WEBPACK_IMPORTED_MODULE_0__["Service"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "formatData", function() { return _service__WEBPACK_IMPORTED_MODULE_0__["formatData"]; });
 
 /* harmony import */ var _callback__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./callback */ "./out/callback.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Callback", function() { return _callback__WEBPACK_IMPORTED_MODULE_1__["Callback"]; });
@@ -206,12 +207,13 @@ __webpack_require__.r(__webpack_exports__);
 /*!************************!*\
   !*** ./out/service.js ***!
   \************************/
-/*! exports provided: Service */
+/*! exports provided: Service, formatData */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Service", function() { return Service; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "formatData", function() { return formatData; });
 /* harmony import */ var _callback__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./callback */ "./out/callback.js");
 /* harmony import */ var _errors__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./errors */ "./out/errors.js");
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {

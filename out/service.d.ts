@@ -35,3 +35,4 @@ export declare class Service implements IService {
     post<T>(url: string, data?: any): Promise<T>;
     delete<T>(url: string, data: any): Promise<T>;
 }
+export declare function formatData(data: any): any;

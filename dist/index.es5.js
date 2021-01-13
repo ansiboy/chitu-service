@@ -1,7 +1,6 @@
 /*!
  * ~
- *  maishu-chitu-service v1.20.0
- *  https://github.com/ansiboy/services-sdk
+ *  maishu-chitu-service v1.21.0
  *  
  *  Copyright (c) 2016-2018, shu mai <ansiboy@163.com>
  *  Licensed under the MIT License.
@@ -248,6 +247,12 @@ Object.defineProperty(exports, "Service", {
     return _service.Service;
   }
 });
+Object.defineProperty(exports, "formatData", {
+  enumerable: true,
+  get: function get() {
+    return _service.formatData;
+  }
+});
 Object.defineProperty(exports, "Callback", {
   enumerable: true,
   get: function get() {
@@ -316,6 +321,7 @@ var _statusCode = __webpack_require__(/*! ./status-code */ "./out-es5/status-cod
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.formatData = formatData;
 exports.Service = void 0;
 
 var _callback = __webpack_require__(/*! ./callback */ "./out-es5/callback.js");

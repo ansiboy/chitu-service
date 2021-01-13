@@ -169,7 +169,7 @@ export class Service implements IService {
     }
 }
 
-function formatData(data: any) {
+export function formatData(data: any) {
 
     if (typeof data == "object") {
         for (let key in data) {

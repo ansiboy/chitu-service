@@ -141,7 +141,7 @@ Service.settings = {
     ajaxTimeout: 30,
 };
 Service.headers = {};
-function formatData(data) {
+export function formatData(data) {
     if (typeof data == "object") {
         for (let key in data) {
             data[key] = formatData(data[key]);
