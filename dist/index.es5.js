@@ -393,7 +393,7 @@ function () {
       if (options === undefined) options = {};
       var data = options.data;
       var method = options.method;
-      var headers = Object.assign({}, options.headers || {}, Service.headers);
+      var headers = Object.assign({}, Service.headers, options.headers || {});
       var body;
 
       if (data != null) {
@@ -465,14 +465,13 @@ function () {
     }
   }, {
     key: "getByJson",
-    value: function getByJson(url, data) {
+    value: function getByJson(url, data, headers) {
       if (data && Object.getOwnPropertyNames(data).length > 0) {
         url = "".concat(url, "?").concat(encodeURIComponent(JSON.stringify(data)));
       }
 
-      var headers = {
-        "content-type": 'application/json'
-      };
+      headers = headers || {};
+      headers["content-type"] = "'application/json";
       return this.ajax(url, {
         headers: headers,
         method: 'get'
@@ -480,10 +479,9 @@ function () {
     }
   }, {
     key: "putByJson",
-    value: function putByJson(url, data) {
-      var headers = {
-        "content-type": 'application/json'
-      };
+    value: function putByJson(url, data, headers) {
+      headers = headers || {};
+      headers["content-type"] = "'application/json";
       return this.ajax(url, {
         headers: headers,
         data: data,
@@ -492,10 +490,9 @@ function () {
     }
   }, {
     key: "postByJson",
-    value: function postByJson(url, data) {
-      var headers = {
-        "content-type": 'application/json'
-      };
+    value: function postByJson(url, data, headers) {
+      headers = headers || {};
+      headers["content-type"] = "'application/json";
       return this.ajax(url, {
         headers: headers,
         data: data,
@@ -504,10 +501,9 @@ function () {
     }
   }, {
     key: "deleteByJson",
-    value: function deleteByJson(url, data) {
-      var headers = {
-        "content-type": 'application/json'
-      };
+    value: function deleteByJson(url, data, headers) {
+      headers = headers || {};
+      headers["content-type"] = "'application/json";
       return this.ajax(url, {
         headers: headers,
         data: data,
@@ -526,7 +522,7 @@ function () {
     }
   }, {
     key: "get",
-    value: function get(url, data) {
+    value: function get(url, data, headers) {
       data = data || {};
       var params = "";
 
@@ -546,15 +542,15 @@ function () {
       }
 
       return this.ajax(url, {
+        headers: headers,
         method: 'get'
       });
     }
   }, {
     key: "put",
-    value: function put(url, data) {
-      var headers = {
-        "content-type": 'application/x-www-form-urlencoded'
-      };
+    value: function put(url, data, headers) {
+      headers = headers || {};
+      headers["content-type"] = "application/x-www-form-urlencoded";
       return this.ajax(url, {
         headers: headers,
         data: data,
@@ -563,10 +559,9 @@ function () {
     }
   }, {
     key: "post",
-    value: function post(url, data) {
-      var headers = {
-        "content-type": 'application/x-www-form-urlencoded'
-      };
+    value: function post(url, data, headers) {
+      headers = headers || {};
+      headers["content-type"] = "application/x-www-form-urlencoded";
       return this.ajax(url, {
         headers: headers,
         data: data,
@@ -575,10 +570,9 @@ function () {
     }
   }, {
     key: "delete",
-    value: function _delete(url, data) {
-      var headers = {
-        "content-type": 'application/x-www-form-urlencoded'
-      };
+    value: function _delete(url, data, headers) {
+      headers = headers || {};
+      headers["content-type"] = "application/x-www-form-urlencoded";
       return this.ajax(url, {
         headers: headers,
         data: data,

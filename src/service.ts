@@ -35,7 +35,7 @@ export class Service implements IService {
 
         let data = options.data;
         let method = options.method;
-        let headers = Object.assign({}, options.headers || {}, Service.headers);
+        let headers = Object.assign({}, Service.headers, options.headers || {});
         let body: string | URLSearchParams
 
         if (data != null) {
@@ -98,27 +98,31 @@ export class Service implements IService {
         return service;
     }
 
-    getByJson<T>(url: string, data?: any) {
+    getByJson<T>(url: string, data?: any, headers?: AjaxOptions["headers"]) {
         if (data && Object.getOwnPropertyNames(data).length > 0) {
             url = `${url}?${encodeURIComponent(JSON.stringify(data))}`;
         }
 
-        let headers = { "content-type": 'application/json' };
+        headers = headers || {};
+        headers["content-type"] = "'application/json";
         return this.ajax<T>(url, { headers, method: 'get' })
     }
 
-    putByJson<T>(url: string, data?: any) {
-        let headers = { "content-type": 'application/json' };
+    putByJson<T>(url: string, data?: any, headers?: AjaxOptions["headers"]) {
+        headers = headers || {};
+        headers["content-type"] = "'application/json";
         return this.ajax<T>(url, { headers, data, method: 'put' });
     }
 
-    postByJson<T>(url: string, data?: any) {
-        let headers = { "content-type": 'application/json' };
+    postByJson<T>(url: string, data?: any, headers?: AjaxOptions["headers"]) {
+        headers = headers || {};
+        headers["content-type"] = "'application/json";
         return this.ajax<T>(url, { headers, data, method: 'post' });
     }
 
-    deleteByJson<T>(url: string, data: any) {
-        let headers = { "content-type": 'application/json' };
+    deleteByJson<T>(url: string, data: any, headers?: AjaxOptions["headers"]) {
+        headers = headers || {};
+        headers["content-type"] = "'application/json";
         return this.ajax<T>(url, { headers, data, method: 'delete' });
     }
 
@@ -132,7 +136,7 @@ export class Service implements IService {
         }
     }
 
-    get<T>(url: string, data?: any) {
+    get<T>(url: string, data?: any, headers?: AjaxOptions["headers"]) {
         data = data || {};
         let params = "";
         for (let key in data) {
@@ -150,21 +154,24 @@ export class Service implements IService {
             url = `${url}?${params}`;
         }
 
-        return this.ajax<T>(url, { method: 'get' })
+        return this.ajax<T>(url, { headers, method: 'get' })
     }
 
-    put<T>(url: string, data?: any) {
-        let headers = { "content-type": 'application/x-www-form-urlencoded' };
+    put<T>(url: string, data?: any, headers?: AjaxOptions["headers"]) {
+        headers = headers || {};
+        headers["content-type"] = "application/x-www-form-urlencoded";
         return this.ajax<T>(url, { headers, data, method: 'put' });
     }
 
-    post<T>(url: string, data?: any) {
-        let headers = { "content-type": 'application/x-www-form-urlencoded' };
+    post<T>(url: string, data?: any, headers?: AjaxOptions["headers"]) {
+        headers = headers || {};
+        headers["content-type"] = "application/x-www-form-urlencoded";
         return this.ajax<T>(url, { headers, data, method: 'post', });
     }
 
-    delete<T>(url: string, data: any) {
-        let headers = { "content-type": 'application/x-www-form-urlencoded' };
+    delete<T>(url: string, data: any, headers?: AjaxOptions["headers"]) {
+        headers = headers || {};
+        headers["content-type"] = "application/x-www-form-urlencoded";
         return this.ajax<T>(url, { headers, data, method: 'delete' });
     }
 }
@@ -215,7 +222,7 @@ async function ajax<T>(url: string, options: RequestInit): Promise<T> {
         try {
             textObject = text ? JSON.parse(text) : {};
         }
-        catch  {
+        catch {
             let err = errors.parseJSONFail(text);
             console.error(err);
             textObject = text;

@@ -241,7 +241,7 @@ class Service {
             options = {};
         let data = options.data;
         let method = options.method;
-        let headers = Object.assign({}, options.headers || {}, Service.headers);
+        let headers = Object.assign({}, Service.headers, options.headers || {});
         let body;
         if (data != null) {
             let is_json = (headers['content-type'] || '').indexOf('json') >= 0;
@@ -297,23 +297,27 @@ class Service {
         });
         return service;
     }
-    getByJson(url, data) {
+    getByJson(url, data, headers) {
         if (data && Object.getOwnPropertyNames(data).length > 0) {
             url = `${url}?${encodeURIComponent(JSON.stringify(data))}`;
         }
-        let headers = { "content-type": 'application/json' };
+        headers = headers || {};
+        headers["content-type"] = "'application/json";
         return this.ajax(url, { headers, method: 'get' });
     }
-    putByJson(url, data) {
-        let headers = { "content-type": 'application/json' };
+    putByJson(url, data, headers) {
+        headers = headers || {};
+        headers["content-type"] = "'application/json";
         return this.ajax(url, { headers, data, method: 'put' });
     }
-    postByJson(url, data) {
-        let headers = { "content-type": 'application/json' };
+    postByJson(url, data, headers) {
+        headers = headers || {};
+        headers["content-type"] = "'application/json";
         return this.ajax(url, { headers, data, method: 'post' });
     }
-    deleteByJson(url, data) {
-        let headers = { "content-type": 'application/json' };
+    deleteByJson(url, data, headers) {
+        headers = headers || {};
+        headers["content-type"] = "'application/json";
         return this.ajax(url, { headers, data, method: 'delete' });
     }
     isEncoded(uri) {
@@ -325,7 +329,7 @@ class Service {
             return false;
         }
     }
-    get(url, data) {
+    get(url, data, headers) {
         data = data || {};
         let params = "";
         for (let key in data) {
@@ -340,18 +344,21 @@ class Service {
         if (params) {
             url = `${url}?${params}`;
         }
-        return this.ajax(url, { method: 'get' });
+        return this.ajax(url, { headers, method: 'get' });
     }
-    put(url, data) {
-        let headers = { "content-type": 'application/x-www-form-urlencoded' };
+    put(url, data, headers) {
+        headers = headers || {};
+        headers["content-type"] = "application/x-www-form-urlencoded";
         return this.ajax(url, { headers, data, method: 'put' });
     }
-    post(url, data) {
-        let headers = { "content-type": 'application/x-www-form-urlencoded' };
+    post(url, data, headers) {
+        headers = headers || {};
+        headers["content-type"] = "application/x-www-form-urlencoded";
         return this.ajax(url, { headers, data, method: 'post', });
     }
-    delete(url, data) {
-        let headers = { "content-type": 'application/x-www-form-urlencoded' };
+    delete(url, data, headers) {
+        headers = headers || {};
+        headers["content-type"] = "application/x-www-form-urlencoded";
         return this.ajax(url, { headers, data, method: 'delete' });
     }
 }
