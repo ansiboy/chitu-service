@@ -1,6 +1,6 @@
 /*!
  * ~
- *  maishu-chitu-service v1.21.0
+ *  maishu-chitu-service v1.30.0
  *  
  *  Copyright (c) 2016-2018, shu mai <ansiboy@163.com>
  *  Licensed under the MIT License.
@@ -302,22 +302,22 @@ class Service {
             url = `${url}?${encodeURIComponent(JSON.stringify(data))}`;
         }
         headers = headers || {};
-        headers["content-type"] = "'application/json";
+        headers["content-type"] = "application/json";
         return this.ajax(url, { headers, method: 'get' });
     }
     putByJson(url, data, headers) {
         headers = headers || {};
-        headers["content-type"] = "'application/json";
+        headers["content-type"] = "application/json";
         return this.ajax(url, { headers, data, method: 'put' });
     }
     postByJson(url, data, headers) {
         headers = headers || {};
-        headers["content-type"] = "'application/json";
+        headers["content-type"] = "application/json";
         return this.ajax(url, { headers, data, method: 'post' });
     }
     deleteByJson(url, data, headers) {
         headers = headers || {};
-        headers["content-type"] = "'application/json";
+        headers["content-type"] = "application/json";
         return this.ajax(url, { headers, data, method: 'delete' });
     }
     isEncoded(uri) {

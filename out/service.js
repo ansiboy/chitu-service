@@ -84,22 +84,22 @@ export class Service {
             url = `${url}?${encodeURIComponent(JSON.stringify(data))}`;
         }
         headers = headers || {};
-        headers["content-type"] = "'application/json";
+        headers["content-type"] = "application/json";
         return this.ajax(url, { headers, method: 'get' });
     }
     putByJson(url, data, headers) {
         headers = headers || {};
-        headers["content-type"] = "'application/json";
+        headers["content-type"] = "application/json";
         return this.ajax(url, { headers, data, method: 'put' });
     }
     postByJson(url, data, headers) {
         headers = headers || {};
-        headers["content-type"] = "'application/json";
+        headers["content-type"] = "application/json";
         return this.ajax(url, { headers, data, method: 'post' });
     }
     deleteByJson(url, data, headers) {
         headers = headers || {};
-        headers["content-type"] = "'application/json";
+        headers["content-type"] = "application/json";
         return this.ajax(url, { headers, data, method: 'delete' });
     }
     isEncoded(uri) {

@@ -104,25 +104,25 @@ export class Service implements IService {
         }
 
         headers = headers || {};
-        headers["content-type"] = "'application/json";
+        headers["content-type"] = "application/json";
         return this.ajax<T>(url, { headers, method: 'get' })
     }
 
     putByJson<T>(url: string, data?: any, headers?: AjaxOptions["headers"]) {
         headers = headers || {};
-        headers["content-type"] = "'application/json";
+        headers["content-type"] = "application/json";
         return this.ajax<T>(url, { headers, data, method: 'put' });
     }
 
     postByJson<T>(url: string, data?: any, headers?: AjaxOptions["headers"]) {
         headers = headers || {};
-        headers["content-type"] = "'application/json";
+        headers["content-type"] = "application/json";
         return this.ajax<T>(url, { headers, data, method: 'post' });
     }
 
     deleteByJson<T>(url: string, data: any, headers?: AjaxOptions["headers"]) {
         headers = headers || {};
-        headers["content-type"] = "'application/json";
+        headers["content-type"] = "application/json";
         return this.ajax<T>(url, { headers, data, method: 'delete' });
     }
 

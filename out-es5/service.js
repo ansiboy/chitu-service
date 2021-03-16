@@ -153,7 +153,7 @@ function () {
       }
 
       headers = headers || {};
-      headers["content-type"] = "'application/json";
+      headers["content-type"] = "application/json";
       return this.ajax(url, {
         headers: headers,
         method: 'get'
@@ -163,7 +163,7 @@ function () {
     key: "putByJson",
     value: function putByJson(url, data, headers) {
       headers = headers || {};
-      headers["content-type"] = "'application/json";
+      headers["content-type"] = "application/json";
       return this.ajax(url, {
         headers: headers,
         data: data,
@@ -174,7 +174,7 @@ function () {
     key: "postByJson",
     value: function postByJson(url, data, headers) {
       headers = headers || {};
-      headers["content-type"] = "'application/json";
+      headers["content-type"] = "application/json";
       return this.ajax(url, {
         headers: headers,
         data: data,
@@ -185,7 +185,7 @@ function () {
     key: "deleteByJson",
     value: function deleteByJson(url, data, headers) {
       headers = headers || {};
-      headers["content-type"] = "'application/json";
+      headers["content-type"] = "application/json";
       return this.ajax(url, {
         headers: headers,
         data: data,

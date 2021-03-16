@@ -1,6 +1,6 @@
 /*!
  * ~
- *  maishu-chitu-service v1.21.0
+ *  maishu-chitu-service v1.30.0
  *  
  *  Copyright (c) 2016-2018, shu mai <ansiboy@163.com>
  *  Licensed under the MIT License.
@@ -471,7 +471,7 @@ function () {
       }
 
       headers = headers || {};
-      headers["content-type"] = "'application/json";
+      headers["content-type"] = "application/json";
       return this.ajax(url, {
         headers: headers,
         method: 'get'
@@ -481,7 +481,7 @@ function () {
     key: "putByJson",
     value: function putByJson(url, data, headers) {
       headers = headers || {};
-      headers["content-type"] = "'application/json";
+      headers["content-type"] = "application/json";
       return this.ajax(url, {
         headers: headers,
         data: data,
@@ -492,7 +492,7 @@ function () {
     key: "postByJson",
     value: function postByJson(url, data, headers) {
       headers = headers || {};
-      headers["content-type"] = "'application/json";
+      headers["content-type"] = "application/json";
       return this.ajax(url, {
         headers: headers,
         data: data,
@@ -503,7 +503,7 @@ function () {
     key: "deleteByJson",
     value: function deleteByJson(url, data, headers) {
       headers = headers || {};
-      headers["content-type"] = "'application/json";
+      headers["content-type"] = "application/json";
       return this.ajax(url, {
         headers: headers,
         data: data,
