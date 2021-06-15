@@ -1,6 +1,3 @@
-// import { Errors } from "maishu-toolkit";
-// export { Errors } from "maishu-toolkit";
-
 export class Errors {
     unexpectedNullValue(name: string) {
         let msg = `variable ${name} is unexpected null value.`

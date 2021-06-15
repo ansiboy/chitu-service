@@ -59,6 +59,7 @@ function () {
     _classCallCheck(this, Service);
 
     this.error = (0, _callback.Callbacks)();
+    this.headers = {};
 
     if (handleError) {
       this.error.add(function (sender, err) {
@@ -75,7 +76,7 @@ function () {
       if (options === undefined) options = {};
       var data = options.data;
       var method = options.method;
-      var headers = Object.assign({}, Service.headers, options.headers || {});
+      var headers = Object.assign({}, Service.headers, this.headers, options.headers || {});
       var body;
 
       if (data != null) {

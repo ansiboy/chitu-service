@@ -12,6 +12,7 @@ import { errors } from "./errors";
 export class Service {
     constructor(handleError) {
         this.error = Callbacks();
+        this.headers = {};
         if (handleError) {
             this.error.add((sender, err) => {
                 handleError(err, this);
@@ -23,7 +24,7 @@ export class Service {
             options = {};
         let data = options.data;
         let method = options.method;
-        let headers = Object.assign({}, Service.headers, options.headers || {});
+        let headers = Object.assign({}, Service.headers, this.headers, options.headers || {});
         let body;
         if (data != null) {
             let is_json = (headers['content-type'] || '').indexOf('json') >= 0;

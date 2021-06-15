@@ -1,6 +1,6 @@
 /*!
  * ~
- *  maishu-chitu-service v1.30.0
+ *  maishu-chitu-service v1.32.0
  *  
  *  Copyright (c) 2016-2018, shu mai <ansiboy@163.com>
  *  Licensed under the MIT License.
@@ -194,8 +194,6 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-// import { Errors } from "maishu-toolkit";
-// export { Errors } from "maishu-toolkit";
 var Errors =
 /*#__PURE__*/
 function () {
@@ -377,6 +375,7 @@ function () {
     _classCallCheck(this, Service);
 
     this.error = (0, _callback.Callbacks)();
+    this.headers = {};
 
     if (handleError) {
       this.error.add(function (sender, err) {
@@ -393,7 +392,7 @@ function () {
       if (options === undefined) options = {};
       var data = options.data;
       var method = options.method;
-      var headers = Object.assign({}, Service.headers, options.headers || {});
+      var headers = Object.assign({}, Service.headers, this.headers, options.headers || {});
       var body;
 
       if (data != null) {

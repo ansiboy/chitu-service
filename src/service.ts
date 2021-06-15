@@ -9,11 +9,13 @@ export type AjaxOptions = { data?: any, headers?: { [key: string]: string }, met
 
 export interface IService {
     error: Callback1<Service, Error>
+    headers: AjaxOptions["headers"]
 }
 
 export class Service implements IService {
 
     error = Callbacks<Service, Error>();
+    headers = {};
 
     static settings = {
         ajaxTimeout: 30,
@@ -35,7 +37,7 @@ export class Service implements IService {
 
         let data = options.data;
         let method = options.method;
-        let headers = Object.assign({}, Service.headers, options.headers || {});
+        let headers = Object.assign({}, Service.headers, this.headers, options.headers || {});
         let body: string | URLSearchParams
 
         if (data != null) {

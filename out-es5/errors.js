@@ -11,8 +11,6 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-// import { Errors } from "maishu-toolkit";
-// export { Errors } from "maishu-toolkit";
 var Errors =
 /*#__PURE__*/
 function () {

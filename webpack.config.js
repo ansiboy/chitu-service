@@ -17,7 +17,7 @@ module.exports = {
     },
     mode: 'development',
     devtool: 'source-map',
-    externals: ['node-fetch'],
+    externals: ['node-fetch', "maishu-toolkit"],
     plugins: [
         new webpack.BannerPlugin(license),
     ]

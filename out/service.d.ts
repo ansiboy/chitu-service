@@ -11,9 +11,11 @@ export declare type AjaxOptions = {
 };
 export interface IService {
     error: Callback1<Service, Error>;
+    headers: AjaxOptions["headers"];
 }
 export declare class Service implements IService {
     error: Callback1<Service, Error>;
+    headers: {};
     static settings: {
         ajaxTimeout: number;
     };

@@ -1,6 +1,6 @@
 /*!
  * ~
- *  maishu-chitu-service v1.30.0
+ *  maishu-chitu-service v1.32.0
  *  
  *  Copyright (c) 2016-2018, shu mai <ansiboy@163.com>
  *  Licensed under the MIT License.
@@ -147,8 +147,6 @@ function Callbacks() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Errors", function() { return Errors; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "errors", function() { return errors; });
-// import { Errors } from "maishu-toolkit";
-// export { Errors } from "maishu-toolkit";
 class Errors {
     unexpectedNullValue(name) {
         let msg = `variable ${name} is unexpected null value.`;
@@ -230,6 +228,7 @@ var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _argume
 class Service {
     constructor(handleError) {
         this.error = Object(_callback__WEBPACK_IMPORTED_MODULE_0__["Callbacks"])();
+        this.headers = {};
         if (handleError) {
             this.error.add((sender, err) => {
                 handleError(err, this);
@@ -241,7 +240,7 @@ class Service {
             options = {};
         let data = options.data;
         let method = options.method;
-        let headers = Object.assign({}, Service.headers, options.headers || {});
+        let headers = Object.assign({}, Service.headers, this.headers, options.headers || {});
         let body;
         if (data != null) {
             let is_json = (headers['content-type'] || '').indexOf('json') >= 0;
