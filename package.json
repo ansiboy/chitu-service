@@ -5,7 +5,7 @@
     "url": "http://github.com/ansiboy"
   },
   "dependencies": {
-    "node-fetch": "^2.6.0"
+    "node-fetch": "^2.6.1"
   },
   "devDependencies": {
     "@babel/core": "^7.4.4",
