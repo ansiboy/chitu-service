@@ -1,3 +1,10 @@
+export interface Error {
+    processed?: boolean,
+    name: string,
+    message: string,
+}
+
+
 export class Errors {
     unexpectedNullValue(name: string) {
         let msg = `variable ${name} is unexpected null value.`

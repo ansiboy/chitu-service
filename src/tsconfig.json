@@ -4,6 +4,7 @@
         "outDir": "../out",
         "declaration": true,
         "sourceMap": true,
-        "baseUrl": "./"
+        "baseUrl": "./",
+        "module": "commonjs"
     }
 }

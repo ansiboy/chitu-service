@@ -1,5 +1,5 @@
 import { Callbacks, Callback1 } from "./callback";
-import { errors } from "./errors";
+import { Error, errors } from "./errors";
 
 export interface ServiceConstructor<T> {
     new(): T
@@ -77,8 +77,13 @@ export class Service implements IService {
                         clearTimeout(timeId);
                 })
                 .catch(err => {
-                    reject(err);
+                    if (typeof err == "object") {
+                        err.detail = `Execute url '${url}' by method ${options.method} fail.`
+                    }
+
                     this.error.fire(this, err);
+                    if ((err as Error).processed != true)
+                        reject(err);
 
                     if (timeId)
                         clearTimeout(timeId);
