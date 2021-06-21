@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -7,11 +8,19 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { Callbacks } from "./callback";
-import { errors } from "./errors";
-export class Service {
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.formatData = exports.Service = void 0;
+const callback_1 = require("./callback");
+const errors_1 = require("./errors");
+let methods = {
+    get: "get",
+    put: "put",
+    post: "post",
+    delete: "delete"
+};
+class Service {
     constructor(handleError) {
-        this.error = Callbacks();
+        this.error = callback_1.Callbacks();
         this.headers = {};
         if (handleError) {
             this.error.add((sender, err) => {
@@ -23,7 +32,7 @@ export class Service {
         if (options === undefined)
             options = {};
         let data = options.data;
-        let method = options.method;
+        let method = options.method || methods.get;
         let headers = Object.assign({}, Service.headers, this.headers, options.headers || {});
         let body;
         if (data != null) {
@@ -39,11 +48,11 @@ export class Service {
             }
         }
         return new Promise((reslove, reject) => {
-            let options = { headers: headers, body, method };
+            let options = method == methods.get ? { headers, method } : { headers, body, method };
             let timeId;
             if (options == null)
-                throw errors.unexpectedNullValue('options');
-            if (method == 'get') {
+                throw errors_1.errors.unexpectedNullValue('options');
+            if (method == methods.get) {
                 timeId = setTimeout(() => {
                     console.warn(`timeout url: ${url}`);
                     let err = new Error(); //new AjaxError(options.method);
@@ -61,8 +70,16 @@ export class Service {
                     clearTimeout(timeId);
             })
                 .catch(err => {
-                reject(err);
+                if (typeof err == "object") {
+                    err.detail = `Execute url '${url}' by method ${options.method} fail.`;
+                }
                 this.error.fire(this, err);
+                if (err.processed !== undefined) {
+                    reslove(err.processed);
+                }
+                else {
+                    reject(err);
+                }
                 if (timeId)
                     clearTimeout(timeId);
             });
@@ -86,22 +103,22 @@ export class Service {
         }
         headers = headers || {};
         headers["content-type"] = "application/json";
-        return this.ajax(url, { headers, method: 'get' });
+        return this.ajax(url, { headers, method: methods.get });
     }
     putByJson(url, data, headers) {
         headers = headers || {};
         headers["content-type"] = "application/json";
-        return this.ajax(url, { headers, data, method: 'put' });
+        return this.ajax(url, { headers, data, method: methods.put });
     }
     postByJson(url, data, headers) {
         headers = headers || {};
         headers["content-type"] = "application/json";
-        return this.ajax(url, { headers, data, method: 'post' });
+        return this.ajax(url, { headers, data, method: methods.post });
     }
     deleteByJson(url, data, headers) {
         headers = headers || {};
         headers["content-type"] = "application/json";
-        return this.ajax(url, { headers, data, method: 'delete' });
+        return this.ajax(url, { headers, data, method: methods.delete });
     }
     isEncoded(uri) {
         try {
@@ -127,29 +144,30 @@ export class Service {
         if (params) {
             url = `${url}?${params}`;
         }
-        return this.ajax(url, { headers, method: 'get' });
+        return this.ajax(url, { headers, method: methods.get });
     }
     put(url, data, headers) {
         headers = headers || {};
         headers["content-type"] = "application/x-www-form-urlencoded";
-        return this.ajax(url, { headers, data, method: 'put' });
+        return this.ajax(url, { headers, data, method: methods.put });
     }
     post(url, data, headers) {
         headers = headers || {};
         headers["content-type"] = "application/x-www-form-urlencoded";
-        return this.ajax(url, { headers, data, method: 'post', });
+        return this.ajax(url, { headers, data, method: methods.post, });
     }
     delete(url, data, headers) {
         headers = headers || {};
         headers["content-type"] = "application/x-www-form-urlencoded";
-        return this.ajax(url, { headers, data, method: 'delete' });
+        return this.ajax(url, { headers, data, method: methods.delete });
     }
 }
+exports.Service = Service;
 Service.settings = {
     ajaxTimeout: 30,
 };
 Service.headers = {};
-export function formatData(data) {
+function formatData(data) {
     if (typeof data == "object") {
         for (let key in data) {
             data[key] = formatData(data[key]);
@@ -162,6 +180,7 @@ export function formatData(data) {
     }
     return data;
 }
+exports.formatData = formatData;
 function ajax(url, options) {
     return __awaiter(this, void 0, void 0, function* () {
         let response;
@@ -190,7 +209,7 @@ function ajax(url, options) {
                 textObject = text ? JSON.parse(text) : {};
             }
             catch (_a) {
-                let err = errors.parseJSONFail(text);
+                let err = errors_1.errors.parseJSONFail(text);
                 console.error(err);
                 textObject = text;
             }

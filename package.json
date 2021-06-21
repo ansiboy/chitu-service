@@ -18,11 +18,11 @@
     "webpack": "^4.30.0",
     "webpack-cli": "^3.3.0"
   },
-  "main": "./dist/index.js",
+  "main": "./out/index.js",
   "name": "maishu-chitu-service",
   "scripts": {
     "build": "grunt"
   },
   "types": "./out/index.d.ts",
-  "version": "1.32.0"
+  "version": "1.35.0"
 }

@@ -5,6 +5,7 @@
         "declaration": true,
         "sourceMap": true,
         "baseUrl": "./",
-        "module": "commonjs"
+        "module": "commonjs",
+        "strict": true
     }
 }

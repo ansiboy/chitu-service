@@ -5,7 +5,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.StatusCode = void 0;
 var StatusCode;
-exports.StatusCode = StatusCode;
 
 (function (StatusCode) {
   //=============================================
@@ -36,5 +35,5 @@ exports.StatusCode = StatusCode;
   /** 指定 ID 的对象不存在 */
 
   StatusCode[StatusCode["ObjectNotExistWithId"] = 728] = "ObjectNotExistWithId";
-})(StatusCode || (exports.StatusCode = StatusCode = {}));
+})(StatusCode = exports.StatusCode || (exports.StatusCode = {}));
 //# sourceMappingURL=status-code.js.map

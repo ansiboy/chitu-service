@@ -1,6 +1,6 @@
 /*!
  * ~
- *  maishu-chitu-service v1.32.0
+ *  maishu-chitu-service v1.35.0
  *  
  *  Copyright (c) 2016-2018, shu mai <ansiboy@163.com>
  *  Licensed under the MIT License.
@@ -108,13 +108,13 @@ return /******/ (function(modules) { // webpackBootstrap
 /*!*************************!*\
   !*** ./out/callback.js ***!
   \*************************/
-/*! exports provided: Callback, Callbacks */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Callback", function() { return Callback; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Callbacks", function() { return Callbacks; });
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Callbacks = exports.Callback = void 0;
 class Callback {
     constructor() {
         this.funcs = new Array();
@@ -129,9 +129,11 @@ class Callback {
         this.funcs.forEach(o => o(...args));
     }
 }
+exports.Callback = Callback;
 function Callbacks() {
     return new Callback();
 }
+exports.Callbacks = Callbacks;
 //# sourceMappingURL=callback.js.map
 
 /***/ }),
@@ -140,13 +142,13 @@ function Callbacks() {
 /*!***********************!*\
   !*** ./out/errors.js ***!
   \***********************/
-/*! exports provided: Errors, errors */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Errors", function() { return Errors; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "errors", function() { return errors; });
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.errors = exports.Errors = void 0;
 class Errors {
     unexpectedNullValue(name) {
         let msg = `variable ${name} is unexpected null value.`;
@@ -157,7 +159,8 @@ class Errors {
         return new Error(msg);
     }
 }
-let errors = new Errors();
+exports.Errors = Errors;
+exports.errors = new Errors();
 //# sourceMappingURL=errors.js.map
 
 /***/ }),
@@ -166,37 +169,26 @@ let errors = new Errors();
 /*!**********************!*\
   !*** ./out/index.js ***!
   \**********************/
-/*! exports provided: Service, formatData, Callback, Callbacks, ValueStore, LocalValueStore, CookieValueStore, StatusCodes, StatusCode */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./service */ "./out/service.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Service", function() { return _service__WEBPACK_IMPORTED_MODULE_0__["Service"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "formatData", function() { return _service__WEBPACK_IMPORTED_MODULE_0__["formatData"]; });
-
-/* harmony import */ var _callback__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./callback */ "./out/callback.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Callback", function() { return _callback__WEBPACK_IMPORTED_MODULE_1__["Callback"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Callbacks", function() { return _callback__WEBPACK_IMPORTED_MODULE_1__["Callbacks"]; });
-
-/* harmony import */ var _value_store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./value-store */ "./out/value-store.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ValueStore", function() { return _value_store__WEBPACK_IMPORTED_MODULE_2__["ValueStore"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LocalValueStore", function() { return _value_store__WEBPACK_IMPORTED_MODULE_2__["LocalValueStore"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "CookieValueStore", function() { return _value_store__WEBPACK_IMPORTED_MODULE_2__["CookieValueStore"]; });
-
-/* harmony import */ var _status_code__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./status-code */ "./out/status-code.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "StatusCodes", function() { return _status_code__WEBPACK_IMPORTED_MODULE_3__["StatusCode"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "StatusCode", function() { return _status_code__WEBPACK_IMPORTED_MODULE_3__["StatusCode"]; });
-
-
-
-
-
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.StatusCode = exports.StatusCodes = exports.CookieValueStore = exports.LocalValueStore = exports.ValueStore = exports.Callbacks = exports.Callback = exports.formatData = exports.Service = void 0;
+var service_1 = __webpack_require__(/*! ./service */ "./out/service.js");
+Object.defineProperty(exports, "Service", { enumerable: true, get: function () { return service_1.Service; } });
+Object.defineProperty(exports, "formatData", { enumerable: true, get: function () { return service_1.formatData; } });
+var callback_1 = __webpack_require__(/*! ./callback */ "./out/callback.js");
+Object.defineProperty(exports, "Callback", { enumerable: true, get: function () { return callback_1.Callback; } });
+Object.defineProperty(exports, "Callbacks", { enumerable: true, get: function () { return callback_1.Callbacks; } });
+var value_store_1 = __webpack_require__(/*! ./value-store */ "./out/value-store.js");
+Object.defineProperty(exports, "ValueStore", { enumerable: true, get: function () { return value_store_1.ValueStore; } });
+Object.defineProperty(exports, "LocalValueStore", { enumerable: true, get: function () { return value_store_1.LocalValueStore; } });
+Object.defineProperty(exports, "CookieValueStore", { enumerable: true, get: function () { return value_store_1.CookieValueStore; } });
+var status_code_1 = __webpack_require__(/*! ./status-code */ "./out/status-code.js");
+Object.defineProperty(exports, "StatusCodes", { enumerable: true, get: function () { return status_code_1.StatusCode; } });
+Object.defineProperty(exports, "StatusCode", { enumerable: true, get: function () { return status_code_1.StatusCode; } });
 //# sourceMappingURL=index.js.map
 
 /***/ }),
@@ -205,16 +197,12 @@ __webpack_require__.r(__webpack_exports__);
 /*!************************!*\
   !*** ./out/service.js ***!
   \************************/
-/*! exports provided: Service, formatData */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Service", function() { return Service; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "formatData", function() { return formatData; });
-/* harmony import */ var _callback__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./callback */ "./out/callback.js");
-/* harmony import */ var _errors__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./errors */ "./out/errors.js");
-var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -223,11 +211,19 @@ var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _argume
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-
-
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.formatData = exports.Service = void 0;
+const callback_1 = __webpack_require__(/*! ./callback */ "./out/callback.js");
+const errors_1 = __webpack_require__(/*! ./errors */ "./out/errors.js");
+let methods = {
+    get: "get",
+    put: "put",
+    post: "post",
+    delete: "delete"
+};
 class Service {
     constructor(handleError) {
-        this.error = Object(_callback__WEBPACK_IMPORTED_MODULE_0__["Callbacks"])();
+        this.error = callback_1.Callbacks();
         this.headers = {};
         if (handleError) {
             this.error.add((sender, err) => {
@@ -239,7 +235,7 @@ class Service {
         if (options === undefined)
             options = {};
         let data = options.data;
-        let method = options.method;
+        let method = options.method || methods.get;
         let headers = Object.assign({}, Service.headers, this.headers, options.headers || {});
         let body;
         if (data != null) {
@@ -255,11 +251,11 @@ class Service {
             }
         }
         return new Promise((reslove, reject) => {
-            let options = { headers: headers, body, method };
+            let options = method == methods.get ? { headers: headers, method } : { headers, body, method };
             let timeId;
             if (options == null)
-                throw _errors__WEBPACK_IMPORTED_MODULE_1__["errors"].unexpectedNullValue('options');
-            if (method == 'get') {
+                throw errors_1.errors.unexpectedNullValue('options');
+            if (method == methods.get) {
                 timeId = setTimeout(() => {
                     console.warn(`timeout url: ${url}`);
                     let err = new Error(); //new AjaxError(options.method);
@@ -277,8 +273,16 @@ class Service {
                     clearTimeout(timeId);
             })
                 .catch(err => {
-                reject(err);
+                if (typeof err == "object") {
+                    err.detail = `Execute url '${url}' by method ${options.method} fail.`;
+                }
                 this.error.fire(this, err);
+                if (err.processed !== undefined) {
+                    reslove(err.processed);
+                }
+                else {
+                    reject(err);
+                }
                 if (timeId)
                     clearTimeout(timeId);
             });
@@ -302,22 +306,22 @@ class Service {
         }
         headers = headers || {};
         headers["content-type"] = "application/json";
-        return this.ajax(url, { headers, method: 'get' });
+        return this.ajax(url, { headers, method: methods.get });
     }
     putByJson(url, data, headers) {
         headers = headers || {};
         headers["content-type"] = "application/json";
-        return this.ajax(url, { headers, data, method: 'put' });
+        return this.ajax(url, { headers, data, method: methods.put });
     }
     postByJson(url, data, headers) {
         headers = headers || {};
         headers["content-type"] = "application/json";
-        return this.ajax(url, { headers, data, method: 'post' });
+        return this.ajax(url, { headers, data, method: methods.post });
     }
     deleteByJson(url, data, headers) {
         headers = headers || {};
         headers["content-type"] = "application/json";
-        return this.ajax(url, { headers, data, method: 'delete' });
+        return this.ajax(url, { headers, data, method: methods.delete });
     }
     isEncoded(uri) {
         try {
@@ -343,24 +347,25 @@ class Service {
         if (params) {
             url = `${url}?${params}`;
         }
-        return this.ajax(url, { headers, method: 'get' });
+        return this.ajax(url, { headers, method: methods.get });
     }
     put(url, data, headers) {
         headers = headers || {};
         headers["content-type"] = "application/x-www-form-urlencoded";
-        return this.ajax(url, { headers, data, method: 'put' });
+        return this.ajax(url, { headers, data, method: methods.put });
     }
     post(url, data, headers) {
         headers = headers || {};
         headers["content-type"] = "application/x-www-form-urlencoded";
-        return this.ajax(url, { headers, data, method: 'post', });
+        return this.ajax(url, { headers, data, method: methods.post, });
     }
     delete(url, data, headers) {
         headers = headers || {};
         headers["content-type"] = "application/x-www-form-urlencoded";
-        return this.ajax(url, { headers, data, method: 'delete' });
+        return this.ajax(url, { headers, data, method: methods.delete });
     }
 }
+exports.Service = Service;
 Service.settings = {
     ajaxTimeout: 30,
 };
@@ -378,6 +383,7 @@ function formatData(data) {
     }
     return data;
 }
+exports.formatData = formatData;
 function ajax(url, options) {
     return __awaiter(this, void 0, void 0, function* () {
         let response;
@@ -406,7 +412,7 @@ function ajax(url, options) {
                 textObject = text ? JSON.parse(text) : {};
             }
             catch (_a) {
-                let err = _errors__WEBPACK_IMPORTED_MODULE_1__["errors"].parseJSONFail(text);
+                let err = errors_1.errors.parseJSONFail(text);
                 console.error(err);
                 textObject = text;
             }
@@ -434,12 +440,13 @@ function ajax(url, options) {
 /*!****************************!*\
   !*** ./out/status-code.js ***!
   \****************************/
-/*! exports provided: StatusCode */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "StatusCode", function() { return StatusCode; });
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.StatusCode = void 0;
 var StatusCode;
 (function (StatusCode) {
     //=============================================
@@ -466,7 +473,7 @@ var StatusCode;
     StatusCode[StatusCode["UserIdNull"] = 727] = "UserIdNull";
     /** 指定 ID 的对象不存在 */
     StatusCode[StatusCode["ObjectNotExistWithId"] = 728] = "ObjectNotExistWithId";
-})(StatusCode || (StatusCode = {}));
+})(StatusCode = exports.StatusCode || (exports.StatusCode = {}));
 //# sourceMappingURL=status-code.js.map
 
 /***/ }),
@@ -475,14 +482,13 @@ var StatusCode;
 /*!****************************!*\
   !*** ./out/value-store.js ***!
   \****************************/
-/*! exports provided: ValueStore, LocalValueStore, CookieValueStore */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ValueStore", function() { return ValueStore; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LocalValueStore", function() { return LocalValueStore; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CookieValueStore", function() { return CookieValueStore; });
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.CookieValueStore = exports.LocalValueStore = exports.ValueStore = void 0;
 /**
  * 实现数据的存储，以及数据修改的通知
  */
@@ -513,10 +519,11 @@ class ValueStore {
         return this._value;
     }
     set value(value) {
-        this._value = value;
+        this._value = value || undefined;
         this.fire(value);
     }
 }
+exports.ValueStore = ValueStore;
 class LocalValueStore extends ValueStore {
     constructor(storageName) {
         super(LocalValueStore.loadValue(storageName));
@@ -532,7 +539,7 @@ class LocalValueStore extends ValueStore {
     static loadValue(storageName) {
         let text = localStorage.getItem(storageName);
         if (text == null)
-            return null;
+            return undefined;
         return JSON.parse(text);
     }
     static saveValue(storageName, value) {
@@ -543,6 +550,7 @@ class LocalValueStore extends ValueStore {
         localStorage.setItem(storageName, JSON.stringify(value));
     }
 }
+exports.LocalValueStore = LocalValueStore;
 class CookieValueStore extends ValueStore {
     constructor(storageName) {
         super(CookieValueStore.loadValue(storageName));
@@ -558,7 +566,7 @@ class CookieValueStore extends ValueStore {
     static loadValue(storageName) {
         let text = CookieValueStore.getCookie(storageName);
         if (text == null)
-            return null;
+            return undefined;
         return JSON.parse(text);
     }
     static saveValue(storageName, value) {
@@ -600,6 +608,7 @@ class CookieValueStore extends ValueStore {
         this.setCookie(name, '');
     }
 }
+exports.CookieValueStore = CookieValueStore;
 //# sourceMappingURL=value-store.js.map
 
 /***/ })

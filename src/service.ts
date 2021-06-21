@@ -1,5 +1,5 @@
 import { Callbacks, Callback1 } from "./callback";
-import { Error, errors } from "./errors";
+import { errors } from "./errors";
 
 export interface ServiceConstructor<T> {
     new(): T
@@ -10,6 +10,13 @@ export type AjaxOptions = { data?: any, headers?: { [key: string]: string }, met
 export interface IService {
     error: Callback1<Service, Error>
     headers: AjaxOptions["headers"]
+}
+
+let methods = {
+    get: "get",
+    put: "put",
+    post: "post",
+    delete: "delete"
 }
 
 export class Service implements IService {
@@ -36,7 +43,7 @@ export class Service implements IService {
             options = {}
 
         let data = options.data;
-        let method = options.method;
+        let method = options.method || methods.get;
         let headers = Object.assign({}, Service.headers, this.headers, options.headers || {});
         let body: string | URLSearchParams
 
@@ -54,10 +61,10 @@ export class Service implements IService {
         }
 
         return new Promise<T>((reslove, reject) => {
-            let options = { headers: headers, body, method }
+            let options = method == methods.get ? { headers, method } : { headers, body, method }
             let timeId: number;
             if (options == null) throw errors.unexpectedNullValue('options')
-            if (method == 'get') {
+            if (method == methods.get) {
                 timeId = setTimeout(() => {
                     console.warn(`timeout url: ${url}`);
                     let err = new Error(); //new AjaxError(options.method);
@@ -82,8 +89,12 @@ export class Service implements IService {
                     }
 
                     this.error.fire(this, err);
-                    if ((err as Error).processed != true)
+                    if ((err as import("./errors").ServiceError).processed !== undefined) {
+                        reslove((err as import("./errors").ServiceError).processed)
+                    }
+                    else {
                         reject(err);
+                    }
 
                     if (timeId)
                         clearTimeout(timeId);
@@ -112,25 +123,25 @@ export class Service implements IService {
 
         headers = headers || {};
         headers["content-type"] = "application/json";
-        return this.ajax<T>(url, { headers, method: 'get' })
+        return this.ajax<T>(url, { headers, method: methods.get })
     }
 
     putByJson<T>(url: string, data?: any, headers?: AjaxOptions["headers"]) {
         headers = headers || {};
         headers["content-type"] = "application/json";
-        return this.ajax<T>(url, { headers, data, method: 'put' });
+        return this.ajax<T>(url, { headers, data, method: methods.put });
     }
 
     postByJson<T>(url: string, data?: any, headers?: AjaxOptions["headers"]) {
         headers = headers || {};
         headers["content-type"] = "application/json";
-        return this.ajax<T>(url, { headers, data, method: 'post' });
+        return this.ajax<T>(url, { headers, data, method: methods.post });
     }
 
     deleteByJson<T>(url: string, data: any, headers?: AjaxOptions["headers"]) {
         headers = headers || {};
         headers["content-type"] = "application/json";
-        return this.ajax<T>(url, { headers, data, method: 'delete' });
+        return this.ajax<T>(url, { headers, data, method: methods.delete });
     }
 
     private isEncoded(uri: string) {
@@ -161,25 +172,25 @@ export class Service implements IService {
             url = `${url}?${params}`;
         }
 
-        return this.ajax<T>(url, { headers, method: 'get' })
+        return this.ajax<T>(url, { headers, method: methods.get })
     }
 
     put<T>(url: string, data?: any, headers?: AjaxOptions["headers"]) {
         headers = headers || {};
         headers["content-type"] = "application/x-www-form-urlencoded";
-        return this.ajax<T>(url, { headers, data, method: 'put' });
+        return this.ajax<T>(url, { headers, data, method: methods.put });
     }
 
     post<T>(url: string, data?: any, headers?: AjaxOptions["headers"]) {
         headers = headers || {};
         headers["content-type"] = "application/x-www-form-urlencoded";
-        return this.ajax<T>(url, { headers, data, method: 'post', });
+        return this.ajax<T>(url, { headers, data, method: methods.post, });
     }
 
     delete<T>(url: string, data: any, headers?: AjaxOptions["headers"]) {
         headers = headers || {};
         headers["content-type"] = "application/x-www-form-urlencoded";
-        return this.ajax<T>(url, { headers, data, method: 'delete' });
+        return this.ajax<T>(url, { headers, data, method: methods.delete });
     }
 }
 

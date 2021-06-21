@@ -1,4 +1,7 @@
-export class Callback {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Callbacks = exports.Callback = void 0;
+class Callback {
     constructor() {
         this.funcs = new Array();
     }
@@ -12,7 +15,9 @@ export class Callback {
         this.funcs.forEach(o => o(...args));
     }
 }
-export function Callbacks() {
+exports.Callback = Callback;
+function Callbacks() {
     return new Callback();
 }
+exports.Callbacks = Callbacks;
 //# sourceMappingURL=callback.js.map

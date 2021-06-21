@@ -1,6 +1,6 @@
 /*!
  * ~
- *  maishu-chitu-service v1.32.0
+ *  maishu-chitu-service v1.35.0
  *  
  *  Copyright (c) 2016-2018, shu mai <ansiboy@163.com>
  *  Licensed under the MIT License.
@@ -114,17 +114,16 @@ return /******/ (function(modules) { // webpackBootstrap
 "use strict";
 
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.Callbacks = Callbacks;
-exports.Callback = void 0;
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Callbacks = exports.Callback = void 0;
 
 var Callback =
 /*#__PURE__*/
@@ -168,6 +167,8 @@ exports.Callback = Callback;
 function Callbacks() {
   return new Callback();
 }
+
+exports.Callbacks = Callbacks;
 //# sourceMappingURL=callback.js.map
 
 
@@ -183,16 +184,16 @@ function Callbacks() {
 "use strict";
 
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.errors = exports.Errors = void 0;
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.errors = exports.Errors = void 0;
 
 var Errors =
 /*#__PURE__*/
@@ -219,8 +220,7 @@ function () {
 }();
 
 exports.Errors = Errors;
-var errors = new Errors();
-exports.errors = errors;
+exports.errors = new Errors();
 //# sourceMappingURL=errors.js.map
 
 
@@ -239,68 +239,73 @@ exports.errors = errors;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.StatusCode = exports.StatusCodes = exports.CookieValueStore = exports.LocalValueStore = exports.ValueStore = exports.Callbacks = exports.Callback = exports.formatData = exports.Service = void 0;
+
+var service_1 = __webpack_require__(/*! ./service */ "./out-es5/service.js");
+
 Object.defineProperty(exports, "Service", {
   enumerable: true,
   get: function get() {
-    return _service.Service;
+    return service_1.Service;
   }
 });
 Object.defineProperty(exports, "formatData", {
   enumerable: true,
   get: function get() {
-    return _service.formatData;
+    return service_1.formatData;
   }
 });
+
+var callback_1 = __webpack_require__(/*! ./callback */ "./out-es5/callback.js");
+
 Object.defineProperty(exports, "Callback", {
   enumerable: true,
   get: function get() {
-    return _callback.Callback;
+    return callback_1.Callback;
   }
 });
 Object.defineProperty(exports, "Callbacks", {
   enumerable: true,
   get: function get() {
-    return _callback.Callbacks;
+    return callback_1.Callbacks;
   }
 });
+
+var value_store_1 = __webpack_require__(/*! ./value-store */ "./out-es5/value-store.js");
+
 Object.defineProperty(exports, "ValueStore", {
   enumerable: true,
   get: function get() {
-    return _valueStore.ValueStore;
+    return value_store_1.ValueStore;
   }
 });
 Object.defineProperty(exports, "LocalValueStore", {
   enumerable: true,
   get: function get() {
-    return _valueStore.LocalValueStore;
+    return value_store_1.LocalValueStore;
   }
 });
 Object.defineProperty(exports, "CookieValueStore", {
   enumerable: true,
   get: function get() {
-    return _valueStore.CookieValueStore;
+    return value_store_1.CookieValueStore;
   }
 });
+
+var status_code_1 = __webpack_require__(/*! ./status-code */ "./out-es5/status-code.js");
+
 Object.defineProperty(exports, "StatusCodes", {
   enumerable: true,
   get: function get() {
-    return _statusCode.StatusCode;
+    return status_code_1.StatusCode;
   }
 });
 Object.defineProperty(exports, "StatusCode", {
   enumerable: true,
   get: function get() {
-    return _statusCode.StatusCode;
+    return status_code_1.StatusCode;
   }
 });
-
-var _service = __webpack_require__(/*! ./service */ "./out-es5/service.js");
-
-var _callback = __webpack_require__(/*! ./callback */ "./out-es5/callback.js");
-
-var _valueStore = __webpack_require__(/*! ./value-store */ "./out-es5/value-store.js");
-
-var _statusCode = __webpack_require__(/*! ./status-code */ "./out-es5/status-code.js");
 //# sourceMappingURL=index.js.map
 
 
@@ -315,16 +320,6 @@ var _statusCode = __webpack_require__(/*! ./status-code */ "./out-es5/status-cod
 
 "use strict";
 
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.formatData = formatData;
-exports.Service = void 0;
-
-var _callback = __webpack_require__(/*! ./callback */ "./out-es5/callback.js");
-
-var _errors = __webpack_require__(/*! ./errors */ "./out-es5/errors.js");
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -366,6 +361,22 @@ var __awaiter = void 0 && (void 0).__awaiter || function (thisArg, _arguments, P
   });
 };
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.formatData = exports.Service = void 0;
+
+var callback_1 = __webpack_require__(/*! ./callback */ "./out-es5/callback.js");
+
+var errors_1 = __webpack_require__(/*! ./errors */ "./out-es5/errors.js");
+
+var methods = {
+  get: "get",
+  put: "put",
+  post: "post",
+  delete: "delete"
+};
+
 var Service =
 /*#__PURE__*/
 function () {
@@ -374,7 +385,7 @@ function () {
 
     _classCallCheck(this, Service);
 
-    this.error = (0, _callback.Callbacks)();
+    this.error = callback_1.Callbacks();
     this.headers = {};
 
     if (handleError) {
@@ -391,7 +402,7 @@ function () {
 
       if (options === undefined) options = {};
       var data = options.data;
-      var method = options.method;
+      var method = options.method || methods.get;
       var headers = Object.assign({}, Service.headers, this.headers, options.headers || {});
       var body;
 
@@ -410,15 +421,18 @@ function () {
       }
 
       return new Promise(function (reslove, reject) {
-        var options = {
+        var options = method == methods.get ? {
+          headers: headers,
+          method: method
+        } : {
           headers: headers,
           body: body,
           method: method
         };
         var timeId;
-        if (options == null) throw _errors.errors.unexpectedNullValue('options');
+        if (options == null) throw errors_1.errors.unexpectedNullValue('options');
 
-        if (method == 'get') {
+        if (method == methods.get) {
           timeId = setTimeout(function () {
             console.warn("timeout url: ".concat(url));
             var err = new Error(); //new AjaxError(options.method);
@@ -437,9 +451,17 @@ function () {
           reslove(data);
           if (timeId) clearTimeout(timeId);
         }).catch(function (err) {
-          reject(err);
+          if (_typeof(err) == "object") {
+            err.detail = "Execute url '".concat(url, "' by method ").concat(options.method, " fail.");
+          }
 
           _this2.error.fire(_this2, err);
+
+          if (err.processed !== undefined) {
+            reslove(err.processed);
+          } else {
+            reject(err);
+          }
 
           if (timeId) clearTimeout(timeId);
         });
@@ -473,7 +495,7 @@ function () {
       headers["content-type"] = "application/json";
       return this.ajax(url, {
         headers: headers,
-        method: 'get'
+        method: methods.get
       });
     }
   }, {
@@ -484,7 +506,7 @@ function () {
       return this.ajax(url, {
         headers: headers,
         data: data,
-        method: 'put'
+        method: methods.put
       });
     }
   }, {
@@ -495,7 +517,7 @@ function () {
       return this.ajax(url, {
         headers: headers,
         data: data,
-        method: 'post'
+        method: methods.post
       });
     }
   }, {
@@ -506,7 +528,7 @@ function () {
       return this.ajax(url, {
         headers: headers,
         data: data,
-        method: 'delete'
+        method: methods.delete
       });
     }
   }, {
@@ -542,7 +564,7 @@ function () {
 
       return this.ajax(url, {
         headers: headers,
-        method: 'get'
+        method: methods.get
       });
     }
   }, {
@@ -553,7 +575,7 @@ function () {
       return this.ajax(url, {
         headers: headers,
         data: data,
-        method: 'put'
+        method: methods.put
       });
     }
   }, {
@@ -564,7 +586,7 @@ function () {
       return this.ajax(url, {
         headers: headers,
         data: data,
-        method: 'post'
+        method: methods.post
       });
     }
   }, {
@@ -575,7 +597,7 @@ function () {
       return this.ajax(url, {
         headers: headers,
         data: data,
-        method: 'delete'
+        method: methods.delete
       });
     }
   }]);
@@ -606,6 +628,8 @@ function formatData(data) {
 
   return data;
 }
+
+exports.formatData = formatData;
 
 function _ajax(url, options) {
   return __awaiter(this, void 0, void 0,
@@ -659,7 +683,7 @@ function _ajax(url, options) {
               try {
                 textObject = text ? JSON.parse(text) : {};
               } catch (_a) {
-                err = _errors.errors.parseJSONFail(text);
+                err = errors_1.errors.parseJSONFail(text);
                 console.error(err);
                 textObject = text;
               }
@@ -711,7 +735,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.StatusCode = void 0;
 var StatusCode;
-exports.StatusCode = StatusCode;
 
 (function (StatusCode) {
   //=============================================
@@ -742,7 +765,7 @@ exports.StatusCode = StatusCode;
   /** 指定 ID 的对象不存在 */
 
   StatusCode[StatusCode["ObjectNotExistWithId"] = 728] = "ObjectNotExistWithId";
-})(StatusCode || (exports.StatusCode = StatusCode = {}));
+})(StatusCode = exports.StatusCode || (exports.StatusCode = {}));
 //# sourceMappingURL=status-code.js.map
 
 
@@ -757,11 +780,6 @@ exports.StatusCode = StatusCode;
 
 "use strict";
 
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.CookieValueStore = exports.LocalValueStore = exports.ValueStore = void 0;
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -791,9 +809,14 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.CookieValueStore = exports.LocalValueStore = exports.ValueStore = void 0;
 /**
  * 实现数据的存储，以及数据修改的通知
  */
+
 var ValueStore =
 /*#__PURE__*/
 function () {
@@ -843,7 +866,7 @@ function () {
       return this._value;
     },
     set: function set(value) {
-      this._value = value;
+      this._value = value || undefined;
       this.fire(value);
     }
   }]);
@@ -882,7 +905,7 @@ function (_ValueStore) {
     key: "loadValue",
     value: function loadValue(storageName) {
       var text = localStorage.getItem(storageName);
-      if (text == null) return null;
+      if (text == null) return undefined;
       return JSON.parse(text);
     }
   }, {
@@ -931,7 +954,7 @@ function (_ValueStore2) {
     key: "loadValue",
     value: function loadValue(storageName) {
       var text = CookieValueStore.getCookie(storageName);
-      if (text == null) return null;
+      if (text == null) return undefined;
       return JSON.parse(text);
     }
   }, {

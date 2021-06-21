@@ -27,14 +27,14 @@ export declare class Service implements IService {
      * @param type 服务类型
      */
     createService<T extends Service>(type?: ServiceConstructor<T>): T;
-    getByJson<T>(url: string, data?: any, headers?: AjaxOptions["headers"]): Promise<T>;
-    putByJson<T>(url: string, data?: any, headers?: AjaxOptions["headers"]): Promise<T>;
-    postByJson<T>(url: string, data?: any, headers?: AjaxOptions["headers"]): Promise<T>;
-    deleteByJson<T>(url: string, data: any, headers?: AjaxOptions["headers"]): Promise<T>;
+    getByJson<T>(url: string, data?: any, headers?: AjaxOptions["headers"]): Promise<T | null>;
+    putByJson<T>(url: string, data?: any, headers?: AjaxOptions["headers"]): Promise<T | null>;
+    postByJson<T>(url: string, data?: any, headers?: AjaxOptions["headers"]): Promise<T | null>;
+    deleteByJson<T>(url: string, data: any, headers?: AjaxOptions["headers"]): Promise<T | null>;
     private isEncoded;
-    get<T>(url: string, data?: any, headers?: AjaxOptions["headers"]): Promise<T>;
-    put<T>(url: string, data?: any, headers?: AjaxOptions["headers"]): Promise<T>;
-    post<T>(url: string, data?: any, headers?: AjaxOptions["headers"]): Promise<T>;
-    delete<T>(url: string, data: any, headers?: AjaxOptions["headers"]): Promise<T>;
+    get<T>(url: string, data?: any, headers?: AjaxOptions["headers"]): Promise<T | null>;
+    put<T>(url: string, data?: any, headers?: AjaxOptions["headers"]): Promise<T | null>;
+    post<T>(url: string, data?: any, headers?: AjaxOptions["headers"]): Promise<T | null>;
+    delete<T>(url: string, data: any, headers?: AjaxOptions["headers"]): Promise<T | null>;
 }
 export declare function formatData(data: any): any;

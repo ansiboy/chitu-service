@@ -1,10 +1,5 @@
 "use strict";
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.CookieValueStore = exports.LocalValueStore = exports.ValueStore = void 0;
-
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
@@ -33,9 +28,14 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.CookieValueStore = exports.LocalValueStore = exports.ValueStore = void 0;
 /**
  * 实现数据的存储，以及数据修改的通知
  */
+
 var ValueStore =
 /*#__PURE__*/
 function () {
@@ -85,7 +85,7 @@ function () {
       return this._value;
     },
     set: function set(value) {
-      this._value = value;
+      this._value = value || undefined;
       this.fire(value);
     }
   }]);
@@ -124,7 +124,7 @@ function (_ValueStore) {
     key: "loadValue",
     value: function loadValue(storageName) {
       var text = localStorage.getItem(storageName);
-      if (text == null) return null;
+      if (text == null) return undefined;
       return JSON.parse(text);
     }
   }, {
@@ -173,7 +173,7 @@ function (_ValueStore2) {
     key: "loadValue",
     value: function loadValue(storageName) {
       var text = CookieValueStore.getCookie(storageName);
-      if (text == null) return null;
+      if (text == null) return undefined;
       return JSON.parse(text);
     }
   }, {

@@ -1,4 +1,7 @@
-export class Errors {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.errors = exports.Errors = void 0;
+class Errors {
     unexpectedNullValue(name) {
         let msg = `variable ${name} is unexpected null value.`;
         return new Error(msg);
@@ -8,5 +11,6 @@ export class Errors {
         return new Error(msg);
     }
 }
-export let errors = new Errors();
+exports.Errors = Errors;
+exports.errors = new Errors();
 //# sourceMappingURL=errors.js.map

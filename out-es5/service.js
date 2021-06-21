@@ -1,15 +1,5 @@
 "use strict";
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.formatData = formatData;
-exports.Service = void 0;
-
-var _callback = require("./callback");
-
-var _errors = require("./errors");
-
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -50,6 +40,22 @@ var __awaiter = void 0 && (void 0).__awaiter || function (thisArg, _arguments, P
   });
 };
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.formatData = exports.Service = void 0;
+
+var callback_1 = require("./callback");
+
+var errors_1 = require("./errors");
+
+var methods = {
+  get: "get",
+  put: "put",
+  post: "post",
+  delete: "delete"
+};
+
 var Service =
 /*#__PURE__*/
 function () {
@@ -58,7 +64,7 @@ function () {
 
     _classCallCheck(this, Service);
 
-    this.error = (0, _callback.Callbacks)();
+    this.error = callback_1.Callbacks();
     this.headers = {};
 
     if (handleError) {
@@ -75,7 +81,7 @@ function () {
 
       if (options === undefined) options = {};
       var data = options.data;
-      var method = options.method;
+      var method = options.method || methods.get;
       var headers = Object.assign({}, Service.headers, this.headers, options.headers || {});
       var body;
 
@@ -94,15 +100,18 @@ function () {
       }
 
       return new Promise(function (reslove, reject) {
-        var options = {
+        var options = method == methods.get ? {
+          headers: headers,
+          method: method
+        } : {
           headers: headers,
           body: body,
           method: method
         };
         var timeId;
-        if (options == null) throw _errors.errors.unexpectedNullValue('options');
+        if (options == null) throw errors_1.errors.unexpectedNullValue('options');
 
-        if (method == 'get') {
+        if (method == methods.get) {
           timeId = setTimeout(function () {
             console.warn("timeout url: ".concat(url));
             var err = new Error(); //new AjaxError(options.method);
@@ -121,9 +130,17 @@ function () {
           reslove(data);
           if (timeId) clearTimeout(timeId);
         }).catch(function (err) {
-          reject(err);
+          if (_typeof(err) == "object") {
+            err.detail = "Execute url '".concat(url, "' by method ").concat(options.method, " fail.");
+          }
 
           _this2.error.fire(_this2, err);
+
+          if (err.processed !== undefined) {
+            reslove(err.processed);
+          } else {
+            reject(err);
+          }
 
           if (timeId) clearTimeout(timeId);
         });
@@ -157,7 +174,7 @@ function () {
       headers["content-type"] = "application/json";
       return this.ajax(url, {
         headers: headers,
-        method: 'get'
+        method: methods.get
       });
     }
   }, {
@@ -168,7 +185,7 @@ function () {
       return this.ajax(url, {
         headers: headers,
         data: data,
-        method: 'put'
+        method: methods.put
       });
     }
   }, {
@@ -179,7 +196,7 @@ function () {
       return this.ajax(url, {
         headers: headers,
         data: data,
-        method: 'post'
+        method: methods.post
       });
     }
   }, {
@@ -190,7 +207,7 @@ function () {
       return this.ajax(url, {
         headers: headers,
         data: data,
-        method: 'delete'
+        method: methods.delete
       });
     }
   }, {
@@ -226,7 +243,7 @@ function () {
 
       return this.ajax(url, {
         headers: headers,
-        method: 'get'
+        method: methods.get
       });
     }
   }, {
@@ -237,7 +254,7 @@ function () {
       return this.ajax(url, {
         headers: headers,
         data: data,
-        method: 'put'
+        method: methods.put
       });
     }
   }, {
@@ -248,7 +265,7 @@ function () {
       return this.ajax(url, {
         headers: headers,
         data: data,
-        method: 'post'
+        method: methods.post
       });
     }
   }, {
@@ -259,7 +276,7 @@ function () {
       return this.ajax(url, {
         headers: headers,
         data: data,
-        method: 'delete'
+        method: methods.delete
       });
     }
   }]);
@@ -290,6 +307,8 @@ function formatData(data) {
 
   return data;
 }
+
+exports.formatData = formatData;
 
 function _ajax(url, options) {
   return __awaiter(this, void 0, void 0,
@@ -343,7 +362,7 @@ function _ajax(url, options) {
               try {
                 textObject = text ? JSON.parse(text) : {};
               } catch (_a) {
-                err = _errors.errors.parseJSONFail(text);
+                err = errors_1.errors.parseJSONFail(text);
                 console.error(err);
                 textObject = text;
               }

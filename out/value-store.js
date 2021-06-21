@@ -1,7 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.CookieValueStore = exports.LocalValueStore = exports.ValueStore = void 0;
 /**
  * 实现数据的存储，以及数据修改的通知
  */
-export class ValueStore {
+class ValueStore {
     constructor(value) {
         this.items = new Array();
         this._value = value;
@@ -28,11 +31,12 @@ export class ValueStore {
         return this._value;
     }
     set value(value) {
-        this._value = value;
+        this._value = value || undefined;
         this.fire(value);
     }
 }
-export class LocalValueStore extends ValueStore {
+exports.ValueStore = ValueStore;
+class LocalValueStore extends ValueStore {
     constructor(storageName) {
         super(LocalValueStore.loadValue(storageName));
         this.storageName = storageName;
@@ -47,7 +51,7 @@ export class LocalValueStore extends ValueStore {
     static loadValue(storageName) {
         let text = localStorage.getItem(storageName);
         if (text == null)
-            return null;
+            return undefined;
         return JSON.parse(text);
     }
     static saveValue(storageName, value) {
@@ -58,7 +62,8 @@ export class LocalValueStore extends ValueStore {
         localStorage.setItem(storageName, JSON.stringify(value));
     }
 }
-export class CookieValueStore extends ValueStore {
+exports.LocalValueStore = LocalValueStore;
+class CookieValueStore extends ValueStore {
     constructor(storageName) {
         super(CookieValueStore.loadValue(storageName));
         this.storageName = storageName;
@@ -73,7 +78,7 @@ export class CookieValueStore extends ValueStore {
     static loadValue(storageName) {
         let text = CookieValueStore.getCookie(storageName);
         if (text == null)
-            return null;
+            return undefined;
         return JSON.parse(text);
     }
     static saveValue(storageName, value) {
@@ -115,4 +120,5 @@ export class CookieValueStore extends ValueStore {
         this.setCookie(name, '');
     }
 }
+exports.CookieValueStore = CookieValueStore;
 //# sourceMappingURL=value-store.js.map

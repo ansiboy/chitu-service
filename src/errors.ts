@@ -1,5 +1,5 @@
-export interface Error {
-    processed?: boolean,
+export interface ServiceError {
+    processed?: any,
     name: string,
     message: string,
 }

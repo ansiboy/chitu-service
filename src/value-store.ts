@@ -5,7 +5,7 @@ export type ValueChangedCallback<T> = (args: T, sender: any) => void;
  */
 export class ValueStore<T> {
     private items = new Array<{ func: ValueChangedCallback<T | null>, sender: any }>();
-    private _value: T | null;
+    private _value: T | undefined;
 
     constructor(value?: T) {
         this._value = value;
@@ -33,7 +33,7 @@ export class ValueStore<T> {
         return this._value;
     }
     set value(value: T | null) {
-        this._value = value;
+        this._value = value || undefined;
         this.fire(value);
     }
 }
@@ -48,16 +48,16 @@ export class LocalValueStore<T> extends ValueStore<T> {
     get value() {
         return super.value;
     }
-    
+
     set value(value: T | null) {
         super.value = value;
         LocalValueStore.saveValue(this.storageName, value);
     }
 
-    private static loadValue<T>(storageName): T | null {
+    private static loadValue<T>(storageName: string): T | undefined {
         let text = localStorage.getItem(storageName);
         if (text == null)
-            return null;
+            return undefined;
 
         return JSON.parse(text);
     }
@@ -87,12 +87,12 @@ export class CookieValueStore<T> extends ValueStore<T> {
         CookieValueStore.saveValue(this.storageName, value);
     }
 
-    private static loadValue<T>(storageName): T | null {
+    private static loadValue<T>(storageName: string): T | undefined {
         let text = CookieValueStore.getCookie(storageName);
         if (text == null)
-            return null;
+            return undefined;
 
-        return JSON.parse(text);
+        return JSON.parse(text) as T;
     }
 
     private static saveValue<T>(storageName: string, value: T | null) {
