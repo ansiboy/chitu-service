@@ -57,7 +57,7 @@ class Service {
                     console.warn(`timeout url: ${url}`);
                     let err = new Error(); //new AjaxError(options.method);
                     err.name = 'timeout';
-                    err.message = '网络连接超时';
+                    err.message = `Connect timeout, url: ${url}`;
                     reject(err);
                     this.error.fire(this, err);
                     clearTimeout(timeId);
@@ -174,7 +174,7 @@ function formatData(data) {
         }
         return data;
     }
-    let datePattern = /\d{4}-\d{1,2}-\d{1,2}T\d{1,2}:\d{1,2}:\d{1,2}/;
+    let datePattern = /^\d{4}-\d{1,2}-\d{1,2}T\d{1,2}:\d{1,2}:\d{1,2}/;
     if (typeof data == "string" && datePattern.test(data)) {
         return new Date(data);
     }

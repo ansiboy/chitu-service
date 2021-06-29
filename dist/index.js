@@ -1,6 +1,6 @@
 /*!
  * ~
- *  maishu-chitu-service v1.35.0
+ *  maishu-chitu-service v1.36.0
  *  
  *  Copyright (c) 2016-2018, shu mai <ansiboy@163.com>
  *  Licensed under the MIT License.
@@ -251,7 +251,7 @@ class Service {
             }
         }
         return new Promise((reslove, reject) => {
-            let options = method == methods.get ? { headers: headers, method } : { headers, body, method };
+            let options = method == methods.get ? { headers, method } : { headers, body, method };
             let timeId;
             if (options == null)
                 throw errors_1.errors.unexpectedNullValue('options');
@@ -260,7 +260,7 @@ class Service {
                     console.warn(`timeout url: ${url}`);
                     let err = new Error(); //new AjaxError(options.method);
                     err.name = 'timeout';
-                    err.message = '网络连接超时';
+                    err.message = `Connect timeout, url: ${url}`;
                     reject(err);
                     this.error.fire(this, err);
                     clearTimeout(timeId);
@@ -377,7 +377,7 @@ function formatData(data) {
         }
         return data;
     }
-    let datePattern = /\d{4}-\d{1,2}-\d{1,2}T\d{1,2}:\d{1,2}:\d{1,2}/;
+    let datePattern = /^\d{4}-\d{1,2}-\d{1,2}T\d{1,2}:\d{1,2}:\d{1,2}/;
     if (typeof data == "string" && datePattern.test(data)) {
         return new Date(data);
     }

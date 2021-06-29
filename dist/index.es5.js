@@ -1,6 +1,6 @@
 /*!
  * ~
- *  maishu-chitu-service v1.35.0
+ *  maishu-chitu-service v1.36.0
  *  
  *  Copyright (c) 2016-2018, shu mai <ansiboy@163.com>
  *  Licensed under the MIT License.
@@ -438,7 +438,7 @@ function () {
             var err = new Error(); //new AjaxError(options.method);
 
             err.name = 'timeout';
-            err.message = '网络连接超时';
+            err.message = "Connect timeout, url: ".concat(url);
             reject(err);
 
             _this2.error.fire(_this2, err);
@@ -620,7 +620,7 @@ function formatData(data) {
     return data;
   }
 
-  var datePattern = /\d{4}-\d{1,2}-\d{1,2}T\d{1,2}:\d{1,2}:\d{1,2}/;
+  var datePattern = /^\d{4}-\d{1,2}-\d{1,2}T\d{1,2}:\d{1,2}:\d{1,2}/;
 
   if (typeof data == "string" && datePattern.test(data)) {
     return new Date(data);

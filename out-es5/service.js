@@ -117,7 +117,7 @@ function () {
             var err = new Error(); //new AjaxError(options.method);
 
             err.name = 'timeout';
-            err.message = '网络连接超时';
+            err.message = "Connect timeout, url: ".concat(url);
             reject(err);
 
             _this2.error.fire(_this2, err);
@@ -299,7 +299,7 @@ function formatData(data) {
     return data;
   }
 
-  var datePattern = /\d{4}-\d{1,2}-\d{1,2}T\d{1,2}:\d{1,2}:\d{1,2}/;
+  var datePattern = /^\d{4}-\d{1,2}-\d{1,2}T\d{1,2}:\d{1,2}:\d{1,2}/;
 
   if (typeof data == "string" && datePattern.test(data)) {
     return new Date(data);
