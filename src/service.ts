@@ -38,19 +38,27 @@ export class Service implements IService {
         }
     }
 
-    ajax<T>(url: string, options?: AjaxOptions): Promise<T | null> {
+    ajax<T>(url: string, options?: AjaxOptions): Promise<T> {
         if (options === undefined)
             options = {}
 
         let data = options.data;
         let method = options.method || methods.get;
         let headers = Object.assign({}, Service.headers, this.headers, options.headers || {});
-        let body: string | URLSearchParams
+        let body: string | URLSearchParams | FormData;
 
         if (data != null) {
             let is_json = ((headers['content-type'] || '') as string).indexOf('json') >= 0;
+            let is_formdata = ((headers['content-type'] || '') as string).indexOf('form-data') >= 0;
             if (is_json) {
                 body = JSON.stringify(data);
+            }
+            else if (is_formdata) {
+                delete headers["content-type"];
+                body = new FormData();
+                for (let key in data) {
+                    body.append(key, data[key])
+                }
             }
             else {
                 body = new URLSearchParams();
@@ -141,6 +149,24 @@ export class Service implements IService {
     deleteByJson<T>(url: string, data: any, headers?: AjaxOptions["headers"]) {
         headers = headers || {};
         headers["content-type"] = "application/json";
+        return this.ajax<T>(url, { headers, data, method: methods.delete });
+    }
+
+    putByFormData<T>(url: string, data?: any, headers?: AjaxOptions["headers"]) {
+        headers = headers || {};
+        headers["content-type"] = "multipart/form-data";
+        return this.ajax<T>(url, { headers, data, method: methods.put });
+    }
+
+    postByFormData<T>(url: string, data?: any, headers?: AjaxOptions["headers"]) {
+        headers = headers || {};
+        headers["content-type"] = "multipart/form-data";
+        return this.ajax<T>(url, { headers, data, method: methods.post });
+    }
+
+    deleteByFormData<T>(url: string, data?: any, headers?: AjaxOptions["headers"]) {
+        headers = headers || {};
+        headers["content-type"] = "multipart/form-data";
         return this.ajax<T>(url, { headers, data, method: methods.delete });
     }
 

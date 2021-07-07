@@ -87,14 +87,22 @@ function () {
 
       if (data != null) {
         var is_json = (headers['content-type'] || '').indexOf('json') >= 0;
+        var is_formdata = (headers['content-type'] || '').indexOf('form-data') >= 0;
 
         if (is_json) {
           body = JSON.stringify(data);
-        } else {
-          body = new URLSearchParams();
+        } else if (is_formdata) {
+          delete headers["content-type"];
+          body = new FormData();
 
           for (var key in data) {
             body.append(key, data[key]);
+          }
+        } else {
+          body = new URLSearchParams();
+
+          for (var _key in data) {
+            body.append(_key, data[_key]);
           }
         }
       }
@@ -204,6 +212,39 @@ function () {
     value: function deleteByJson(url, data, headers) {
       headers = headers || {};
       headers["content-type"] = "application/json";
+      return this.ajax(url, {
+        headers: headers,
+        data: data,
+        method: methods.delete
+      });
+    }
+  }, {
+    key: "putByFormData",
+    value: function putByFormData(url, data, headers) {
+      headers = headers || {};
+      headers["content-type"] = "multipart/form-data";
+      return this.ajax(url, {
+        headers: headers,
+        data: data,
+        method: methods.put
+      });
+    }
+  }, {
+    key: "postByFormData",
+    value: function postByFormData(url, data, headers) {
+      headers = headers || {};
+      headers["content-type"] = "multipart/form-data";
+      return this.ajax(url, {
+        headers: headers,
+        data: data,
+        method: methods.post
+      });
+    }
+  }, {
+    key: "deleteByFormData",
+    value: function deleteByFormData(url, data, headers) {
+      headers = headers || {};
+      headers["content-type"] = "multipart/form-data";
       return this.ajax(url, {
         headers: headers,
         data: data,

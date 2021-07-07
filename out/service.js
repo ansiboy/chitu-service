@@ -37,8 +37,16 @@ class Service {
         let body;
         if (data != null) {
             let is_json = (headers['content-type'] || '').indexOf('json') >= 0;
+            let is_formdata = (headers['content-type'] || '').indexOf('form-data') >= 0;
             if (is_json) {
                 body = JSON.stringify(data);
+            }
+            else if (is_formdata) {
+                delete headers["content-type"];
+                body = new FormData();
+                for (let key in data) {
+                    body.append(key, data[key]);
+                }
             }
             else {
                 body = new URLSearchParams();
@@ -118,6 +126,21 @@ class Service {
     deleteByJson(url, data, headers) {
         headers = headers || {};
         headers["content-type"] = "application/json";
+        return this.ajax(url, { headers, data, method: methods.delete });
+    }
+    putByFormData(url, data, headers) {
+        headers = headers || {};
+        headers["content-type"] = "multipart/form-data";
+        return this.ajax(url, { headers, data, method: methods.put });
+    }
+    postByFormData(url, data, headers) {
+        headers = headers || {};
+        headers["content-type"] = "multipart/form-data";
+        return this.ajax(url, { headers, data, method: methods.post });
+    }
+    deleteByFormData(url, data, headers) {
+        headers = headers || {};
+        headers["content-type"] = "multipart/form-data";
         return this.ajax(url, { headers, data, method: methods.delete });
     }
     isEncoded(uri) {
