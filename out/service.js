@@ -209,7 +209,8 @@ function ajax(url, options) {
         let response;
         if (typeof window === 'undefined') {
             // 使用 global['require'] 而不是 require ，避免 webpack 处理 node-fetch
-            response = yield eval('require')('node-fetch')(url, options);
+            let nodeFetch = eval('require')('node-fetch');
+            response = yield nodeFetch(url, options);
         }
         else {
             response = yield fetch(url, options);

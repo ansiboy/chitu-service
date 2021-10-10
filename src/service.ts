@@ -239,10 +239,11 @@ export function formatData(data: any) {
 }
 
 async function ajax<T>(url: string, options: RequestInit): Promise<T> {
-    let response: any
+    let response: Response
     if (typeof window === 'undefined') {
         // 使用 global['require'] 而不是 require ，避免 webpack 处理 node-fetch
-        response = await eval('require')('node-fetch')(url, options);
+        let nodeFetch = eval('require')('node-fetch');
+        response = await nodeFetch(url, options);
     }
     else {
         response = await fetch(url, options)

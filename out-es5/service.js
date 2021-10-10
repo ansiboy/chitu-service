@@ -355,33 +355,35 @@ function _ajax(url, options) {
   return __awaiter(this, void 0, void 0,
   /*#__PURE__*/
   regeneratorRuntime.mark(function _callee() {
-    var response, responseText, p, text, textObject, isJSONContextType, err, _err;
+    var response, nodeFetch, responseText, p, text, textObject, isJSONContextType, err, _err;
 
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
             if (!(typeof window === 'undefined')) {
-              _context.next = 6;
+              _context.next = 7;
               break;
             }
 
-            _context.next = 3;
-            return eval('require')('node-fetch')(url, options);
+            // 使用 global['require'] 而不是 require ，避免 webpack 处理 node-fetch
+            nodeFetch = eval('require')('node-fetch');
+            _context.next = 4;
+            return nodeFetch(url, options);
 
-          case 3:
+          case 4:
             response = _context.sent;
-            _context.next = 9;
+            _context.next = 10;
             break;
 
-          case 6:
-            _context.next = 8;
+          case 7:
+            _context.next = 9;
             return fetch(url, options);
 
-          case 8:
+          case 9:
             response = _context.sent;
 
-          case 9:
+          case 10:
             responseText = response.text();
 
             if (typeof responseText == 'string') {
@@ -392,10 +394,10 @@ function _ajax(url, options) {
               p = responseText;
             }
 
-            _context.next = 13;
+            _context.next = 14;
             return responseText;
 
-          case 13:
+          case 14:
             text = _context.sent;
             isJSONContextType = (response.headers.get('content-type') || '').indexOf('json') >= 0;
 
@@ -412,7 +414,7 @@ function _ajax(url, options) {
             }
 
             if (!(response.status >= 300)) {
-              _context.next = 23;
+              _context.next = 24;
               break;
             }
 
@@ -423,11 +425,11 @@ function _ajax(url, options) {
             _err.message = _err.message || response.statusText;
             throw _err;
 
-          case 23:
+          case 24:
             textObject = formatData(textObject);
             return _context.abrupt("return", textObject);
 
-          case 25:
+          case 26:
           case "end":
             return _context.stop();
         }

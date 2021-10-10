@@ -1,6 +1,6 @@
 /*!
  * ~
- *  maishu-chitu-service v1.40.2
+ *  maishu-chitu-service v1.41.0
  *  
  *  Copyright (c) 2016-2018, shu mai <ansiboy@163.com>
  *  Licensed under the MIT License.
@@ -412,7 +412,8 @@ function ajax(url, options) {
         let response;
         if (typeof window === 'undefined') {
             // 使用 global['require'] 而不是 require ，避免 webpack 处理 node-fetch
-            response = yield eval('require')('node-fetch')(url, options);
+            let nodeFetch = eval('require')('node-fetch');
+            response = yield nodeFetch(url, options);
         }
         else {
             response = yield fetch(url, options);
