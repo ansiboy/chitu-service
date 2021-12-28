@@ -355,81 +355,72 @@ function _ajax(url, options) {
   return __awaiter(this, void 0, void 0,
   /*#__PURE__*/
   regeneratorRuntime.mark(function _callee() {
-    var response, nodeFetch, responseText, p, text, textObject, isJSONContextType, err, _err;
-
+    var response, responsePromise, nodeFetch;
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            if (!(typeof window === 'undefined')) {
-              _context.next = 7;
-              break;
-            }
-
-            // 使用 global['require'] 而不是 require ，避免 webpack 处理 node-fetch
-            nodeFetch = eval('require')('node-fetch');
-            _context.next = 4;
-            return nodeFetch(url, options);
-
-          case 4:
-            response = _context.sent;
-            _context.next = 10;
-            break;
-
-          case 7:
-            _context.next = 9;
-            return fetch(url, options);
-
-          case 9:
-            response = _context.sent;
-
-          case 10:
-            responseText = response.text();
-
-            if (typeof responseText == 'string') {
-              p = new Promise(function (reslove, reject) {
-                reslove(responseText);
-              });
+            // try {
+            if (typeof window === 'undefined') {
+              // 使用 global['require'] 而不是 require ，避免 webpack 处理 node-fetch
+              nodeFetch = eval('require')('node-fetch');
+              responsePromise = nodeFetch(url, options);
             } else {
-              p = responseText;
+              responsePromise = fetch(url, options);
             }
 
-            _context.next = 14;
-            return responseText;
+            return _context.abrupt("return", new Promise(function (resolve, reject) {
+              responsePromise.then(function (r) {
+                response = r;
+                var responseText = response.text();
+                var p;
 
-          case 14:
-            text = _context.sent;
-            isJSONContextType = (response.headers.get('content-type') || '').indexOf('json') >= 0;
+                if (typeof responseText == 'string') {
+                  p = new Promise(function (reslove, reject) {
+                    reslove(responseText);
+                  });
+                } else {
+                  p = responseText;
+                }
 
-            if (isJSONContextType) {
-              try {
-                textObject = text ? JSON.parse(text) : {};
-              } catch (_a) {
-                err = errors_1.errors.parseJSONFail(text);
+                return p;
+              }).then(function (text) {
+                var textObject;
+                var isJSONContextType = (response.headers.get('content-type') || '').indexOf('json') >= 0;
+
+                if (isJSONContextType) {
+                  try {
+                    textObject = text ? JSON.parse(text) : {};
+                  } catch (_a) {
+                    var err = errors_1.errors.parseJSONFail(text);
+                    console.error(err);
+                    textObject = text;
+                  }
+                } else {
+                  textObject = text;
+                }
+
+                if (response.status >= 300) {
+                  var _err = new Error();
+
+                  _err.method = options.method;
+                  _err.name = "".concat(response.status);
+                  _err.message = typeof textObject == "string" ? textObject : textObject.Message || textObject.message || '';
+                  _err.message = _err.message || response.statusText;
+                  reject(_err);
+                  return;
+                }
+
+                textObject = formatData(textObject);
+                resolve(textObject);
+                return;
+              }).catch(function (err) {
                 console.error(err);
-                textObject = text;
-              }
-            } else {
-              textObject = text;
-            }
+                reject(err);
+              });
+            }));
 
-            if (!(response.status >= 300)) {
-              _context.next = 24;
-              break;
-            }
-
-            _err = new Error();
-            _err.method = options.method;
-            _err.name = "".concat(response.status);
-            _err.message = typeof textObject == "string" ? textObject : textObject.Message || textObject.message || '';
-            _err.message = _err.message || response.statusText;
-            throw _err;
-
-          case 24:
-            textObject = formatData(textObject);
-            return _context.abrupt("return", textObject);
-
-          case 26:
+          case 2:
           case "end":
             return _context.stop();
         }

@@ -239,54 +239,75 @@ export function formatData(data: any) {
 }
 
 async function ajax<T>(url: string, options: RequestInit): Promise<T> {
-    let response: Response
+    // try {
+    let response: Response;
+    let responsePromise: Promise<Response>;
     if (typeof window === 'undefined') {
         // 使用 global['require'] 而不是 require ，避免 webpack 处理 node-fetch
         let nodeFetch = eval('require')('node-fetch');
-        response = await nodeFetch(url, options);
+        responsePromise = nodeFetch(url, options);
     }
     else {
-        response = await fetch(url, options)
+        responsePromise = fetch(url, options)
     }
 
-    let responseText = response.text();
-    let p: Promise<string>;
-    if (typeof responseText == 'string') {
-        p = new Promise<string>((reslove, reject) => {
-            reslove(responseText);
-        })
-    }
-    else {
-        p = responseText as Promise<string>;
-    }
+    return new Promise<T>((resolve, reject) => {
+        responsePromise.then(r => {
+            response = r;
+            let responseText: Promise<string> | string = response.text();
+            let p: Promise<string>;
+            if (typeof responseText == 'string') {
+                p = new Promise<string>((reslove, reject) => {
+                    reslove(responseText);
+                })
+            }
+            else {
+                p = responseText as Promise<string>;
+            }
 
-    let text = await responseText;
-    let textObject;
-    let isJSONContextType = (response.headers.get('content-type') || '').indexOf('json') >= 0;
-    if (isJSONContextType) {
-        try {
-            textObject = text ? JSON.parse(text) : {};
-        }
-        catch {
-            let err = errors.parseJSONFail(text);
+            return p;
+        }).then(text => {
+            let textObject;
+            let isJSONContextType = (response.headers.get('content-type') || '').indexOf('json') >= 0;
+            if (isJSONContextType) {
+                try {
+                    textObject = text ? JSON.parse(text) : {};
+                }
+                catch {
+                    let err = errors.parseJSONFail(text);
+                    console.error(err);
+                    textObject = text;
+                }
+            }
+            else {
+                textObject = text;
+            }
+
+            if (response.status >= 300) {
+                let err: Error & { method?: string | undefined } = new Error();
+                err.method = options.method;
+                err.name = `${response.status}`;
+                err.message = typeof textObject == "string" ? textObject : (textObject.Message || textObject.message || '');
+                err.message = err.message || response.statusText;
+
+                reject(err);
+                return;
+            }
+
+            textObject = formatData(textObject);
+            resolve(textObject);
+            return;
+
+        }).catch(err => {
             console.error(err);
-            textObject = text;
-        }
-    }
-    else {
-        textObject = text;
-    }
+            reject(err);
+        })
 
-    if (response.status >= 300) {
-        let err: Error & { method?: string | undefined } = new Error();
-        err.method = options.method;
-        err.name = `${response.status}`;
-        err.message = typeof textObject == "string" ? textObject : (textObject.Message || textObject.message || '');
-        err.message = err.message || response.statusText;
+    })
 
-        throw err
-    }
-
-    textObject = formatData(textObject);
-    return textObject;
+    // }
+    // catch (err) {
+    //     console.error(err);
+    //     throw err;
+    // }
 }

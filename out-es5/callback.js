@@ -43,6 +43,13 @@ function () {
         return o.apply(void 0, args);
       });
     }
+  }, {
+    key: "clear",
+    value: function clear() {
+      while (this.funcs.length > 0) {
+        this.funcs.pop();
+      }
+    }
   }]);
 
   return Callback;

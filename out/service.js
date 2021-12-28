@@ -206,51 +206,69 @@ function formatData(data) {
 exports.formatData = formatData;
 function ajax(url, options) {
     return __awaiter(this, void 0, void 0, function* () {
+        // try {
         let response;
+        let responsePromise;
         if (typeof window === 'undefined') {
             // 使用 global['require'] 而不是 require ，避免 webpack 处理 node-fetch
             let nodeFetch = eval('require')('node-fetch');
-            response = yield nodeFetch(url, options);
+            responsePromise = nodeFetch(url, options);
         }
         else {
-            response = yield fetch(url, options);
+            responsePromise = fetch(url, options);
         }
-        let responseText = response.text();
-        let p;
-        if (typeof responseText == 'string') {
-            p = new Promise((reslove, reject) => {
-                reslove(responseText);
-            });
-        }
-        else {
-            p = responseText;
-        }
-        let text = yield responseText;
-        let textObject;
-        let isJSONContextType = (response.headers.get('content-type') || '').indexOf('json') >= 0;
-        if (isJSONContextType) {
-            try {
-                textObject = text ? JSON.parse(text) : {};
-            }
-            catch (_a) {
-                let err = errors_1.errors.parseJSONFail(text);
+        return new Promise((resolve, reject) => {
+            responsePromise.then(r => {
+                response = r;
+                let responseText = response.text();
+                let p;
+                if (typeof responseText == 'string') {
+                    p = new Promise((reslove, reject) => {
+                        reslove(responseText);
+                    });
+                }
+                else {
+                    p = responseText;
+                }
+                return p;
+            }).then(text => {
+                let textObject;
+                let isJSONContextType = (response.headers.get('content-type') || '').indexOf('json') >= 0;
+                if (isJSONContextType) {
+                    try {
+                        textObject = text ? JSON.parse(text) : {};
+                    }
+                    catch (_a) {
+                        let err = errors_1.errors.parseJSONFail(text);
+                        console.error(err);
+                        textObject = text;
+                    }
+                }
+                else {
+                    textObject = text;
+                }
+                if (response.status >= 300) {
+                    let err = new Error();
+                    err.method = options.method;
+                    err.name = `${response.status}`;
+                    err.message = typeof textObject == "string" ? textObject : (textObject.Message || textObject.message || '');
+                    err.message = err.message || response.statusText;
+                    reject(err);
+                    return;
+                }
+                textObject = formatData(textObject);
+                resolve(textObject);
+                return;
+            }).catch(err => {
                 console.error(err);
-                textObject = text;
-            }
-        }
-        else {
-            textObject = text;
-        }
-        if (response.status >= 300) {
-            let err = new Error();
-            err.method = options.method;
-            err.name = `${response.status}`;
-            err.message = typeof textObject == "string" ? textObject : (textObject.Message || textObject.message || '');
-            err.message = err.message || response.statusText;
-            throw err;
-        }
-        textObject = formatData(textObject);
-        return textObject;
+                reject(err);
+            });
+        });
+        // }
+        // catch (err) {
+        //     console.error(err);
+        //     throw err;
+        // }
     });
 }
 //# sourceMappingURL=service.js.map

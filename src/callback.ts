@@ -13,6 +13,11 @@ export class Callback {
     fire(...args: Array<any>) {
         this.funcs.forEach(o => o(...args));
     }
+    clear() {
+        while (this.funcs.length > 0) {
+            this.funcs.pop();
+        }
+    }
 }
 
 export interface Callback0<A> extends Callback {

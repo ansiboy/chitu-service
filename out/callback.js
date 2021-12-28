@@ -14,6 +14,11 @@ class Callback {
     fire(...args) {
         this.funcs.forEach(o => o(...args));
     }
+    clear() {
+        while (this.funcs.length > 0) {
+            this.funcs.pop();
+        }
+    }
 }
 exports.Callback = Callback;
 function Callbacks() {

@@ -4,6 +4,7 @@ export declare class Callback {
     add(func: (...args: Array<any>) => any): void;
     remove(func: (...args: Array<any>) => any): void;
     fire(...args: Array<any>): void;
+    clear(): void;
 }
 export interface Callback0<A> extends Callback {
     add(func: (arg: A) => any): void;
