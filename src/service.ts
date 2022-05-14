@@ -1,5 +1,5 @@
-import { Callbacks, Callback1 } from "./callback";
-import { errors } from "./errors";
+import { Callbacks, Callback1 } from "./callback.js";
+import { errors } from "./errors.js";
 
 export interface ServiceConstructor<T> {
     new(): T
@@ -55,7 +55,14 @@ export class Service implements IService {
             }
             else if (is_formdata) {
                 delete headers["content-type"];
-                body = new FormData();
+                if (typeof FormData == "undefined") {
+                    let FormData = eval("require")("form-data");
+                    body = new FormData() as FormData;
+                }
+                else {
+                    body = new FormData();
+                }
+
                 for (let key in data) {
                     body.append(key, data[key])
                 }
@@ -82,7 +89,7 @@ export class Service implements IService {
                     this.error.fire(this, err);
                     clearTimeout(timeId);
 
-                }, Service.settings.ajaxTimeout * 1000)
+                }, Service.settings.ajaxTimeout * 1000) as any as number;
             }
 
             ajax<T>(url, options)
@@ -244,7 +251,7 @@ async function ajax<T>(url: string, options: RequestInit): Promise<T> {
     let responsePromise: Promise<Response>;
     if (typeof window === 'undefined') {
         // 使用 global['require'] 而不是 require ，避免 webpack 处理 node-fetch
-        let nodeFetch = eval('require')('node-fetch');
+        let nodeFetch = (await eval(`import('node-fetch')`)).default;
         responsePromise = nodeFetch(url, options);
     }
     else {

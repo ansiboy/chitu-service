@@ -1,6 +1,6 @@
 /*!
  * ~
- *  maishu-chitu-service v1.41.0
+ *  maishu-chitu-service v1.42.0
  *  
  *  Copyright (c) 2016-2018, shu mai <ansiboy@163.com>
  *  Licensed under the MIT License.
@@ -373,9 +373,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.formatData = exports.Service = void 0;
 
-var callback_1 = __webpack_require__(/*! ./callback */ "./out-es5/callback.js");
+var callback_js_1 = __webpack_require__(/*! ./callback.js */ "./out-es5/callback.js");
 
-var errors_1 = __webpack_require__(/*! ./errors */ "./out-es5/errors.js");
+var errors_js_1 = __webpack_require__(/*! ./errors.js */ "./out-es5/errors.js");
 
 var methods = {
   get: "get",
@@ -392,7 +392,7 @@ function () {
 
     _classCallCheck(this, Service);
 
-    this.error = callback_1.Callbacks();
+    this.error = (0, callback_js_1.Callbacks)();
     this.headers = {};
 
     if (handleError) {
@@ -421,7 +421,14 @@ function () {
           body = JSON.stringify(data);
         } else if (is_formdata) {
           delete headers["content-type"];
-          body = new FormData();
+
+          if (typeof FormData == "undefined") {
+            var _FormData = eval("require")("form-data");
+
+            body = new _FormData();
+          } else {
+            body = new FormData();
+          }
 
           for (var key in data) {
             body.append(key, data[key]);
@@ -445,7 +452,7 @@ function () {
           method: method
         };
         var timeId;
-        if (options == null) throw errors_1.errors.unexpectedNullValue('options');
+        if (options == null) throw errors_js_1.errors.unexpectedNullValue('options');
 
         if (method == methods.get) {
           timeId = setTimeout(function () {
@@ -688,15 +695,24 @@ function _ajax(url, options) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            // try {
-            if (typeof window === 'undefined') {
-              // 使用 global['require'] 而不是 require ，避免 webpack 处理 node-fetch
-              nodeFetch = eval('require')('node-fetch');
-              responsePromise = nodeFetch(url, options);
-            } else {
-              responsePromise = fetch(url, options);
+            if (!(typeof window === 'undefined')) {
+              _context.next = 7;
+              break;
             }
 
+            _context.next = 3;
+            return eval("import('node-fetch')");
+
+          case 3:
+            nodeFetch = _context.sent.default;
+            responsePromise = nodeFetch(url, options);
+            _context.next = 8;
+            break;
+
+          case 7:
+            responsePromise = fetch(url, options);
+
+          case 8:
             return _context.abrupt("return", new Promise(function (resolve, reject) {
               responsePromise.then(function (r) {
                 response = r;
@@ -720,7 +736,7 @@ function _ajax(url, options) {
                   try {
                     textObject = text ? JSON.parse(text) : {};
                   } catch (_a) {
-                    var err = errors_1.errors.parseJSONFail(text);
+                    var err = errors_js_1.errors.parseJSONFail(text);
                     console.error(err);
                     textObject = text;
                   }
@@ -748,7 +764,7 @@ function _ajax(url, options) {
               });
             }));
 
-          case 2:
+          case 9:
           case "end":
             return _context.stop();
         }

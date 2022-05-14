@@ -1,4 +1,3 @@
-
 const webpack_es6 = require('./webpack.config.js');
 
 let webpack_es6_min = Object.assign({}, webpack_es6, {
@@ -16,7 +15,7 @@ let webpack_es5_min = Object.assign({}, webpack_es5, {
     mode: 'production',
 })
 
-module.exports = function (grunt) {
+module.exports = function(grunt) {
 
     require('load-grunt-tasks')(grunt);
 

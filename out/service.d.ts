@@ -1,4 +1,4 @@
-import { Callback1 } from "./callback";
+import { Callback1 } from "./callback.js";
 export interface ServiceConstructor<T> {
     new (): T;
 }

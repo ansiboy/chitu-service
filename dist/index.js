@@ -1,6 +1,6 @@
 /*!
  * ~
- *  maishu-chitu-service v1.41.0
+ *  maishu-chitu-service v1.42.0
  *  
  *  Copyright (c) 2016-2018, shu mai <ansiboy@163.com>
  *  Licensed under the MIT License.
@@ -218,8 +218,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.formatData = exports.Service = void 0;
-const callback_1 = __webpack_require__(/*! ./callback */ "./out/callback.js");
-const errors_1 = __webpack_require__(/*! ./errors */ "./out/errors.js");
+const callback_js_1 = __webpack_require__(/*! ./callback.js */ "./out/callback.js");
+const errors_js_1 = __webpack_require__(/*! ./errors.js */ "./out/errors.js");
 let methods = {
     get: "get",
     put: "put",
@@ -228,7 +228,7 @@ let methods = {
 };
 class Service {
     constructor(handleError) {
-        this.error = callback_1.Callbacks();
+        this.error = (0, callback_js_1.Callbacks)();
         this.headers = {};
         if (handleError) {
             this.error.add((sender, err) => {
@@ -251,7 +251,13 @@ class Service {
             }
             else if (is_formdata) {
                 delete headers["content-type"];
-                body = new FormData();
+                if (typeof FormData == "undefined") {
+                    let FormData = eval("require")("form-data");
+                    body = new FormData();
+                }
+                else {
+                    body = new FormData();
+                }
                 for (let key in data) {
                     body.append(key, data[key]);
                 }
@@ -267,7 +273,7 @@ class Service {
             let options = method == methods.get ? { headers, method } : { headers, body, method };
             let timeId;
             if (options == null)
-                throw errors_1.errors.unexpectedNullValue('options');
+                throw errors_js_1.errors.unexpectedNullValue('options');
             if (method == methods.get) {
                 timeId = setTimeout(() => {
                     console.warn(`timeout url: ${url}`);
@@ -419,7 +425,7 @@ function ajax(url, options) {
         let responsePromise;
         if (typeof window === 'undefined') {
             // 使用 global['require'] 而不是 require ，避免 webpack 处理 node-fetch
-            let nodeFetch = eval('require')('node-fetch');
+            let nodeFetch = (yield eval(`import('node-fetch')`)).default;
             responsePromise = nodeFetch(url, options);
         }
         else {
@@ -447,7 +453,7 @@ function ajax(url, options) {
                         textObject = text ? JSON.parse(text) : {};
                     }
                     catch (_a) {
-                        let err = errors_1.errors.parseJSONFail(text);
+                        let err = errors_js_1.errors.parseJSONFail(text);
                         console.error(err);
                         textObject = text;
                     }
