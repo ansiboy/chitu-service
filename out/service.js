@@ -28,6 +28,12 @@ class Service {
             });
         }
     }
+    loadNodeFetchModule() {
+        return __awaiter(this, void 0, void 0, function* () {
+            let nodeFetch = (yield eval(`import('node-fetch')`)).default;
+            return nodeFetch;
+        });
+    }
     ajax(url, options) {
         if (options === undefined)
             options = {};
@@ -77,7 +83,7 @@ class Service {
                     clearTimeout(timeId);
                 }, Service.settings.ajaxTimeout * 1000);
             }
-            ajax(url, options)
+            this._ajax(url, options, () => this.loadNodeFetchModule())
                 .then(data => {
                 reslove(data);
                 if (timeId)
@@ -98,6 +104,76 @@ class Service {
                     clearTimeout(timeId);
             });
         });
+    }
+    _ajax(url, options, loadNodeFetchModule) {
+        return __awaiter(this, void 0, void 0, function* () {
+            // try {
+            let response;
+            let responsePromise;
+            if (typeof window === 'undefined') {
+                // 使用 global['require'] 而不是 require ，避免 webpack 处理 node-fetch
+                let nodeFetch = yield loadNodeFetchModule(); //(await eval(`import('node-fetch')`)).default;
+                responsePromise = nodeFetch(url, options);
+            }
+            else {
+                responsePromise = fetch(url, options);
+            }
+            return new Promise((resolve, reject) => {
+                responsePromise.then(r => {
+                    response = r;
+                    let responseText = response.text();
+                    let p;
+                    if (typeof responseText == 'string') {
+                        p = new Promise((reslove, reject) => {
+                            reslove(responseText);
+                        });
+                    }
+                    else {
+                        p = responseText;
+                    }
+                    return p;
+                }).then(text => {
+                    let textObject;
+                    let isJSONContextType = (response.headers.get('content-type') || '').indexOf('json') >= 0;
+                    if (isJSONContextType) {
+                        try {
+                            textObject = text ? JSON.parse(text) : {};
+                        }
+                        catch (_a) {
+                            let err = errors_js_1.errors.parseJSONFail(text);
+                            console.error(err);
+                            textObject = text;
+                        }
+                    }
+                    else {
+                        textObject = text;
+                    }
+                    if (response.status >= 300) {
+                        let err = new Error();
+                        err.method = options.method;
+                        err.name = `${response.status}`;
+                        err.message = typeof textObject == "string" ? textObject : (textObject.Message || textObject.message || '');
+                        err.message = err.message || response.statusText;
+                        reject(err);
+                        return;
+                    }
+                    textObject = this.formatData(textObject);
+                    resolve(textObject);
+                    return;
+                }).catch(err => {
+                    console.error(err);
+                    reject(err);
+                });
+            });
+            // }
+            // catch (err) {
+            //     console.error(err);
+            //     throw err;
+            // }
+        });
+    }
+    formatData(data) {
+        return formatData(data);
     }
     /**
      * 创建服务
@@ -210,71 +286,4 @@ function formatData(data) {
     return data;
 }
 exports.formatData = formatData;
-function ajax(url, options) {
-    return __awaiter(this, void 0, void 0, function* () {
-        // try {
-        let response;
-        let responsePromise;
-        if (typeof window === 'undefined') {
-            // 使用 global['require'] 而不是 require ，避免 webpack 处理 node-fetch
-            let nodeFetch = (yield eval(`import('node-fetch')`)).default;
-            responsePromise = nodeFetch(url, options);
-        }
-        else {
-            responsePromise = fetch(url, options);
-        }
-        return new Promise((resolve, reject) => {
-            responsePromise.then(r => {
-                response = r;
-                let responseText = response.text();
-                let p;
-                if (typeof responseText == 'string') {
-                    p = new Promise((reslove, reject) => {
-                        reslove(responseText);
-                    });
-                }
-                else {
-                    p = responseText;
-                }
-                return p;
-            }).then(text => {
-                let textObject;
-                let isJSONContextType = (response.headers.get('content-type') || '').indexOf('json') >= 0;
-                if (isJSONContextType) {
-                    try {
-                        textObject = text ? JSON.parse(text) : {};
-                    }
-                    catch (_a) {
-                        let err = errors_js_1.errors.parseJSONFail(text);
-                        console.error(err);
-                        textObject = text;
-                    }
-                }
-                else {
-                    textObject = text;
-                }
-                if (response.status >= 300) {
-                    let err = new Error();
-                    err.method = options.method;
-                    err.name = `${response.status}`;
-                    err.message = typeof textObject == "string" ? textObject : (textObject.Message || textObject.message || '');
-                    err.message = err.message || response.statusText;
-                    reject(err);
-                    return;
-                }
-                textObject = formatData(textObject);
-                resolve(textObject);
-                return;
-            }).catch(err => {
-                console.error(err);
-                reject(err);
-            });
-        });
-        // }
-        // catch (err) {
-        //     console.error(err);
-        //     throw err;
-        // }
-    });
-}
 //# sourceMappingURL=service.js.map

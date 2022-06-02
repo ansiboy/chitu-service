@@ -75,6 +75,32 @@ function () {
   }
 
   _createClass(Service, [{
+    key: "loadNodeFetchModule",
+    value: function loadNodeFetchModule() {
+      return __awaiter(this, void 0, void 0,
+      /*#__PURE__*/
+      regeneratorRuntime.mark(function _callee() {
+        var nodeFetch;
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return eval("import('node-fetch')");
+
+              case 2:
+                nodeFetch = _context.sent.default;
+                return _context.abrupt("return", nodeFetch);
+
+              case 4:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }));
+    }
+  }, {
     key: "ajax",
     value: function ajax(url, options) {
       var _this2 = this;
@@ -141,7 +167,9 @@ function () {
           }, Service.settings.ajaxTimeout * 1000);
         }
 
-        _ajax(url, options).then(function (data) {
+        _this2._ajax(url, options, function () {
+          return _this2.loadNodeFetchModule();
+        }).then(function (data) {
           reslove(data);
           if (timeId) clearTimeout(timeId);
         }).catch(function (err) {
@@ -161,6 +189,102 @@ function () {
         });
       });
     }
+  }, {
+    key: "_ajax",
+    value: function _ajax(url, options, loadNodeFetchModule) {
+      return __awaiter(this, void 0, void 0,
+      /*#__PURE__*/
+      regeneratorRuntime.mark(function _callee2() {
+        var _this3 = this;
+
+        var response, responsePromise, nodeFetch;
+        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                if (!(typeof window === 'undefined')) {
+                  _context2.next = 7;
+                  break;
+                }
+
+                _context2.next = 3;
+                return loadNodeFetchModule();
+
+              case 3:
+                nodeFetch = _context2.sent;
+                //(await eval(`import('node-fetch')`)).default;
+                responsePromise = nodeFetch(url, options);
+                _context2.next = 8;
+                break;
+
+              case 7:
+                responsePromise = fetch(url, options);
+
+              case 8:
+                return _context2.abrupt("return", new Promise(function (resolve, reject) {
+                  responsePromise.then(function (r) {
+                    response = r;
+                    var responseText = response.text();
+                    var p;
+
+                    if (typeof responseText == 'string') {
+                      p = new Promise(function (reslove, reject) {
+                        reslove(responseText);
+                      });
+                    } else {
+                      p = responseText;
+                    }
+
+                    return p;
+                  }).then(function (text) {
+                    var textObject;
+                    var isJSONContextType = (response.headers.get('content-type') || '').indexOf('json') >= 0;
+
+                    if (isJSONContextType) {
+                      try {
+                        textObject = text ? JSON.parse(text) : {};
+                      } catch (_a) {
+                        var err = errors_js_1.errors.parseJSONFail(text);
+                        console.error(err);
+                        textObject = text;
+                      }
+                    } else {
+                      textObject = text;
+                    }
+
+                    if (response.status >= 300) {
+                      var _err = new Error();
+
+                      _err.method = options.method;
+                      _err.name = "".concat(response.status);
+                      _err.message = typeof textObject == "string" ? textObject : textObject.Message || textObject.message || '';
+                      _err.message = _err.message || response.statusText;
+                      reject(_err);
+                      return;
+                    }
+
+                    textObject = _this3.formatData(textObject);
+                    resolve(textObject);
+                    return;
+                  }).catch(function (err) {
+                    console.error(err);
+                    reject(err);
+                  });
+                }));
+
+              case 9:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }));
+    }
+  }, {
+    key: "formatData",
+    value: function formatData(data) {
+      return _formatData(data);
+    }
     /**
      * 创建服务
      * @param type 服务类型
@@ -169,12 +293,12 @@ function () {
   }, {
     key: "createService",
     value: function createService(type) {
-      var _this3 = this;
+      var _this4 = this;
 
       type = type || Service;
       var service = new type();
       service.error.add(function (sender, error) {
-        _this3.error.fire(service, error);
+        _this4.error.fire(service, error);
       });
       return service;
     }
@@ -338,10 +462,10 @@ Service.settings = {
 };
 Service.headers = {};
 
-function formatData(data) {
+function _formatData(data) {
   if (_typeof(data) == "object") {
     for (var key in data) {
-      data[key] = formatData(data[key]);
+      data[key] = _formatData(data[key]);
     }
 
     return data;
@@ -356,92 +480,5 @@ function formatData(data) {
   return data;
 }
 
-exports.formatData = formatData;
-
-function _ajax(url, options) {
-  return __awaiter(this, void 0, void 0,
-  /*#__PURE__*/
-  regeneratorRuntime.mark(function _callee() {
-    var response, responsePromise, nodeFetch;
-    return regeneratorRuntime.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            if (!(typeof window === 'undefined')) {
-              _context.next = 7;
-              break;
-            }
-
-            _context.next = 3;
-            return eval("import('node-fetch')");
-
-          case 3:
-            nodeFetch = _context.sent.default;
-            responsePromise = nodeFetch(url, options);
-            _context.next = 8;
-            break;
-
-          case 7:
-            responsePromise = fetch(url, options);
-
-          case 8:
-            return _context.abrupt("return", new Promise(function (resolve, reject) {
-              responsePromise.then(function (r) {
-                response = r;
-                var responseText = response.text();
-                var p;
-
-                if (typeof responseText == 'string') {
-                  p = new Promise(function (reslove, reject) {
-                    reslove(responseText);
-                  });
-                } else {
-                  p = responseText;
-                }
-
-                return p;
-              }).then(function (text) {
-                var textObject;
-                var isJSONContextType = (response.headers.get('content-type') || '').indexOf('json') >= 0;
-
-                if (isJSONContextType) {
-                  try {
-                    textObject = text ? JSON.parse(text) : {};
-                  } catch (_a) {
-                    var err = errors_js_1.errors.parseJSONFail(text);
-                    console.error(err);
-                    textObject = text;
-                  }
-                } else {
-                  textObject = text;
-                }
-
-                if (response.status >= 300) {
-                  var _err = new Error();
-
-                  _err.method = options.method;
-                  _err.name = "".concat(response.status);
-                  _err.message = typeof textObject == "string" ? textObject : textObject.Message || textObject.message || '';
-                  _err.message = _err.message || response.statusText;
-                  reject(_err);
-                  return;
-                }
-
-                textObject = formatData(textObject);
-                resolve(textObject);
-                return;
-              }).catch(function (err) {
-                console.error(err);
-                reject(err);
-              });
-            }));
-
-          case 9:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee);
-  }));
-}
+exports.formatData = _formatData;
 //# sourceMappingURL=service.js.map

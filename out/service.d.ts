@@ -13,15 +13,21 @@ export interface IService {
     error: Callback1<Service, Error>;
     headers: AjaxOptions["headers"];
 }
+declare type LoadNodeFetchModule = () => Promise<any>;
 export declare class Service implements IService {
     error: Callback1<Service, Error>;
-    headers: {};
+    headers: {
+        [name: string]: string;
+    };
     static settings: {
         ajaxTimeout: number;
     };
     static headers: AjaxOptions["headers"];
     constructor(handleError?: (error: Error, sender: Service) => void);
+    protected loadNodeFetchModule(): Promise<any>;
     ajax<T>(url: string, options?: AjaxOptions): Promise<T>;
+    protected _ajax<T>(url: string, options: RequestInit, loadNodeFetchModule: LoadNodeFetchModule): Promise<T>;
+    protected formatData(data: any): any;
     /**
      * 创建服务
      * @param type 服务类型
@@ -41,3 +47,4 @@ export declare class Service implements IService {
     delete<T>(url: string, data: any, headers?: AjaxOptions["headers"]): Promise<T>;
 }
 export declare function formatData(data: any): any;
+export {};

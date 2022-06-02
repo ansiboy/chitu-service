@@ -19,10 +19,12 @@ let methods = {
     delete: "delete"
 }
 
+type LoadNodeFetchModule = () => Promise<any>;
+
 export class Service implements IService {
 
     error = Callbacks<Service, Error>();
-    headers = {};
+    headers: { [name: string]: string } = {};
 
     static settings = {
         ajaxTimeout: 30,
@@ -36,6 +38,11 @@ export class Service implements IService {
                 handleError(err, this);
             })
         }
+    }
+
+    protected async loadNodeFetchModule() {
+        let nodeFetch = (await eval(`import('node-fetch')`)).default;
+        return nodeFetch;
     }
 
     ajax<T>(url: string, options?: AjaxOptions): Promise<T> {
@@ -92,7 +99,7 @@ export class Service implements IService {
                 }, Service.settings.ajaxTimeout * 1000) as any as number;
             }
 
-            ajax<T>(url, options)
+            this._ajax<T>(url, options, () => this.loadNodeFetchModule())
                 .then(data => {
                     reslove(data);
                     if (timeId)
@@ -117,6 +124,85 @@ export class Service implements IService {
 
         })
     }
+
+    protected async _ajax<T>(url: string, options: RequestInit, loadNodeFetchModule: LoadNodeFetchModule): Promise<T> {
+        // try {
+        let response: Response;
+        let responsePromise: Promise<Response>;
+        if (typeof window === 'undefined') {
+            // 使用 global['require'] 而不是 require ，避免 webpack 处理 node-fetch
+            let nodeFetch = await loadNodeFetchModule();//(await eval(`import('node-fetch')`)).default;
+            responsePromise = nodeFetch(url, options);
+        }
+        else {
+            responsePromise = fetch(url, options)
+        }
+
+        return new Promise<T>((resolve, reject) => {
+            responsePromise.then(r => {
+                response = r;
+                let responseText: Promise<string> | string = response.text();
+                let p: Promise<string>;
+                if (typeof responseText == 'string') {
+                    p = new Promise<string>((reslove, reject) => {
+                        reslove(responseText);
+                    })
+                }
+                else {
+                    p = responseText as Promise<string>;
+                }
+
+                return p;
+            }).then(text => {
+                let textObject;
+                let isJSONContextType = (response.headers.get('content-type') || '').indexOf('json') >= 0;
+                if (isJSONContextType) {
+                    try {
+                        textObject = text ? JSON.parse(text) : {};
+                    }
+                    catch {
+                        let err = errors.parseJSONFail(text);
+                        console.error(err);
+                        textObject = text;
+                    }
+                }
+                else {
+                    textObject = text;
+                }
+
+                if (response.status >= 300) {
+                    let err: Error & { method?: string | undefined } = new Error();
+                    err.method = options.method;
+                    err.name = `${response.status}`;
+                    err.message = typeof textObject == "string" ? textObject : (textObject.Message || textObject.message || '');
+                    err.message = err.message || response.statusText;
+
+                    reject(err);
+                    return;
+                }
+
+                textObject = this.formatData(textObject);
+                resolve(textObject);
+                return;
+
+            }).catch(err => {
+                console.error(err);
+                reject(err);
+            })
+
+        })
+
+        // }
+        // catch (err) {
+        //     console.error(err);
+        //     throw err;
+        // }
+    }
+
+    protected formatData(data: any) {
+        return formatData(data);
+    }
+
 
     /**
      * 创建服务
@@ -245,76 +331,3 @@ export function formatData(data: any) {
     return data;
 }
 
-async function ajax<T>(url: string, options: RequestInit): Promise<T> {
-    // try {
-    let response: Response;
-    let responsePromise: Promise<Response>;
-    if (typeof window === 'undefined') {
-        // 使用 global['require'] 而不是 require ，避免 webpack 处理 node-fetch
-        let nodeFetch = (await eval(`import('node-fetch')`)).default;
-        responsePromise = nodeFetch(url, options);
-    }
-    else {
-        responsePromise = fetch(url, options)
-    }
-
-    return new Promise<T>((resolve, reject) => {
-        responsePromise.then(r => {
-            response = r;
-            let responseText: Promise<string> | string = response.text();
-            let p: Promise<string>;
-            if (typeof responseText == 'string') {
-                p = new Promise<string>((reslove, reject) => {
-                    reslove(responseText);
-                })
-            }
-            else {
-                p = responseText as Promise<string>;
-            }
-
-            return p;
-        }).then(text => {
-            let textObject;
-            let isJSONContextType = (response.headers.get('content-type') || '').indexOf('json') >= 0;
-            if (isJSONContextType) {
-                try {
-                    textObject = text ? JSON.parse(text) : {};
-                }
-                catch {
-                    let err = errors.parseJSONFail(text);
-                    console.error(err);
-                    textObject = text;
-                }
-            }
-            else {
-                textObject = text;
-            }
-
-            if (response.status >= 300) {
-                let err: Error & { method?: string | undefined } = new Error();
-                err.method = options.method;
-                err.name = `${response.status}`;
-                err.message = typeof textObject == "string" ? textObject : (textObject.Message || textObject.message || '');
-                err.message = err.message || response.statusText;
-
-                reject(err);
-                return;
-            }
-
-            textObject = formatData(textObject);
-            resolve(textObject);
-            return;
-
-        }).catch(err => {
-            console.error(err);
-            reject(err);
-        })
-
-    })
-
-    // }
-    // catch (err) {
-    //     console.error(err);
-    //     throw err;
-    // }
-}
