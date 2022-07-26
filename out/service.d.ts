@@ -24,7 +24,7 @@ export declare class Service implements IService {
     };
     static headers: AjaxOptions["headers"];
     constructor(handleError?: (error: Error, sender: Service) => void);
-    protected loadNodeFetchModule(): Promise<any>;
+    loadNodeFetchModule(): Promise<any>;
     ajax<T>(url: string, options?: AjaxOptions): Promise<T>;
     protected _ajax<T>(url: string, options: RequestInit, loadNodeFetchModule: LoadNodeFetchModule): Promise<T>;
     protected formatData(data: any): any;

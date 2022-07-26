@@ -487,7 +487,7 @@ function formatData(data) {
         }
         return data;
     }
-    let datePattern = /^\d{4}-\d{1,2}-\d{1,2}T\d{1,2}:\d{1,2}:\d{1,2}/;
+    let datePattern = /^\d{4}-\d{1,2}-\d{1,2}T\d{1,2}:\d{1,2}:\d{1,2}$/;
     if (typeof data == "string" && datePattern.test(data)) {
         return new Date(data);
     }

@@ -40,7 +40,7 @@ export class Service implements IService {
         }
     }
 
-    protected async loadNodeFetchModule() {
+    async loadNodeFetchModule() {
         let nodeFetch = (await eval(`import('node-fetch')`)).default;
         return nodeFetch;
     }
@@ -323,7 +323,7 @@ export function formatData(data: any) {
         return data;
     }
 
-    let datePattern = /^\d{4}-\d{1,2}-\d{1,2}T\d{1,2}:\d{1,2}:\d{1,2}/;
+    let datePattern = /^\d{4}-\d{1,2}-\d{1,2}T\d{1,2}:\d{1,2}:\d{1,2}$/;
     if (typeof data == "string" && datePattern.test(data)) {
         return new Date(data);
     }
