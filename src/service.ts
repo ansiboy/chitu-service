@@ -19,7 +19,7 @@ let methods = {
     delete: "delete"
 }
 
-type LoadNodeFetchModule = () => Promise<any>;
+type LoadNodeFetchModule = () => Promise<typeof fetch>;
 
 export class Service implements IService {
 
@@ -41,8 +41,14 @@ export class Service implements IService {
     }
 
     async loadNodeFetchModule() {
-        let nodeFetch = (await eval(`import('node-fetch')`)).default;
-        return nodeFetch;
+        if (typeof window === 'undefined') {
+            // 使用 global['require'] 而不是 require ，避免 webpack 处理 node-fetch
+            let nodeFetch = (await eval(`import('node-fetch')`)).default;//await loadNodeFetchModule();//(await eval(`import('node-fetch')`)).default;
+            // responsePromise = nodeFetch(url, options);
+            return nodeFetch;
+        }
+
+        return fetch;
     }
 
     ajax<T>(url: string, options?: AjaxOptions): Promise<T> {
@@ -128,16 +134,8 @@ export class Service implements IService {
     protected async _ajax<T>(url: string, options: RequestInit, loadNodeFetchModule: LoadNodeFetchModule): Promise<T> {
         // try {
         let response: Response;
-        let responsePromise: Promise<Response>;
-        if (typeof window === 'undefined') {
-            // 使用 global['require'] 而不是 require ，避免 webpack 处理 node-fetch
-            let nodeFetch = await loadNodeFetchModule();//(await eval(`import('node-fetch')`)).default;
-            responsePromise = nodeFetch(url, options);
-        }
-        else {
-            responsePromise = fetch(url, options)
-        }
-
+        let fetch = await loadNodeFetchModule();
+        let responsePromise = fetch(url, options);
         return new Promise<T>((resolve, reject) => {
             responsePromise.then(r => {
                 response = r;

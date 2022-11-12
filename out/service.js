@@ -30,8 +30,13 @@ class Service {
     }
     loadNodeFetchModule() {
         return __awaiter(this, void 0, void 0, function* () {
-            let nodeFetch = (yield eval(`import('node-fetch')`)).default;
-            return nodeFetch;
+            if (typeof window === 'undefined') {
+                // 使用 global['require'] 而不是 require ，避免 webpack 处理 node-fetch
+                let nodeFetch = (yield eval(`import('node-fetch')`)).default; //await loadNodeFetchModule();//(await eval(`import('node-fetch')`)).default;
+                // responsePromise = nodeFetch(url, options);
+                return nodeFetch;
+            }
+            return fetch;
         });
     }
     ajax(url, options) {
@@ -109,15 +114,8 @@ class Service {
         return __awaiter(this, void 0, void 0, function* () {
             // try {
             let response;
-            let responsePromise;
-            if (typeof window === 'undefined') {
-                // 使用 global['require'] 而不是 require ，避免 webpack 处理 node-fetch
-                let nodeFetch = yield loadNodeFetchModule(); //(await eval(`import('node-fetch')`)).default;
-                responsePromise = nodeFetch(url, options);
-            }
-            else {
-                responsePromise = fetch(url, options);
-            }
+            let fetch = yield loadNodeFetchModule();
+            let responsePromise = fetch(url, options);
             return new Promise((resolve, reject) => {
                 responsePromise.then(r => {
                     response = r;

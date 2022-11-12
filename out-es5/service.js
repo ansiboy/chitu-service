@@ -85,14 +85,22 @@ function () {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.next = 2;
+                if (!(typeof window === 'undefined')) {
+                  _context.next = 5;
+                  break;
+                }
+
+                _context.next = 3;
                 return eval("import('node-fetch')");
 
-              case 2:
+              case 3:
                 nodeFetch = _context.sent.default;
                 return _context.abrupt("return", nodeFetch);
 
-              case 4:
+              case 5:
+                return _context.abrupt("return", fetch);
+
+              case 6:
               case "end":
                 return _context.stop();
             }
@@ -197,30 +205,17 @@ function () {
       regeneratorRuntime.mark(function _callee2() {
         var _this3 = this;
 
-        var response, responsePromise, nodeFetch;
+        var response, fetch, responsePromise;
         return regeneratorRuntime.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                if (!(typeof window === 'undefined')) {
-                  _context2.next = 7;
-                  break;
-                }
-
-                _context2.next = 3;
+                _context2.next = 2;
                 return loadNodeFetchModule();
 
-              case 3:
-                nodeFetch = _context2.sent;
-                //(await eval(`import('node-fetch')`)).default;
-                responsePromise = nodeFetch(url, options);
-                _context2.next = 8;
-                break;
-
-              case 7:
+              case 2:
+                fetch = _context2.sent;
                 responsePromise = fetch(url, options);
-
-              case 8:
                 return _context2.abrupt("return", new Promise(function (resolve, reject) {
                   responsePromise.then(function (r) {
                     response = r;
@@ -272,7 +267,7 @@ function () {
                   });
                 }));
 
-              case 9:
+              case 5:
               case "end":
                 return _context2.stop();
             }

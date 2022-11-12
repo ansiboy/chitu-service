@@ -13,7 +13,7 @@ export interface IService {
     error: Callback1<Service, Error>;
     headers: AjaxOptions["headers"];
 }
-declare type LoadNodeFetchModule = () => Promise<any>;
+declare type LoadNodeFetchModule = () => Promise<typeof fetch>;
 export declare class Service implements IService {
     error: Callback1<Service, Error>;
     headers: {
